@@ -1,0 +1,9 @@
+<button (click)="crearTrabajo($event)">Nuevo</button>
+<br>
+<div *ngIf="trabajos">
+  <ol>
+    <li *ngFor="let trabajo of trabajos">
+      <span>{{trabajo.Id}}</span> -> <b>{{trabajo.Nombre}}:</b> {{trabajo.Descripcion}} || ${{trabajo.Precio}}
+    </li>
+  </ol>
+</div>

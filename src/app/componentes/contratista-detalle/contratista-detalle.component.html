@@ -1,0 +1,22 @@
+<label>Nombre:
+  <input name="nombre" placeholder="..." [(ngModel)]="contratista.Nombre" />
+</label>
+<br>
+<label>Apellido:
+  <input name="apellido" placeholder="..." [(ngModel)]="contratista.Apellido" />
+</label>
+<br>
+<label>Teléfono:
+  <input name="telefono" placeholder="..." [(ngModel)]="contratista.Telefono" />
+</label>
+<br>
+<label>Domicilio:
+  <input name="domicilio" placeholder="..." [(ngModel)]="contratista.Domicilio" />
+</label>
+<br>
+<label>Observaciones:
+  <input name="observaciones" placeholder="..." [(ngModel)]="contratista.Observaciones" />
+</label>
+<br>
+<button (click)="aceptar($event)">Aceptar</button>
+<button (click)="cancelar($event)">Cancelar</button>

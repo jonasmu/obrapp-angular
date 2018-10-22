@@ -1,0 +1,13 @@
+<button (click)="crearContratista($event)">Nuevo</button>
+<br>
+<div *ngIf="contratistas">
+  <ul>
+    <li *ngFor="let contratista of contratistas" class="contratista-item">
+      <b>[<span>{{contratista.Id}}</span>] 
+      {{contratista.Nombre}} {{contratista.Apellido}}</b><br>
+      - Teléfono: {{contratista.Telefono}}<br>
+      - Domicilio: {{contratista.Domicilio}}<br>
+      - Observaciones: {{contratista.Observaciones}}<br>
+    </li>
+  </ul>
+</div>

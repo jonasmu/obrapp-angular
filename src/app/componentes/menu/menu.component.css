@@ -1,0 +1,50 @@
+.menu{
+    padding: 15px 0px 40px 0px;
+    background-color: wheat;
+    font-size: 20px;
+}
+.menu a{
+    padding: 0px 20px;
+    text-decoration: none;
+}
+
+@keyframes examplein {
+    from {font-size: 20px; }
+    to {font-size: 23px;}
+}
+
+@keyframes exampleout {
+    from {font-size: 23px;}
+    to {font-size: 20px;}
+}
+
+.menu a:visited, 
+.menu a:active, 
+.menu a:link{
+    color: black;
+}
+
+a{
+    animation-name: exampleout;
+    animation-duration: 400ms;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+a:hover {
+    color: rebeccapurple;
+    animation-name: examplein;
+    animation-duration: 400ms;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}

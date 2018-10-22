@@ -1,0 +1,14 @@
+<div *ngIf="usuario == null">
+    <h3>Iniciar sesión</h3>
+    <label>Nombre:
+        <input name="nombre" placeholder="Ingresá tu nombre..." ref-nombre />
+    </label>
+    <!-- <label>Clave:
+            <input name="clave" placeholder="Ingresá tu clave..." ref-clave />
+    </label> -->
+    <button (click)="iniciarSesion(nombre.value, '', $event)">Aceptar</button>
+</div>
+<div *ngIf="usuario != null">
+    <span>{{usuario.Id}}</span> {{usuario.Nombre}}
+    <button (click)="cerrarSesion($event)">Cerrar sesión</button>
+</div>
