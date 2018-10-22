@@ -31,6 +31,6 @@ export class ContratistasComponent implements OnInit {
   }
 
   crearContratista(): void {
-    this.router.navigateByUrl('contratistas/nuevo');
+    this.router.navigateByUrl('contratista/nuevo');
   }
 }

@@ -31,6 +31,10 @@ export class TrabajosComponent implements OnInit {
   }
 
   crearTrabajo(): void {
-    this.router.navigateByUrl('trabajos/nuevo');
+    this.router.navigateByUrl('trabajo/nuevo');
+  }
+
+  verDetalle(id: number): void {
+    this.router.navigateByUrl('trabajos/' + id);
   }
 }

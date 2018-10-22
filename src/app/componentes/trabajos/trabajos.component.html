@@ -1,9 +1,33 @@
-<button (click)="crearTrabajo($event)">Nuevo</button>
+<button mat-raised-button color="warn" (click)="crearTrabajo($event)">Nuevo</button>
 <br>
+<mat-list>
+  <mat-list-item *ngFor="let trabajo of trabajos">
+    <button mat-mini-fab color="primary" (click)="verDetalle(trabajo.Id)">+</button> {{trabajo.Nombre}}
+  </mat-list-item>
+</mat-list>
+<br>
+
+<table mat-table [dataSource]=trabajos>
+</table>
+<br>
+
 <div *ngIf="trabajos">
-  <ol>
+  <ul>
     <li *ngFor="let trabajo of trabajos">
-      <span>{{trabajo.Id}}</span> -> <b>{{trabajo.Nombre}}:</b> {{trabajo.Descripcion}} || ${{trabajo.Precio}}
+      <b>[{{trabajo.Id}}]
+        {{trabajo.Nombre}}</b><br>
+      - IdUsuario: {{trabajo.IdUsuario}}<br>
+      - Tipo: {{trabajo.Tipo.Nombre}}<br>
+      - Estado: {{trabajo.Estado.Nombre}}<br>
+      - Contratista: {{trabajo.Contratista.Nombre}} {{trabajo.Contratista.Apellido}}<br>
+      - Descripción: {{trabajo.Descripcion}}<br>
+      - Precio: {{trabajo.Precio}}
+      <ul>
+        <li *ngFor="let tarea of trabajo.Tareas">
+          [{{tarea.Id}}] {{tarea.Nombre}}
+        </li>
+      </ul>
+      <button mat-raised-button color="primary" (click)="verDetalle(trabajo.Id)">Detalle</button>
     </li>
-  </ol>
+  </ul>
 </div>

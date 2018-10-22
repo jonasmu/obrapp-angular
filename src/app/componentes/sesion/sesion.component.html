@@ -1,4 +1,5 @@
 <div *ngIf="usuario == null">
+        <form>
     <h3>Iniciar sesión</h3>
     <label>Nombre:
         <input name="nombre" placeholder="Ingresá tu nombre..." ref-nombre />
@@ -7,6 +8,7 @@
             <input name="clave" placeholder="Ingresá tu clave..." ref-clave />
     </label> -->
     <button (click)="iniciarSesion(nombre.value, '', $event)">Aceptar</button>
+</form>
 </div>
 <div *ngIf="usuario != null">
     <span>{{usuario.Id}}</span> {{usuario.Nombre}}

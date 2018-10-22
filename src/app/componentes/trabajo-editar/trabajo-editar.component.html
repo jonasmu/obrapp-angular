@@ -1,0 +1,73 @@
+<p>
+  <mat-form-field>
+    <textarea matInput placeholder="Nombre" [(ngModel)]="trabajo.Nombre"></textarea>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <textarea matInput placeholder="Descripción" [(ngModel)]="trabajo.Descripcion"></textarea>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Tipo" [(ngModel)]="trabajo.Tipo.Id">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let item of tipos" [value]="item.Id">{{item.Nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Estado" [(ngModel)]="trabajo.Estado.Id">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let item of estados" [value]="item.Id">{{item.Nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Contratista" [(ngModel)]="trabajo.Contratista.Id">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let item of contratistas" [value]="item.Id">{{item.Nombre}} {{item.Apellido}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<p>
+  <button mat-raised-button color="primary" (click)="aceptar($event)">Aceptar</button>
+  <button mat-raised-button color="primary" (click)="cancelar($event)">Cancelar</button>
+</p>
+
+
+<!-- <label>Nombre:
+  <input name="nombre" placeholder="..." [(ngModel)]="trabajo.Nombre" />
+</label>
+<br>
+<label>Descripcion:
+  <input name="descripcion" placeholder="..." [(ngModel)]="trabajo.Descripcion" />
+</label>
+<br>
+<label>Tipo:
+  <select [(ngModel)]="trabajo.Tipo.Id">
+    <option value="" disabled selected>Seleccionar contratista</option>
+    <option *ngFor="let item of tipos" [value]="item.Id">{{item.Nombre}}</option>
+  </select>
+</label>
+<br>
+<label>Estado:
+  <select [(ngModel)]="trabajo.Estado.Id">
+    <option value="" disabled selected>Seleccionar contratista</option>
+    <option *ngFor="let item of estados" [value]="item.Id">{{item.Nombre}}</option>
+  </select>
+</label>
+<br>
+<label>Contratista:
+  <select [(ngModel)]="trabajo.IdContratista">
+    <option value="" disabled selected>Seleccionar contratista</option>
+    <option *ngFor="let item of contratistas" [value]="item.Id">{{item.Nombre}}</option>
+  </select>
+</label> -->

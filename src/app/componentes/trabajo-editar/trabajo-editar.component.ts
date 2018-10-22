@@ -10,11 +10,11 @@ import { TrabajoTipo } from 'src/app/modelos/trabajo-tipo.model';
 import { SesionService } from 'src/app/servicios/sesion.service';
 
 @Component({
-  selector: 'app-trabajo-detalle',
-  templateUrl: './trabajo-detalle.component.html',
-  styleUrls: ['./trabajo-detalle.component.css']
+  selector: 'app-trabajo-editar',
+  templateUrl: './trabajo-editar.component.html',
+  styleUrls: ['./trabajo-editar.component.css']
 })
-export class TrabajoDetalleComponent implements OnInit {
+export class TrabajoEditarComponent implements OnInit {
 
   trabajo: Trabajo;
   contratistas: Contratista[];
@@ -38,13 +38,27 @@ export class TrabajoDetalleComponent implements OnInit {
   inicializarTrabajo(): void {
     this.trabajo = {
       Id: 0,
-      IdTipo: 0,
-      IdEstado: 0,
-      IdContratista: 0,
       IdUsuario: this.serviceService.obtener().Id,
+      Tipo: {
+        Id: 0,
+        Nombre: ''
+      },
+      Estado: {
+        Id: 0,
+        Nombre: ''
+      },
+      Contratista: {
+        Id: 0,
+        Nombre: '',
+        Apellido: '',
+        Telefono: '',
+        Domicilio: '',
+        Observaciones: ''
+      },
       Nombre: '',
       Descripcion: '',
-      Precio: 0
+      Precio: 0,
+      Tareas: []
     };
   }
 
@@ -55,14 +69,14 @@ export class TrabajoDetalleComponent implements OnInit {
     );
   }
 
-  cargarEstados(): void{
+  cargarEstados(): void {
     this.trabajosService.obtenerEstados().subscribe(
       res => this.estados = res,
       error => console.error(error)
     );
   }
 
-  cargarTipos(): void{
+  cargarTipos(): void {
     this.trabajosService.obtenerTipos().subscribe(
       res => this.tipos = res,
       error => console.error(error)

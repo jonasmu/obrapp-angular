@@ -1,8 +1,8 @@
-<button (click)="crearContratista($event)">Nuevo</button>
+<button mat-raised-button color="warn" (click)="crearContratista($event)">Nuevo</button>
 <br>
 <div *ngIf="contratistas">
   <ul>
-    <li *ngFor="let contratista of contratistas" class="contratista-item">
+    <li *ngFor="let contratista of contratistas">
       <b>[<span>{{contratista.Id}}</span>] 
       {{contratista.Nombre}} {{contratista.Apellido}}</b><br>
       - Teléfono: {{contratista.Telefono}}<br>

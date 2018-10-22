@@ -5,28 +5,32 @@ import { ContratistasService } from 'src/app/servicios/contratistas.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-contratista-detalle',
-  templateUrl: './contratista-detalle.component.html',
-  styleUrls: ['./contratista-detalle.component.css']
+  selector: 'app-contratista-editar',
+  templateUrl: './contratista-editar.component.html',
+  styleUrls: ['./contratista-editar.component.css']
 })
-export class ContratistaDetalleComponent implements OnInit {
+export class ContratistaEditarComponent implements OnInit {
 
   contratista: Contratista;
 
   constructor(
     private contratistasService: ContratistasService,
     private router: Router,
-    private location: Location) {
+    private location: Location) {}
+
+  ngOnInit() {
+    this.inicializarContratista();
+  }
+
+  inicializarContratista():void{
     this.contratista = {
+      Id: 0,
       Nombre: '',
       Apellido: '',
       Telefono: '',
       Domicilio: '',
       Observaciones: ''
     };
-  }
-
-  ngOnInit() {
   }
 
   aceptar(evento: Event) {
