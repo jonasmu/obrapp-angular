@@ -1,13 +1,49 @@
-<button mat-raised-button color="warn" (click)="crearContratista($event)">Nuevo</button>
-<br>
-<div *ngIf="contratistas">
-  <ul>
-    <li *ngFor="let contratista of contratistas">
-      <b>[<span>{{contratista.Id}}</span>] 
-      {{contratista.Nombre}} {{contratista.Apellido}}</b><br>
-      - Teléfono: {{contratista.Telefono}}<br>
-      - Domicilio: {{contratista.Domicilio}}<br>
-      - Observaciones: {{contratista.Observaciones}}<br>
-    </li>
-  </ul>
+<div>
+  <button mat-raised-button color="warn" (click)="crearContratista($event)">
+    Nuevo contratista
+  </button>
 </div>
+<br>
+<table mat-table [dataSource]="contratistas" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="detalle">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let contratista" class="tabla-fila-detalle">
+      <button class="boton-detalle" mat-flat-button color="primary" (click)="verDetalle(contratista.Id)">
+        Ver detalle
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="eliminar">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let contratista" class="tabla-fila-detalle">
+      <button class="boton-detalle" mat-flat-button disabled (click)="eliminarContratista(contratista)">
+        Eliminar
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombreApellido">
+    <th mat-header-cell *matHeaderCellDef> Nombre y Apellido </th>
+    <td mat-cell *matCellDef="let contratista"> <b>{{contratista.Nombre}} {{contratista.Apellido}}</b> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="telefono">
+    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+    <td mat-cell *matCellDef="let contratista"> {{contratista.Telefono}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="domicilio">
+    <th mat-header-cell *matHeaderCellDef> Domicilio </th>
+    <td mat-cell *matCellDef="let contratista"> {{contratista.Domicilio}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="observaciones">
+    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+    <td mat-cell *matCellDef="let contratista"> {{contratista.Observaciones}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnasDeTabla"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnasDeTabla;"></tr>
+</table>

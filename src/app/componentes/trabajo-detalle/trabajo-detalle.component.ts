@@ -28,7 +28,6 @@ export class TrabajoDetalleComponent implements OnInit {
     this.route.params.subscribe(params => {
       id = params['id']
     });
-    console.log('ID DE PARAMETRO : ' + id);
     this.trabajosService.obtenerPorId(id).subscribe(
       res => this.trabajo = res,
       error => {

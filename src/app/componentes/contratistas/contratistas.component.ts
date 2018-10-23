@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ContratistasComponent implements OnInit {
   contratistas: Contratista[];
+  columnasDeTabla: string[];
 
   constructor(
     private router: Router,
@@ -17,6 +18,7 @@ export class ContratistasComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerContratistas();
+    this.establecerColumnasDeTabla();
   }
 
   obtenerContratistas() {
@@ -30,7 +32,19 @@ export class ContratistasComponent implements OnInit {
     );
   }
 
+  establecerColumnasDeTabla(): void {
+    this.columnasDeTabla = ['detalle', 'eliminar', 'nombreApellido', 'telefono', 'domicilio', 'observaciones'];
+  }
+
   crearContratista(): void {
     this.router.navigateByUrl('contratista/nuevo');
+  }
+
+  eliminarContratista(contratista: Contratista): void {
+    console.log('ELIMINAR CONTRATISTA ' + contratista.Nombre);
+  }
+
+  verDetalle(id: number): void {
+    this.router.navigateByUrl('contratista/' + id);
   }
 }

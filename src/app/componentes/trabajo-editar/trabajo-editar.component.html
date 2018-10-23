@@ -14,8 +14,8 @@
   <br>
   <div>
     <mat-form-field class="formulario-item">
-      <mat-select placeholder="Tipo de contrato" [(ngModel)]="trabajo.Tipo.Id">
-        <mat-option *ngFor="let item of tipos" [value]="item.Id">{{item.Nombre}}</mat-option>
+      <mat-select placeholder="Contrato" [(ngModel)]="trabajo.Contrato.Id">
+        <mat-option *ngFor="let item of contratos" [value]="item.Id">{{item.Nombre}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

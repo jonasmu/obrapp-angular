@@ -1,4 +1,4 @@
-export class TrabajoTipo{
+export class Contrato{
     Id:number;
     Nombre:string;
 }

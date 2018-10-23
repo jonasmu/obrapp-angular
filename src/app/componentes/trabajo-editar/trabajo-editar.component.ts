@@ -6,7 +6,7 @@ import { ContratistasService } from 'src/app/servicios/contratistas.service';
 import { Trabajo } from 'src/app/modelos/trabajo.model';
 import { Contratista } from 'src/app/modelos/contratista.model';
 import { Estado } from 'src/app/modelos/estado.model';
-import { TrabajoTipo } from 'src/app/modelos/trabajo-tipo.model';
+import { Contrato } from 'src/app/modelos/contrato.model';
 import { SesionService } from 'src/app/servicios/sesion.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class TrabajoEditarComponent implements OnInit {
   trabajo: Trabajo;
   contratistas: Contratista[];
   estados: Estado[];
-  tipos: TrabajoTipo[];
+  contratos: Contrato[];
 
   constructor(
     private trabajosService: TrabajosService,
@@ -32,14 +32,14 @@ export class TrabajoEditarComponent implements OnInit {
     this.inicializarTrabajo();
     this.cargarContratistas();
     this.cargarEstados();
-    this.cargarTipos();
+    this.cargarContratos();
   }
 
   inicializarTrabajo(): void {
     this.trabajo = {
       Id: 0,
       IdUsuario: this.serviceService.obtener().Id,
-      Tipo: {
+      Contrato: {
         Id: 0,
         Nombre: ''
       },
@@ -76,9 +76,9 @@ export class TrabajoEditarComponent implements OnInit {
     );
   }
 
-  cargarTipos(): void {
-    this.trabajosService.obtenerTipos().subscribe(
-      res => this.tipos = res,
+  cargarContratos(): void {
+    this.trabajosService.obtenerContratos().subscribe(
+      res => this.contratos = res,
       error => console.error(error)
     );
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Trabajo } from '../modelos/trabajo.model';
-import { TrabajoTipo } from '../modelos/trabajo-tipo.model';
+import { Contrato } from '../modelos/contrato.model';
 import { Estado } from '../modelos/estado.model';
 
 @Injectable()
@@ -23,8 +23,8 @@ export class TrabajosService {
     return this.http.post<Trabajo>('trabajos', trabajo);
   }
 
-  obtenerTipos(): Observable<TrabajoTipo[]> {
-    return this.http.get<TrabajoTipo[]>('trabajos/tipos');
+  obtenerContratos(): Observable<Contrato[]> {
+    return this.http.get<Contrato[]>('trabajos/contratos');
   }
 
   obtenerEstados(): Observable<Estado[]> {

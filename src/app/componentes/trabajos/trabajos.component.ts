@@ -33,7 +33,7 @@ export class TrabajosComponent implements OnInit {
   }
 
   establecerColumnasDeTabla(): void {
-    this.columnasDeTabla = ['detalle', 'eliminar', 'nombre', 'estado', 'contratista', 'tipo', 'precio'];
+    this.columnasDeTabla = ['detalle', 'eliminar', 'nombre', 'estado', 'contratista', 'contrato', 'precio'];
   }
 
   crearTrabajo(): void {
@@ -45,7 +45,6 @@ export class TrabajosComponent implements OnInit {
   }
 
   verDetalle(id: number): void {
-    console.log('DETALLE TRABAJO ' + id);
     this.router.navigateByUrl('trabajo/' + id);
   }
 }

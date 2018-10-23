@@ -1,0 +1,44 @@
+.boton-detalle {
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.tabla-fila-detalle {
+    width: 0.1%;
+}
+
+.tabla-fila-precio {
+    width: 0.1%;
+    text-align: right;
+}
+
+@keyframes sobreFila-in {
+    to {
+        background-color: cornsilk;
+    }
+}
+
+@keyframes sobreFila-out {
+    from {
+        background-color: cornsilk;
+    }
+}
+
+.mat-row {
+    animation-name: sobreFila-out;
+    animation-duration: 200ms;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+.mat-row:hover {
+    animation-name: sobreFila-in;
+    animation-duration: 200ms;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
