@@ -24,7 +24,7 @@
     color: black;
 }
 
-a{
+a .left{
     animation-name: exampleout;
     animation-duration: 400ms;
     animation-direction: normal;

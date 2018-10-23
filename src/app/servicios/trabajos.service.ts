@@ -15,6 +15,10 @@ export class TrabajosService {
     return this.http.get<Trabajo[]>('trabajos');
   }
 
+  obtenerPorId(id: number): Observable<Trabajo> {
+    return this.http.get<Trabajo>('trabajos/' + id);
+  }
+
   crear(trabajo: Trabajo): Observable<Trabajo> {
     return this.http.post<Trabajo>('trabajos', trabajo);
   }
@@ -22,7 +26,7 @@ export class TrabajosService {
   obtenerTipos(): Observable<TrabajoTipo[]> {
     return this.http.get<TrabajoTipo[]>('trabajos/tipos');
   }
-  
+
   obtenerEstados(): Observable<Estado[]> {
     return this.http.get<Estado[]>('trabajos/estados');
   }

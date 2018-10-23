@@ -1,0 +1,59 @@
+.tarjeta {
+    max-width: 300px;
+    display:inline-block;
+    margin: 10px 30px;
+
+    animation-name: sombra-out;
+    animation-duration: 200ms;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+
+.tarjeta:hover{
+    animation-name: sombra-in;
+    animation-duration: 200ms;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+@keyframes sombra-in {
+    from {
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.75);
+        background-color: white;
+    }
+    to {
+        box-shadow: 0px 3px 15px 0px black;
+        background-color: palegoldenrod;
+        padding: 30px;
+    }
+}
+
+@keyframes sombra-out {
+    from {
+        box-shadow: 0px 3px 15px 1px black;
+        background-color: palegoldenrod;
+        padding: 30px;
+     }
+    to {
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.75);
+        background-color: white;
+    }
+}
+
+.tarjeta-cabeza{
+}
+
+.tarjeta-cabeza-titulo{
+    font-weight: bold;
+}
+
+.tarjeta-cabeza-imagen{
+    background-image: url('http://mycs.net.au/wp-content/uploads/2016/03/home-icon-flat.png');
+    background-size: cover;
+}
+
+.centrar{
+    text-align: center;
+}

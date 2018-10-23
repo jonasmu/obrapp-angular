@@ -3,6 +3,9 @@
   <a class="left" style="color:green" routerLink="/">OBRAPP</a>  
   <a class="left" routerLink="/trabajos">Trabajos</a>
   <a class="left" routerLink="/contratistas">Contratistas</a>
-  <a class="right" routerLink="/sesion">{{ usuario == null ? "Iniciar sesión" : usuario.Nombre }}</a>
+  <a class="right" routerLink="/sesion">
+    <mat-icon>home</mat-icon>
+    {{ usuario == null ? "Iniciar sesión" : usuario.Nombre }}
+  </a>
   <!-- <a *ngIf="usuario != null" routerLink="/sesion">{{}}}</a> -->
 </nav>
