@@ -4,4 +4,5 @@ export class Pago {
     Fecha: Date;
     Observaciones: string;
     Monto: number;
+    EstaAnulado: boolean;
 }

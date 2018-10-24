@@ -32,7 +32,7 @@ export class TrabajoDetalleComponent implements OnInit {
 
   establecerColumnasDeTablas(): void {
     this.columnasDeTablaTareas = ['editar', 'eliminar', 'nombre', 'observaciones'];
-    this.columnasDeTablaPagos = ['editar', 'anular', 'fecha', 'observaciones', 'monto'];
+    this.columnasDeTablaPagos = ['editar', 'fecha', 'observaciones', 'anulado', 'monto'];
   }
 
   cargarTrabajo(): void {
@@ -53,6 +53,7 @@ export class TrabajoDetalleComponent implements OnInit {
   }
 
   cargarPagos(): void {
+    this.pagos = [];
     this.pagosService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.pagos = res,
       error => console.error(error)
@@ -61,6 +62,15 @@ export class TrabajoDetalleComponent implements OnInit {
 
   editarTrabajo(): void {
     this.router.navigateByUrl(`trabajo/editar/${this.trabajo.Id}`);
+  }
+
+  eliminarTrabajo(): void {
+    if (confirm(`¿Seguro que querés eliminar el trabajo:\n${this.trabajo.Nombre}?`)) {
+      this.trabajosService.eliminar(this.trabajo.Id).subscribe(
+        res => this.router.navigateByUrl('trabajos'),
+        error => console.error(error)
+      );
+    }
   }
 
   crearTarea(evento: Event): void {
@@ -83,20 +93,40 @@ export class TrabajoDetalleComponent implements OnInit {
     this.router.navigateByUrl(`trabajo/${this.trabajo.Id}/pago/editar/${id}`);
   }
 
-  anularPago(id: number): void {
-
+  anularPago(pago: Pago): void {
+    if (confirm(`¿Seguro que querés ${pago.EstaAnulado ? 'ratificar' : 'anular'} el pago registrado el ${pago.Fecha} por $${pago.Monto}?`)) {
+      pago.EstaAnulado = !pago.EstaAnulado;
+      this.pagosService.actualizar(pago).subscribe(
+        res => { },
+        error => console.error(error)
+      );
+    }
   }
 
-  obtenerMontoTotal(): number {
-    if (this.pagos == null){
+  obtenerMontoDePagosRatificados(): number {
+    let pagos = this.pagos.filter(x => !x.EstaAnulado);
+    return this.sumarPagos(pagos);
+  }
+
+  obtenerMontoDePagosAnulados(): number {
+    let pagos = this.pagos.filter(x => x.EstaAnulado);
+    return this.sumarPagos(pagos);
+  }
+
+  obtenerMontoDePagosTotal(): number {
+    return this.sumarPagos(this.pagos);
+  }
+
+  private sumarPagos(pagos: Pago[]): number {
+    if (this.pagos == null) {
       return 0;
     }
     var total = 0;
-    for (var i = 0; i < this.pagos.length; i++) {
-      if (isNaN(this.pagos[i].Monto)) {
+    for (var i = 0; i < pagos.length; i++) {
+      if (isNaN(pagos[i].Monto)) {
         continue;
       }
-      total += this.pagos[i].Monto;
+      total += pagos[i].Monto;
     }
     return total;
   }

@@ -23,7 +23,6 @@ import { httpInterceptorProviders } from '../interceptores/index';
 
 import { AutentificacionGuard } from '../guardias/autentificacion.guard';
 
-import { ApiService } from '../servicios/api.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { SesionService } from '../servicios/sesion.service';
 import { TrabajosService } from '../servicios/trabajos.service';
@@ -60,7 +59,6 @@ import { PagosService } from '../servicios/pagos.service';
     // Guardias:
     AutentificacionGuard,
     // Servicios:
-    ApiService,
     UsuariosService,
     SesionService,
     TrabajosService,

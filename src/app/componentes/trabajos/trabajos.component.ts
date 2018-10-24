@@ -33,7 +33,7 @@ export class TrabajosComponent implements OnInit {
   }
 
   establecerColumnasDeTabla(): void {
-    this.columnasDeTabla = ['detalle', 'eliminar', 'nombre', 'estado', 'contratista', 'contrato', 'precio'];
+    this.columnasDeTabla = ['detalle', 'nombre', 'estado', 'contratista', 'contrato', 'precio'];
   }
 
   crearTrabajo(): void {

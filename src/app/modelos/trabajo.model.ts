@@ -12,5 +12,6 @@ export class Trabajo {
     Nombre: string;
     Descripcion: string;
     Precio: number;
-    Tareas: Tarea[]
+    Tareas: Tarea[];
+    EstaEliminado: boolean;
 }

@@ -5,4 +5,5 @@ export class Contratista {
     Telefono: string;
     Domicilio: string;
     Observaciones: string;
+    EstaEliminado: boolean;
 }

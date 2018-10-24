@@ -48,12 +48,7 @@ export class TrabajoEditarComponent implements OnInit {
 
   inicializarTrabajo(): void {
 
-    let idTrabajo = this.obtenerIdTrabajo();
-    if (isNaN(idTrabajo) || idTrabajo == 0) {
-      this.errorVolver();
-    }
-
-    if (this.router.url.includes(idTrabajo + '/tarea/nueva')) {
+    if (this.router.url.includes('/trabajo/nuevo')) {
       this.esCrear = true;
       this.trabajo = {
         Id: 0,
@@ -72,15 +67,21 @@ export class TrabajoEditarComponent implements OnInit {
           Apellido: '',
           Telefono: '',
           Domicilio: '',
-          Observaciones: ''
+          Observaciones: '',
+          EstaEliminado: false
         },
         Nombre: '',
         Descripcion: '',
         Precio: 0,
-        Tareas: []
+        Tareas: [],
+        EstaEliminado: false
       };
     }
     else {
+      let idTrabajo = this.obtenerIdTrabajo();
+      if (isNaN(idTrabajo) || idTrabajo == 0) {
+        this.errorVolver();
+      }
       this.esCrear = false;
       this.trabajosService.obtenerPorId(idTrabajo).subscribe(
         res => this.trabajo = res,
@@ -121,7 +122,7 @@ export class TrabajoEditarComponent implements OnInit {
         error => this.errorVolver(error)
       );
     }
-    else if (confirm('¿Actualizar tarea?')) {
+    else if (confirm('¿Actualizar trabajo?')) {
       this.trabajo.Contratista = this.contratistas.filter(x => x.Id === this.trabajo.Contratista.Id)[0];
       this.trabajo.Contrato = this.contratos.filter(x => x.Id === this.trabajo.Contrato.Id)[0];
       this.trabajo.Estado = this.estados.filter(x => x.Id === this.trabajo.Estado.Id)[0];

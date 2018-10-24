@@ -27,12 +27,12 @@ export class TrabajosService {
     return this.http.put<Trabajo>('trabajos', trabajo);
   }
 
-  anular(trabajo: Trabajo): Observable<Trabajo> {
-    return this.http.put<Trabajo>('trabajos', trabajo);
-  }
-
   eliminar(id: number): Observable<Trabajo> {
     return this.http.delete<Trabajo>('trabajos/' + id);
+  }
+
+  anular(trabajo: Trabajo): Observable<Trabajo> {
+    return this.http.put<Trabajo>('trabajos', trabajo);
   }
 
   obtenerContratos(): Observable<Contrato[]> {

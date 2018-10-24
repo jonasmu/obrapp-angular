@@ -57,7 +57,8 @@ export class PagoEditarComponent implements OnInit {
         IdTrabajo: idTrabajo,
         Monto: 0,
         Fecha: new Date(Date.now()),
-        Observaciones: ''
+        Observaciones: '',
+        EstaAnulado: false
       };
     }
     else {
