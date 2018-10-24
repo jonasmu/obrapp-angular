@@ -13,6 +13,7 @@ import { PagosComponent } from '../componentes/pagos/pagos.component';
 import { PagoEditarComponent } from '../componentes/pago-editar/pago-editar.component';
 import { ContratistasComponent } from '../componentes/contratistas/contratistas.component'
 import { ContratistaEditarComponent } from '../componentes/contratista-editar/contratista-editar.component';
+import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -35,7 +36,8 @@ const routes: Routes = [
   
   { path: 'contratistas', component: ContratistasComponent, canActivate: [AutentificacionGuard] },
   { path: 'contratista/nuevo', component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'contratista/editar/:idContratista', component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] }
+  { path: 'contratista/editar/:idContratista', component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: 'contratista/:idContratista', component: ContratistaDetalleComponent, canActivate: [AutentificacionGuard] }
 ];
 
 @NgModule({

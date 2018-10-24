@@ -15,6 +15,10 @@ export class TrabajosService {
     return this.http.get<Trabajo[]>('trabajos');
   }
 
+  obtenerPorContratista(id: number): Observable<Trabajo[]> {
+    return this.http.get<Trabajo[]>('trabajos/contratista/' + id);
+  }
+
   obtenerPorId(id: number): Observable<Trabajo> {
     return this.http.get<Trabajo>('trabajos/' + id);
   }

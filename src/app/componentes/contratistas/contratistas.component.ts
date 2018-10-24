@@ -33,7 +33,7 @@ export class ContratistasComponent implements OnInit {
   }
 
   establecerColumnasDeTabla(): void {
-    this.columnasDeTabla = ['detalle', 'eliminar', 'nombreApellido', 'telefono', 'domicilio', 'observaciones'];
+    this.columnasDeTabla = ['detalle', 'nombreApellido', 'telefono', 'domicilio', 'observaciones'];
   }
 
   crearContratista(): void {
@@ -45,6 +45,6 @@ export class ContratistasComponent implements OnInit {
   }
 
   verDetalle(id: number): void {
-    this.router.navigateByUrl(`contratista/editar/${id}`);
+    this.router.navigateByUrl(`contratista/${id}`);
   }
 }

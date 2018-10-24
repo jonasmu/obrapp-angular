@@ -1,0 +1,18 @@
+<div>
+    <button class="tabla-boton" mat-raised-button color="primary" (click)="editarContratista()">
+        Editar contratista
+    </button>
+    <button class="tabla-boton" mat-stroked-button color="warn" (click)="eliminarContratista()">
+        Eliminar contratista
+    </button>
+</div>
+<hr>
+<div class="h3">{{contratista.Nombre}}</div>
+
+<pre>
+    {{contratista | json}}
+</pre>
+
+<pre>
+    {{trabajos | json}}
+</pre>

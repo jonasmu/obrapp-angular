@@ -18,6 +18,7 @@ import { PagosComponent } from '../componentes/pagos/pagos.component';
 import { PagoEditarComponent } from '../componentes/pago-editar/pago-editar.component';
 import { ContratistasComponent } from '../componentes/contratistas/contratistas.component';
 import { ContratistaEditarComponent } from '../componentes/contratista-editar/contratista-editar.component';
+import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
 
 import { httpInterceptorProviders } from '../interceptores/index';
 
@@ -43,7 +44,8 @@ import { PagosService } from '../servicios/pagos.service';
     PagosComponent,
     PagoEditarComponent,
     ContratistasComponent,
-    ContratistaEditarComponent
+    ContratistaEditarComponent,
+    ContratistaDetalleComponent
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,8 @@ export class ContratistaEditarComponent implements OnInit {
       Apellido: '',
       Telefono: '',
       Domicilio: '',
-      Observaciones: ''
+      Observaciones: '',
+      EstaEliminado: false
     };
   }
 
