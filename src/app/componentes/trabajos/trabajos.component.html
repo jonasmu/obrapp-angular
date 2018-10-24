@@ -4,12 +4,12 @@
   </button>
 </div>
 <br>
-<table mat-table [dataSource]="trabajos" class="mat-elevation-z8">
+<table mat-table [dataSource]="trabajos" class="mat-elevation-z8" class="ancho-completo">
 
   <ng-container matColumnDef="detalle">
     <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let trabajo" class="tabla-fila-detalle">
-      <button class="boton-detalle" mat-flat-button color="primary" (click)="verDetalle(trabajo.Id)">
+    <td mat-cell *matCellDef="let trabajo" class="tabla-columna-boton">
+      <button class="tabla-boton" mat-stroked-button color="primary" (click)="verDetalle(trabajo.Id)">
         Ver detalle
       </button>
     </td>
@@ -17,8 +17,8 @@
 
   <ng-container matColumnDef="eliminar">
     <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let trabajo" class="tabla-fila-detalle">
-      <button class="boton-detalle" mat-flat-button disabled (click)="eliminarTrabajo(trabajo)">
+    <td mat-cell *matCellDef="let trabajo" class="tabla-columna-boton">
+      <button class="tabla-boton" mat-flat-button disabled (click)="eliminarTrabajo(trabajo)">
         Eliminar
       </button>
     </td>
@@ -31,7 +31,13 @@
 
   <ng-container matColumnDef="estado">
     <th mat-header-cell *matHeaderCellDef> Estado </th>
-    <td mat-cell *matCellDef="let trabajo"> {{trabajo.Estado.Nombre}} </td>
+    <td mat-cell *matCellDef="let trabajo">
+      <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+        [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+        [class.badge-danger]="trabajo.Estado.Id===5">
+        {{trabajo.Estado.Nombre}}
+      </span>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="contratista">
@@ -45,8 +51,8 @@
   </ng-container>
 
   <ng-container matColumnDef="precio">
-    <th mat-header-cell *matHeaderCellDef class="tabla-fila-precio"> Precio </th>
-    <td mat-cell *matCellDef="let trabajo" class="tabla-fila-precio"> {{trabajo.Precio | currency}} </td>
+    <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Precio </th>
+    <td mat-cell *matCellDef="let trabajo" class="tabla-columna-precio"> {{trabajo.Precio | currency}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnasDeTabla"></tr>

@@ -23,6 +23,18 @@ export class TrabajosService {
     return this.http.post<Trabajo>('trabajos', trabajo);
   }
 
+  actualizar(trabajo: Trabajo): Observable<Trabajo> {
+    return this.http.put<Trabajo>('trabajos', trabajo);
+  }
+
+  anular(trabajo: Trabajo): Observable<Trabajo> {
+    return this.http.put<Trabajo>('trabajos', trabajo);
+  }
+
+  eliminar(id: number): Observable<Trabajo> {
+    return this.http.delete<Trabajo>('trabajos/' + id);
+  }
+
   obtenerContratos(): Observable<Contrato[]> {
     return this.http.get<Contrato[]>('trabajos/contratos');
   }

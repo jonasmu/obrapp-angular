@@ -1,3 +1,239 @@
+<div *ngIf="trabajo">
+
+    <div>
+        <button class="tabla-boton" mat-raised-button color="primary" (click)="editarTrabajo()">
+            Editar trabajo
+        </button>
+        <span class="h3">{{trabajo.Nombre}}</span>
+    </div>
+    <hr>
+    <div class="detalle-ficha">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="item-margen">
+                    <b>Estado</b><br>
+                    <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+                        [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+                        [class.badge-danger]="trabajo.Estado.Id===5">
+                        {{trabajo.Estado.Nombre}}
+                    </span>
+                </div>
+                <div class="item-margen">
+                    <b>Descripción</b><br>
+                    {{trabajo.Descripcion}}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="item-margen">
+                    <b>Contrato</b><br>
+                    {{trabajo.Contrato.Nombre}}
+                </div>
+                <div class="item-margen">
+                    <b>
+                        Precio por
+                        <span *ngIf="trabajo.Contrato.Id==1">trabajo</span>
+                        <span *ngIf="trabajo.Contrato.Id==2">día</span>
+                    </b>
+                    <br>
+                    {{trabajo.Precio | currency }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <!-- CONTRATISTA -->
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Contratista
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{trabajo.Contratista.Nombre}} {{trabajo.Contratista.Apellido}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <b>Nombre:</b> {{trabajo.Contratista.Nombre}}
+                <br>
+                <b>Apellido:</b> {{trabajo.Contratista.Apellido}}
+                <br>
+                <b>Teléfono:</b> {{trabajo.Contratista.Telefono}}
+                <br>
+                <b>Domicilio:</b> {{trabajo.Contratista.Domicilio}}
+                <br>
+                <b>Observaciones:</b> {{trabajo.Contratista.Observaciones}}
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-3">
+                    <mat-list>
+                        <mat-list-item>
+                            <p mat-line>Nombre</p>
+                            <b mat-line mat-subheader>{{trabajo.Contratista.Nombre}}</b>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="col-md-3">
+                    <mat-list>
+                        <mat-list-item>
+                            <p mat-line>Apellido</p>
+                            <b mat-line mat-subheader>{{trabajo.Contratista.Apellido}}</b>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="col-md-3">
+                    <mat-list>
+                        <mat-list-item>
+                            <p mat-line>Teléfono</p>
+                            <b mat-line mat-subheader>{{trabajo.Contratista.Telefono}}</b>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="col-md-3">
+                    <mat-list>
+                        <mat-list-item>
+                            <p mat-line>Domicilio</p>
+                            <b mat-line mat-subheader>{{trabajo.Contratista.Domicilio}}</b>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <mat-list>
+                        <mat-list-item style="text-align:center">
+                            <p mat-line>Observaciones</p>
+                            <b mat-line mat-subheader>{{trabajo.Contratista.Observaciones}}</b>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div> -->
+        </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <!-- TAREAS -->
+    <mat-accordion>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Tareas
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: {{trabajo.Tareas.length}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div>
+                <button mat-raised-button color="warn" (click)="crearTarea($event)">
+                    Nueva tarea
+                </button>
+            </div>
+            <table mat-table [dataSource]="trabajo.Tareas" class="ancho-completo">
+
+                <ng-container matColumnDef="editar">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarTarea(tarea.Id)">
+                            Editar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="eliminar">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button disabled (click)="eliminarTarea(tarea.Id)">
+                            Eliminar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let tarea"> <b>{{tarea.Nombre}}</b> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="observaciones">
+                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                    <td mat-cell *matCellDef="let tarea"> {{tarea.Observaciones}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasDeTablaTareas"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasDeTablaTareas;"></tr>
+            </table>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <!-- PAGOS -->
+    <mat-accordion>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Pagos
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: <span *ngIf="pagos">{{pagos.length}}</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div>
+                <button mat-raised-button color="warn" (click)="crearPago($event)">
+                    Nuevo pago
+                </button>
+            </div>
+            <table mat-table [dataSource]="pagos" class="ancho-completo">
+
+                <ng-container matColumnDef="editar">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarPago(pago.Id)">
+                            Editar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="anular">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button disabled (click)="anularPago(pago.Id)">
+                            Anular
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                    <td mat-cell *matCellDef="let pago">
+                        {{ pago.Fecha | date:'fullDate' }}
+                        <div style="font-size: 9px">({{ pago.Fecha | date:'shortDate' }})</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="observaciones">
+                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                    <td mat-cell *matCellDef="let pago"> {{pago.Observaciones}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="monto">
+                    <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Monto </th>
+                    <td mat-cell *matCellDef="let pago" class="tabla-columna-precio"> {{pago.Monto | currency}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasDeTablaPagos"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasDeTablaPagos;"></tr>
+            </table>
+
+            <div id="monto-total">
+                <span style="font-size:9px">TOTAL:</span> {{obtenerMontoTotal() | currency}}
+            </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<!-- <br>
+<br>
 <pre>
     {{trabajo | json}}
-</pre>
+</pre> -->

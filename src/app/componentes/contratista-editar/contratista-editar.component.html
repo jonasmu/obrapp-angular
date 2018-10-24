@@ -17,6 +17,8 @@
 <label>Observaciones:
   <input name="observaciones" placeholder="..." [(ngModel)]="contratista.Observaciones" />
 </label>
-<br>
-<button (click)="aceptar($event)">Aceptar</button>
-<button (click)="cancelar($event)">Cancelar</button>
+
+<div class="botones-confirmar">
+  <button (click)="aceptar($event)">Aceptar</button>
+  <button (click)="cancelar($event)">Cancelar</button>
+</div>

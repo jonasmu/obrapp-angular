@@ -1,0 +1,18 @@
+<div *ngIf="tarea" class="formulario">
+  <div>
+    <mat-form-field class="formulario-item">
+      <input matInput placeholder="Nombre" [(ngModel)]="tarea.Nombre">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="formulario-item">
+      <textarea matInput placeholder="Observaciones" rows="1" [(ngModel)]="tarea.Observaciones"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="botones-confirmar">
+    <button mat-raised-button color="primary" class="boton" (click)="aceptar($event)">Aceptar</button>
+    <button mat-raised-button color="primary" class="boton" (click)="cancelar($event)">Cancelar</button>
+  </div>
+</div>

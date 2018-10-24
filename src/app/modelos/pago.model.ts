@@ -1,6 +1,7 @@
-export class Tarea {
+export class Pago {
     Id: number;
     IdTrabajo: number;
-    Nombre: string;
+    Fecha: Date;
     Observaciones: string;
+    Monto: number;
 }

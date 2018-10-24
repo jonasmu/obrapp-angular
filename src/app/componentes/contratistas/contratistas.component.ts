@@ -45,6 +45,6 @@ export class ContratistasComponent implements OnInit {
   }
 
   verDetalle(id: number): void {
-    this.router.navigateByUrl('contratista/' + id);
+    this.router.navigateByUrl(`contratista/editar/${id}`);
   }
 }

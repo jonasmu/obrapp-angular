@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TrabajosService } from 'src/app/servicios/trabajos.service';
 import { ContratistasService } from 'src/app/servicios/contratistas.service';
 import { Trabajo } from 'src/app/modelos/trabajo.model';
@@ -20,11 +20,13 @@ export class TrabajoEditarComponent implements OnInit {
   contratistas: Contratista[];
   estados: Estado[];
   contratos: Contrato[];
+  esCrear: boolean;
 
   constructor(
     private trabajosService: TrabajosService,
     private serviceService: SesionService,
     private contratistasService: ContratistasService,
+    private route: ActivatedRoute,
     private router: Router,
     private location: Location) { }
 
@@ -35,31 +37,59 @@ export class TrabajoEditarComponent implements OnInit {
     this.cargarContratos();
   }
 
+  obtenerIdTrabajo(): number {
+    let idTrabajo: number = 0;
+    this.route.params.subscribe(
+      params => idTrabajo = params['idTrabajo'],
+      error => idTrabajo = 0
+    );
+    return idTrabajo;
+  }
+
   inicializarTrabajo(): void {
-    this.trabajo = {
-      Id: 0,
-      IdUsuario: this.serviceService.obtener().Id,
-      Contrato: {
+
+    let idTrabajo = this.obtenerIdTrabajo();
+    if (isNaN(idTrabajo) || idTrabajo == 0) {
+      this.errorVolver();
+    }
+
+    if (this.router.url.includes(idTrabajo + '/tarea/nueva')) {
+      this.esCrear = true;
+      this.trabajo = {
         Id: 0,
-        Nombre: ''
-      },
-      Estado: {
-        Id: 0,
-        Nombre: ''
-      },
-      Contratista: {
-        Id: 0,
+        IdUsuario: this.serviceService.obtener().Id,
+        Contrato: {
+          Id: 0,
+          Nombre: ''
+        },
+        Estado: {
+          Id: 0,
+          Nombre: ''
+        },
+        Contratista: {
+          Id: 0,
+          Nombre: '',
+          Apellido: '',
+          Telefono: '',
+          Domicilio: '',
+          Observaciones: ''
+        },
         Nombre: '',
-        Apellido: '',
-        Telefono: '',
-        Domicilio: '',
-        Observaciones: ''
-      },
-      Nombre: '',
-      Descripcion: '',
-      Precio: 0,
-      Tareas: []
-    };
+        Descripcion: '',
+        Precio: 0,
+        Tareas: []
+      };
+    }
+    else {
+      this.esCrear = false;
+      this.trabajosService.obtenerPorId(idTrabajo).subscribe(
+        res => this.trabajo = res,
+        error => {
+          console.error(error);
+          this.errorVolver();
+        }
+      );
+    }
   }
 
   cargarContratistas(): void {
@@ -85,18 +115,30 @@ export class TrabajoEditarComponent implements OnInit {
 
   aceptar(evento: Event) {
     evento.preventDefault();
-    this.trabajosService.crear(this.trabajo).subscribe(
-      res => {
-        this.router.navigateByUrl('trabajos');
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    if (this.esCrear) {
+      this.trabajosService.crear(this.trabajo).subscribe(
+        res => this.router.navigateByUrl('trabajos'),
+        error => this.errorVolver(error)
+      );
+    }
+    else if (confirm('¿Actualizar tarea?')) {
+      this.trabajo.Contratista = this.contratistas.filter(x => x.Id === this.trabajo.Contratista.Id)[0];
+      this.trabajo.Contrato = this.contratos.filter(x => x.Id === this.trabajo.Contrato.Id)[0];
+      this.trabajo.Estado = this.estados.filter(x => x.Id === this.trabajo.Estado.Id)[0];
+      this.trabajosService.actualizar(this.trabajo).subscribe(
+        res => this.router.navigateByUrl('trabajo/' + this.trabajo.Id),
+        error => this.errorVolver(error)
+      );
+    }
   }
 
   cancelar(evento: Event) {
     evento.preventDefault();
     this.location.back();
+  }
+
+  errorVolver(mensaje: string = ''): void {
+    alert('Ha ocurrido un error\n' + mensaje);
+    this.router.navigateByUrl('trabajos');
   }
 }

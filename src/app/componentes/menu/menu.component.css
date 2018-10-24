@@ -1,43 +1,49 @@
-.menu{
+.menu {
     padding: 15px 0px 40px 0px;
     background-color: wheat;
     font-size: 20px;
 }
-.menu a{
+
+.menu a {
     padding: 0px 20px;
     text-decoration: none;
 }
 
-@keyframes examplein {
-    from {font-size: 20px; }
-    to {font-size: 23px;}
+@keyframes opcionSeleccionada-in {
+    from {
+        font-size: 20px;
+    }
+    to {
+        font-size: 23px;
+    }
 }
 
-@keyframes exampleout {
-    from {font-size: 23px;}
-    to {font-size: 20px;}
+@keyframes opcionSeleccionada-out {
+    from {
+        font-size: 23px;
+    }
+    to {
+        font-size: 20px;
+    }
 }
 
-.menu a:visited, 
-.menu a:active, 
-.menu a:link{
+.menu a:visited,
+.menu a:active,
+.menu a:link {
     color: black;
 }
 
-a .left{
-    animation-name: exampleout;
-    animation-duration: 400ms;
-    animation-direction: normal;
-    animation-timing-function: ease-out;
-    animation-fill-mode: both;
+a.left,
+a.right {
+    animation-name: opcionSeleccionada-out;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
 }
 
 a:hover {
     color: rebeccapurple;
-    animation-name: examplein;
-    animation-duration: 400ms;
-    animation-direction: normal;
-    animation-timing-function: ease-out;
+    animation-name: opcionSeleccionada-in;
+    animation-duration: 300ms;
     animation-fill-mode: forwards;
 }
 
