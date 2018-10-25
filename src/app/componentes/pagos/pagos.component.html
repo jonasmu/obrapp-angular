@@ -1,3 +1,41 @@
-<p>
-  pagos works!
-</p>
+<div class="h3">Mis pagos</div>
+<table mat-table [dataSource]="pagos" class="mat-elevation-z8 ancho-completo">
+
+  <ng-container matColumnDef="trabajo">
+    <th mat-header-cell *matHeaderCellDef> Trabajo </th>
+    <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
+      <button class="tabla-boton" mat-stroked-button color="primary" (click)="verTrabajo(pago.IdTrabajo)">
+        {{pago.NombreTrabajo}}
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td mat-cell *matCellDef="let pago">
+      {{ pago.Fecha | date:'fullDate' }}
+      <div class="texto-pequeno">({{ pago.Fecha | date:'shortDate' }})</div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="observaciones">
+    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+    <td mat-cell *matCellDef="let pago"> {{pago.Observaciones}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let pago">
+      <span *ngIf="pago.EstaAnulado" class="badge badge-danger">Anulado</span>
+      <span *ngIf="!pago.EstaAnulado" class="badge badge-success">Ratificado</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="monto">
+    <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Monto </th>
+    <td mat-cell *matCellDef="let pago" class="tabla-columna-precio"> {{pago.Monto | currency}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnasDeTablaPagos"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnasDeTablaPagos;"></tr>
+</table>

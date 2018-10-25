@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { Url } from '../modelos/url.model';
 import { AutentificacionGuard } from '../guardias/autentificacion.guard';
 
 import { InicioComponent } from '../componentes/inicio/inicio.component'
@@ -14,8 +15,8 @@ import { PagoEditarComponent } from '../componentes/pago-editar/pago-editar.comp
 import { ContratistasComponent } from '../componentes/contratistas/contratistas.component'
 import { ContratistaEditarComponent } from '../componentes/contratista-editar/contratista-editar.component';
 import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
-import { Parametro } from '../modelos/parametro.model';
-import { Url } from '../modelos/url.model';
+import { MaterialesComponent } from '../componentes/materiales/materiales.component';
+import { MaterialEditarComponent } from '../componentes/material-editar/material-editar.component';
 
 const routes: Routes = [
   { path: Url.raiz, redirectTo: '/', pathMatch: 'full' },
@@ -38,7 +39,11 @@ const routes: Routes = [
   { path: Url.contratistas, component: ContratistasComponent, canActivate: [AutentificacionGuard] },
   { path: Url.contratista_nuevo, component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
   { path: Url.contratista_editar, component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: Url.contratista_detalle, component: ContratistaDetalleComponent, canActivate: [AutentificacionGuard] }
+  { path: Url.contratista_detalle, component: ContratistaDetalleComponent, canActivate: [AutentificacionGuard] },
+
+  { path: Url.materiales, component: MaterialesComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.material_nuevo, component: MaterialEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.material_editar, component: MaterialEditarComponent, canActivate: [AutentificacionGuard] }
 ];
 
 @NgModule({

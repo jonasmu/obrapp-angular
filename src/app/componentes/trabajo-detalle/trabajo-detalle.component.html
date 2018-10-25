@@ -161,7 +161,7 @@
                 <ng-container matColumnDef="eliminar">
                     <th mat-header-cell *matHeaderCellDef> </th>
                     <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
-                        <button class="tabla-boton" mat-stroked-button disabled (click)="eliminarTarea(tarea.Id)">
+                        <button class="tabla-boton" mat-stroked-button (click)="eliminarTarea(tarea)">
                             Eliminar
                         </button>
                     </td>
@@ -177,13 +177,87 @@
                     <td mat-cell *matCellDef="let tarea"> {{tarea.Observaciones}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let tarea">
+                        <span *ngIf="!tarea.EstaRealizada" class="badge badge-danger">Pendiente</span>
+                        <span *ngIf="tarea.EstaRealizada" class="badge badge-success">Listo</span>
+                    </td>
+                </ng-container>
+
                 <tr mat-header-row *matHeaderRowDef="columnasDeTablaTareas"></tr>
                 <tr mat-row *matRowDef="let row; columns: columnasDeTablaTareas;"></tr>
             </table>
 
         </mat-expansion-panel>
     </mat-accordion>
+
     <br>
+
+    <!-- MATERIALES -->
+    <mat-accordion>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Materiales
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: {{materiales.length}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div>
+                <button mat-raised-button color="warn" (click)="crearMaterial($event)">
+                    Nuevo material
+                </button>
+            </div>
+            <table mat-table [dataSource]="materiales" class="ancho-completo" *ngIf="materiales.length>0">
+
+                <ng-container matColumnDef="editar">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let material" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarMaterial(material.Id)">
+                            Editar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="eliminar">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let material" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button (click)="eliminarMaterial(material)">
+                            Eliminar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let material"> <b>{{material.Nombre}}</b> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="observaciones">
+                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                    <td mat-cell *matCellDef="let material"> {{material.Observaciones}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let material">
+                        <span *ngIf="!material.EstaComprado" class="badge badge-danger">Faltante</span>
+                        <span *ngIf="material.EstaComprado" class="badge badge-success">Comprado</span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasDeTablaMateriales"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasDeTablaMateriales;"></tr>
+            </table>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <br>
+
     <!-- PAGOS -->
     <mat-accordion>
         <mat-expansion-panel expanded>
@@ -234,7 +308,7 @@
                     <td mat-cell *matCellDef="let pago"> {{pago.Observaciones}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="anulado">
+                <ng-container matColumnDef="estado">
                     <th mat-header-cell *matHeaderCellDef> Estado </th>
                     <td mat-cell *matCellDef="let pago">
                         <span *ngIf="pago.EstaAnulado" class="badge badge-danger">Anulado</span>
@@ -251,12 +325,12 @@
                 <tr mat-row *matRowDef="let row; columns: columnasDeTablaPagos;"></tr>
             </table>
 
-            <div id="monto-total">
+            <div id="monto-total" *ngIf="pagos.length>0">
                 <div>
-                    <span class="texto-pequeno">Ratificados:</span> {{obtenerMontoDePagosRatificados() | currency}}
+                    <span class="texto-pequeno">Ratificado:</span> {{obtenerMontoDePagosRatificados() | currency}}
                 </div>
                 <div>
-                    <span class="texto-pequeno">Anulados:</span> {{obtenerMontoDePagosAnulados() | currency}}
+                    <span class="texto-pequeno">Anulado:</span> {{obtenerMontoDePagosAnulados() | currency}}
                 </div>
                 <div>
                     <span class="texto-pequeno">TOTAL:</span> {{obtenerMontoDePagosTotal() | currency}}

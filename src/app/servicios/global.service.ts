@@ -33,6 +33,12 @@ export class GlobalService {
   }
 
   navegar(url: string, ...params: number[]): void {
+    url = this.mapearUrl(url, ...params);
+    console.log(' ----> Navegando a: ' + url);
+    this.router.navigateByUrl(url);
+  }
+
+  mapearUrl(url: string, ...params: number[]): string {
     if (params != null && params.length > 0) {
       var regex = /(\/[:\d]+)/g;
       var result;
@@ -42,16 +48,11 @@ export class GlobalService {
         i++;
       }
     }
-    console.log(' ----> Navegando a: ' + url);
-    this.router.navigateByUrl(url);
+    return url;
   }
 
   urlIncluye(texto: string): boolean {
     return this.router.url.includes(texto);
-  }
-
-  urlTerminaCon(texto: string): boolean {
-    return this.router.url.endsWith(texto);
   }
 
   confirmarAccion(mensaje: string): boolean {

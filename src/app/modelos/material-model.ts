@@ -1,9 +1,9 @@
-export class Pago {
+export class Material {
     Id: number;
     IdTrabajo: number;
     NombreTrabajo: string;
-    Fecha: Date;
+    Nombre: string;
     Observaciones: string;
-    Monto: number;
-    EstaAnulado: boolean;
+    Precio: number;
+    EstaComprado: boolean;
 }

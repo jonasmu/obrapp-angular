@@ -2,11 +2,11 @@
 <nav class="menu">
   <a class="left" style="color:green" routerLink="/">OBRAPP</a>  
   <a class="left" routerLink="/trabajos">Mis trabajos</a>
+  <a class="left" routerLink="/materiales">Mis materiales</a>
   <a class="left" routerLink="/pagos">Mis pagos</a>
   <a class="left" routerLink="/contratistas">Contratistas</a>
   <a class="right" routerLink="/sesion">
     <mat-icon>home</mat-icon>
     {{ usuario == null ? "Iniciar sesión" : usuario.Nombre }}
   </a>
-  <!-- <a *ngIf="usuario != null" routerLink="/sesion">{{}}}</a> -->
 </nav>

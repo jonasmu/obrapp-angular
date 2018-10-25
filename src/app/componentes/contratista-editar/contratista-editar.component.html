@@ -1,24 +1,38 @@
-<label>Nombre:
-  <input name="nombre" placeholder="..." [(ngModel)]="contratista.Nombre" />
-</label>
-<br>
-<label>Apellido:
-  <input name="apellido" placeholder="..." [(ngModel)]="contratista.Apellido" />
-</label>
-<br>
-<label>Teléfono:
-  <input name="telefono" placeholder="..." [(ngModel)]="contratista.Telefono" />
-</label>
-<br>
-<label>Domicilio:
-  <input name="domicilio" placeholder="..." [(ngModel)]="contratista.Domicilio" />
-</label>
-<br>
-<label>Observaciones:
-  <input name="observaciones" placeholder="..." [(ngModel)]="contratista.Observaciones" />
-</label>
+<h3>{{esCrear ? 'Nuevo' : 'Editar'}} contratista</h3>
+<div *ngIf="contratista" class="formulario">
+  <div>
+    <mat-form-field class="formulario-item">
+      <input matInput placeholder="Nombre" [(ngModel)]="contratista.Nombre">
+    </mat-form-field>
+  </div>
 
-<div class="botones-confirmar">
-  <button (click)="aceptar($event)">Aceptar</button>
-  <button (click)="cancelar($event)">Cancelar</button>
+  <div>
+    <mat-form-field class="formulario-item">
+      <input matInput placeholder="Apellido" [(ngModel)]="contratista.Apellido">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="formulario-item">
+      <input matInput placeholder="Teléfono" [(ngModel)]="contratista.Telefono">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="formulario-item">
+      <input matInput placeholder="Domicilio" [(ngModel)]="contratista.Domicilio">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="formulario-item">
+      <input matInput placeholder="Observaciones" [(ngModel)]="contratista.Observaciones">
+    </mat-form-field>
+  </div>
+
+
+  <div class="botones-confirmar">
+    <button mat-raised-button color="primary" class="boton" (click)="aceptar($event)">Aceptar</button>
+    <button mat-raised-button color="primary" class="boton" (click)="cancelar($event)">Cancelar</button>
+  </div>
 </div>

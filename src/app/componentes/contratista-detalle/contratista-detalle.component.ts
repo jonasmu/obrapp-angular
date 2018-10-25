@@ -23,8 +23,6 @@ export class ContratistaDetalleComponent implements OnInit {
   constructor(
     private globalService:GlobalService,
     private route: ActivatedRoute,
-    private router: Router,
-    private location: Location,
     private contratistasService: ContratistasService,
     private trabajosService: TrabajosService) { }
 
@@ -34,7 +32,7 @@ export class ContratistaDetalleComponent implements OnInit {
   }
 
   establecerColumnasDeTablas(): void {
-    this.columnasDeTablaTrabajos = ['editar', 'nombre', 'estado', 'contrato', 'precio', 'pago'];
+    this.columnasDeTablaTrabajos = ['detalle', 'nombre', 'estado', 'contrato', 'precio', 'pago'];
   }
 
   cargarContratista(): void {
@@ -64,7 +62,9 @@ export class ContratistaDetalleComponent implements OnInit {
   }
 
   eliminarContratista(): void {
-    if (confirm(`¿Seguro que querés eliminar al contratista:\n${this.contratista.Nombre} ${this.contratista.Apellido}?`)) {
+    let nombreApellido = this.contratista == null ? '' : `${this.contratista.Nombre} ${this.contratista.Apellido}`;
+    let mensaje = `¿Seguro que querés eliminar al contratista:\n${nombreApellido}?`;
+    if (this.globalService.confirmarAccion(mensaje)) {
       this.contratistasService.eliminar(this.contratista.Id).subscribe(
         res => this.globalService.navegar(Url.contratistas),
         error => console.error(error)
@@ -72,12 +72,8 @@ export class ContratistaDetalleComponent implements OnInit {
     }
   }
 
-  obtenerNombreEstado(id: number): string {
-    return 'ASD';
-  }
-
-  obtenerNombreContrato(id: number): string {
-    return 'ASD';
+  verDetalle(id: number): void {
+    this.globalService.navegar(Url.trabajo_detalle, id);
   }
 
 }

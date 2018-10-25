@@ -3,4 +3,5 @@ export class Tarea {
     IdTrabajo: number;
     Nombre: string;
     Observaciones: string;
+    EstaRealizada: boolean;
 }

@@ -26,33 +26,15 @@ export class PagoEditarComponent implements OnInit {
     this.inicializarPago();
   }
 
-
-  // obtenerIdTrabajo(): number {
-  //   let idTrabajo: number = 0;
-  //   this.route.params.subscribe(
-  //     params => idTrabajo = params['idTrabajo'],
-  //     error => idTrabajo = 0
-  //   );
-  //   return idTrabajo;
-  // }
-
-  // obtenerIdPago(): number {
-  //   let idTarea: number = 0;
-  //   this.route.params.subscribe(
-  //     params => idTarea = params['idPago'],
-  //     error => idTarea = 0
-  //   );
-  //   return idTarea;
-  // }
-
   inicializarPago(): void {
-
     let idTrabajo = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdTrabajo);
-    if (this.globalService.urlIncluye(`${idTrabajo}/pago/nuevo`)) {
+    let url = this.globalService.mapearUrl(Url.pago_nuevo, idTrabajo);
+    if (this.globalService.urlIncluye(url)) {
       this.esCrear = true;
       this.pago = {
         Id: 0,
         IdTrabajo: idTrabajo,
+        NombreTrabajo: '',
         Monto: 0,
         Fecha: new Date(Date.now()),
         Observaciones: '',
@@ -77,7 +59,7 @@ export class PagoEditarComponent implements OnInit {
         error => this.globalService.notificarError(error)
       );
     }
-    else if (confirm('¿Actualizar pago?')) {
+    else if (this.globalService.confirmarAccion('¿Actualizar pago?')) {
       this.pagosService.actualizar(this.pago).subscribe(
         res => this.globalService.navegar(Url.trabajo_detalle, this.pago.IdTrabajo),
         error => this.globalService.notificarError(error)

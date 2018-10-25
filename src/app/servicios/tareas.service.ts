@@ -21,7 +21,7 @@ export class TareasService {
     return this.http.delete<Tarea>('tareas/' + id);
   }
 
-  obtenerPorId(idTarea: number): Observable<Tarea> {
-    return this.http.get<Tarea>('tareas/' + idTarea);
+  obtenerPorId(id: number): Observable<Tarea> {
+    return this.http.get<Tarea>('tareas/' + id);
   }
 }

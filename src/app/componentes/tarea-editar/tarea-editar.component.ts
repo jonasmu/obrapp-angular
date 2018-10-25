@@ -26,35 +26,17 @@ export class TareaEditarComponent implements OnInit {
     this.inicializarTarea();
   }
 
-
-  // obtenerIdTrabajo(): number {
-  //   let idTrabajo: number = 0;
-  //   this.route.params.subscribe(
-  //     params => idTrabajo = params['idTrabajo'],
-  //     error => idTrabajo = 0
-  //   );
-  //   return idTrabajo;
-  // }
-
-  // obtenerIdTarea(): number {
-  //   let idTarea: number = 0;
-  //   this.route.params.subscribe(
-  //     params => idTarea = params['idTarea'],
-  //     error => idTarea = 0
-  //   );
-  //   return idTarea;
-  // }
-
   inicializarTarea(): void {
-
     let idTrabajo = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdTrabajo);
-    if (this.globalService.urlIncluye(`${idTrabajo}/tarea/nueva`)) {
+    let url = this.globalService.mapearUrl(Url.tarea_nueva, idTrabajo);
+    if (this.globalService.urlIncluye(url)) {
       this.esCrear = true;
       this.tarea = {
         Id: 0,
         IdTrabajo: idTrabajo,
         Nombre: '',
-        Observaciones: ''
+        Observaciones: '',
+        EstaRealizada: false
       };
     }
     else {

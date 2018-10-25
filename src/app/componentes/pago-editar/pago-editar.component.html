@@ -1,5 +1,5 @@
+<h3>{{esCrear ? 'Nuevo' : 'Editar'}} pago</h3>
 <div *ngIf="pago" class="formulario">
-
   <div>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Fecha" [value]="pago.Fecha">

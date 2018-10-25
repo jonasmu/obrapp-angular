@@ -21,6 +21,10 @@ export class ContratistasService {
     return this.http.post<Contratista>('contratistas', contratista);
   }
 
+  actualizar(contratista: Contratista): Observable<Contratista> {
+    return this.http.put<Contratista>('contratistas', contratista);
+  }
+
   eliminar(id: number): Observable<Contratista> {
     return this.http.delete<Contratista>('contratistas/' + id);
   }

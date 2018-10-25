@@ -19,21 +19,25 @@ import { PagoEditarComponent } from '../componentes/pago-editar/pago-editar.comp
 import { ContratistasComponent } from '../componentes/contratistas/contratistas.component';
 import { ContratistaEditarComponent } from '../componentes/contratista-editar/contratista-editar.component';
 import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
+import { MaterialesComponent } from '../componentes/materiales/materiales.component';
+import { MaterialEditarComponent } from '../componentes/material-editar/material-editar.component';
+
+import { AgruparPorPipe } from '../tuberias/agrupar-por.pipe';
 
 import { httpInterceptorProviders } from '../interceptores/index';
-
 import { AutentificacionGuard } from '../guardias/autentificacion.guard';
 
-import { UsuariosService } from '../servicios/usuarios.service';
 import { SesionService } from '../servicios/sesion.service';
 import { TrabajosService } from '../servicios/trabajos.service';
 import { TareasService } from '../servicios/tareas.service';
 import { ContratistasService } from '../servicios/contratistas.service';
 import { PagosService } from '../servicios/pagos.service';
+import { MaterialesService } from '../servicios/materiales.service';
 import { GlobalService } from '../servicios/global.service';
 
 @NgModule({
   declarations: [
+    // Componentes:
     AppComponent,
     InicioComponent,
     MenuComponent,
@@ -46,7 +50,11 @@ import { GlobalService } from '../servicios/global.service';
     PagoEditarComponent,
     ContratistasComponent,
     ContratistaEditarComponent,
-    ContratistaDetalleComponent
+    ContratistaDetalleComponent,
+    MaterialesComponent,
+    MaterialEditarComponent,
+    // Tuberias:
+    AgruparPorPipe
   ],
   imports: [
     BrowserModule,
@@ -62,12 +70,12 @@ import { GlobalService } from '../servicios/global.service';
     // Guardias:
     AutentificacionGuard,
     // Servicios:
-    UsuariosService,
     SesionService,
     TrabajosService,
     TareasService,
     ContratistasService,
     PagosService,
+    MaterialesService,
     GlobalService
   ],
   bootstrap: [AppComponent]

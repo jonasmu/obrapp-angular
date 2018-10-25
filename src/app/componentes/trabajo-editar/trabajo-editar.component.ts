@@ -34,14 +34,11 @@ export class TrabajoEditarComponent implements OnInit {
 
   ngOnInit() {
     this.inicializarTrabajo();
-    this.cargarContratistas();
-    this.cargarEstados();
-    this.cargarContratos();
   }
 
   inicializarTrabajo(): void {
-
-    if (this.globalService.urlIncluye('/trabajo/nuevo')) {
+    let url = this.globalService.mapearUrl(Url.trabajo_nuevo);
+    if (this.globalService.urlIncluye(url)) {
       this.esCrear = true;
       this.trabajo = {
         Id: 0,
@@ -69,12 +66,20 @@ export class TrabajoEditarComponent implements OnInit {
         Tareas: [],
         EstaEliminado: false
       };
+      this.cargarContratistas();
+      this.cargarEstados();
+      this.cargarContratos();
     }
     else {
-      let idTrabajo = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdTrabajo);
       this.esCrear = false;
+      let idTrabajo = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdTrabajo);
       this.trabajosService.obtenerPorId(idTrabajo).subscribe(
-        res => this.trabajo = res,
+        res => {
+          this.trabajo = res;
+          this.cargarContratistas();
+          this.cargarEstados();
+          this.cargarContratos();
+        },
         error => this.globalService.notificarError(error)
       );
     }
@@ -82,7 +87,21 @@ export class TrabajoEditarComponent implements OnInit {
 
   cargarContratistas(): void {
     this.contratistasService.obtenerTodos().subscribe(
-      res => this.contratistas = res,
+      res => {
+        this.contratistas = res;
+        if (!this.esCrear) {
+          let contratistaEliminado = true;
+          for (let i = 0; i < this.contratistas.length; i++) {
+            if (this.contratistas[i].Id == this.trabajo.Contratista.Id) {
+              contratistaEliminado = false;
+              break;
+            }
+          }
+          if (contratistaEliminado) {
+            this.contratistas.push(this.trabajo.Contratista);
+          }
+        }
+      },
       error => this.globalService.notificarError(error)
     );
   }

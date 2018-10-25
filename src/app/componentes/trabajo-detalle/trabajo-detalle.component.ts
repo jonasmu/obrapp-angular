@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { TrabajosService } from 'src/app/servicios/trabajos.service';
 import { Trabajo } from 'src/app/modelos/trabajo.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { Pago } from 'src/app/modelos/pago.model';
 import { PagosService } from 'src/app/servicios/pagos.service';
 import { GlobalService } from 'src/app/servicios/global.service';
 import { Parametro } from 'src/app/modelos/parametro.model';
 import { Url } from 'src/app/modelos/url.model';
+import { Material } from 'src/app/modelos/material-model';
+import { MaterialesService } from 'src/app/servicios/materiales.service';
+import { TareasService } from 'src/app/servicios/tareas.service';
+import { Tarea } from 'src/app/modelos/tarea.model';
 
 @Component({
   selector: 'app-trabajo-detalle',
@@ -18,13 +21,17 @@ export class TrabajoDetalleComponent implements OnInit {
 
   trabajo: Trabajo;
   pagos: Pago[];
+  materiales: Material[];
   columnasDeTablaTareas: string[];
   columnasDeTablaPagos: string[];
+  columnasDeTablaMateriales: string[];
 
   constructor(
     private route: ActivatedRoute,
     private globalService: GlobalService,
     private pagosService: PagosService,
+    private tareasService: TareasService,
+    private materialesService: MaterialesService,
     private trabajosService: TrabajosService) { }
 
   ngOnInit() {
@@ -37,13 +44,21 @@ export class TrabajoDetalleComponent implements OnInit {
       'editar',
       'eliminar',
       'nombre',
-      'observaciones'
+      'observaciones',
+      'estado'
+    ];
+    this.columnasDeTablaMateriales = [
+      'editar',
+      'eliminar',
+      'nombre',
+      'observaciones',
+      'estado',
     ];
     this.columnasDeTablaPagos = [
       'editar',
       'fecha',
       'observaciones',
-      'anulado',
+      'estado',
       'monto'
     ];
   }
@@ -54,6 +69,7 @@ export class TrabajoDetalleComponent implements OnInit {
       res => {
         this.trabajo = res;
         this.cargarPagos();
+        this.cargarMateriales();
       },
       error => this.globalService.notificarError(error)
     );
@@ -67,12 +83,21 @@ export class TrabajoDetalleComponent implements OnInit {
     );
   }
 
+  cargarMateriales(): void {
+    this.materiales = [];
+    this.materialesService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
+      res => this.materiales = res,
+      error => this.globalService.notificarError(error)
+    );
+  }
+
   editarTrabajo(): void {
     this.globalService.navegar(Url.trabajo_editar, this.trabajo.Id);
   }
 
   eliminarTrabajo(): void {
-    if (confirm(`¿Seguro que querés eliminar el trabajo:\n${this.trabajo.Nombre}?`)) {
+    let mensaje = `¿Seguro que querés eliminar el trabajo:\n${this.trabajo.Nombre}?`;
+    if (this.globalService.confirmarAccion(mensaje)) {
       this.trabajosService.eliminar(this.trabajo.Id).subscribe(
         res => this.globalService.navegar(Url.trabajos),
         error => this.globalService.notificarError(error)
@@ -88,8 +113,30 @@ export class TrabajoDetalleComponent implements OnInit {
     this.globalService.navegar(Url.tarea_editar, this.trabajo.Id, id);
   }
 
-  eliminarTarea(id: number): void {
+  eliminarTarea(tarea: Tarea): void {
+    let mensaje = `¿Seguro que querés eliminar la tarea:\n${tarea.Nombre}?`;
+    if (this.globalService.confirmarAccion(mensaje)) {
+      this.tareasService.eliminar(tarea.Id).subscribe(
+        res => this.trabajo.Tareas = this.trabajo.Tareas.filter(x => x.Id != tarea.Id)
+      );
+    }
+  }
 
+  crearMaterial(evento: Event): void {
+    this.globalService.navegar(Url.material_nuevo, this.trabajo.Id);
+  }
+
+  editarMaterial(id: number): void {
+    this.globalService.navegar(Url.material_editar, this.trabajo.Id, id);
+  }
+
+  eliminarMaterial(material: Material): void {
+    let mensaje = `¿Seguro que querés eliminar el material:\n${material.Nombre}?`;
+    if (this.globalService.confirmarAccion(mensaje)) {
+      this.materialesService.eliminar(material.Id).subscribe(
+        res => this.materiales = this.materiales.filter(x => x.Id != material.Id)
+      );
+    }
   }
 
   crearPago(evento: Event): void {

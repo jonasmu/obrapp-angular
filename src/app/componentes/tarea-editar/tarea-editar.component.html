@@ -1,3 +1,4 @@
+<h3>{{esCrear ? 'Nueva' : 'Editar'}} tarea</h3>
 <div *ngIf="tarea" class="formulario">
   <div>
     <mat-form-field class="formulario-item">
@@ -9,6 +10,10 @@
     <mat-form-field class="formulario-item">
       <textarea matInput placeholder="Observaciones" rows="1" [(ngModel)]="tarea.Observaciones"></textarea>
     </mat-form-field>
+  </div>
+
+  <div>
+    <mat-checkbox [(ngModel)]="tarea.EstaRealizada">Realizada</mat-checkbox>
   </div>
 
   <div class="botones-confirmar">

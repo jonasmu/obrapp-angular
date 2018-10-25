@@ -20,4 +20,8 @@ export class Url {
     static contratista_nuevo: string = 'contratista/nuevo';
     static contratista_editar: string = `contratista/editar/:${Parametro.IdContratista}`;
     static contratista_detalle: string = `contratista/:${Parametro.IdContratista}`;
+
+    static materiales: string = 'materiales';
+    static material_nuevo: string = `trabajo/:${Parametro.IdTrabajo}/material/nuevo`;
+    static material_editar: string = `trabajo/:${Parametro.IdTrabajo}/material/editar/:${Parametro.IdMaterial}`;
 }
