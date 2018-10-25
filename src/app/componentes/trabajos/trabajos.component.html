@@ -30,17 +30,6 @@
     <td mat-cell *matCellDef="let trabajo"> <b>{{trabajo.Nombre}}</b> </td>
   </ng-container>
 
-  <ng-container matColumnDef="estado">
-    <th mat-header-cell *matHeaderCellDef> Estado </th>
-    <td mat-cell *matCellDef="let trabajo">
-      <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
-        [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
-        [class.badge-danger]="trabajo.Estado.Id===5">
-        {{trabajo.Estado.Nombre}}
-      </span>
-    </td>
-  </ng-container>
-
   <!-- <ng-container matColumnDef="tareas">
     <th mat-header-cell *matHeaderCellDef> Tareas </th>
     <td mat-cell *matCellDef="let trabajo"> {{trabajo.Tareas.length}} </td>
@@ -54,6 +43,17 @@
   <ng-container matColumnDef="contrato">
     <th mat-header-cell *matHeaderCellDef> Contrato </th>
     <td mat-cell *matCellDef="let trabajo"> {{trabajo.Contrato.Nombre}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let trabajo">
+      <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+        [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+        [class.badge-danger]="trabajo.Estado.Id===5">
+        {{trabajo.Estado.Nombre}}
+      </span>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="precio">

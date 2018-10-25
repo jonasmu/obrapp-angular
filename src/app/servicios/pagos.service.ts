@@ -17,6 +17,10 @@ export class PagosService {
     return this.http.get<Pago[]>('pagos/trabajo/' + id);
   }
 
+  obtenerPorContratista(id : number): Observable<Pago[]> {
+    return this.http.get<Pago[]>('pagos/contratista/' + id);
+  }
+
   obtenerPorId(id: number): Observable<Pago> {
     return this.http.get<Pago>('pagos/' + id);
   }

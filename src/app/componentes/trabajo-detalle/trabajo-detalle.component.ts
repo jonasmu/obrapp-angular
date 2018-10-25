@@ -53,6 +53,7 @@ export class TrabajoDetalleComponent implements OnInit {
       'nombre',
       'observaciones',
       'estado',
+      'precio'
     ];
     this.columnasDeTablaPagos = [
       'editar',
@@ -89,6 +90,11 @@ export class TrabajoDetalleComponent implements OnInit {
       res => this.materiales = res,
       error => this.globalService.notificarError(error)
     );
+  }
+
+  crearTrabajo(evento: Event): void {
+    evento.preventDefault();
+    this.globalService.navegar(Url.trabajo_nuevo);
   }
 
   editarTrabajo(): void {
@@ -159,30 +165,46 @@ export class TrabajoDetalleComponent implements OnInit {
     }
   }
 
-  obtenerMontoDePagosRatificados(): number {
-    let pagos = this.pagos.filter(x => !x.EstaAnulado);
-    return this.sumarPagos(pagos);
+  sumarPagosRatificados(): number {
+    let montos = this.pagos.filter(x => !x.EstaAnulado).map(x => x.Monto);
+    return this.sumarMontos(montos);
   }
 
-  obtenerMontoDePagosAnulados(): number {
-    let pagos = this.pagos.filter(x => x.EstaAnulado);
-    return this.sumarPagos(pagos);
+  sumarPagosAnulados(): number {
+    let montos = this.pagos.filter(x => x.EstaAnulado).map(x => x.Monto);
+    return this.sumarMontos(montos);
   }
 
-  obtenerMontoDePagosTotal(): number {
-    return this.sumarPagos(this.pagos);
+  sumarPagosTotal(): number {
+    let montos = this.pagos.map(x => x.Monto);
+    return this.sumarMontos(montos);
   }
 
-  private sumarPagos(pagos: Pago[]): number {
-    if (this.pagos == null) {
+  sumarMaterialesFaltantes(): number {
+    let montos = this.materiales.filter(x => !x.EstaComprado).map(x => x.Precio);
+    return this.sumarMontos(montos);
+  }
+
+  sumarMaterialesComprados(): number {
+    let montos = this.materiales.filter(x => x.EstaComprado).map(x => x.Precio);
+    return this.sumarMontos(montos);
+  }
+
+  sumarMaterialesTotal(): number {
+    let montos = this.materiales.map(x => x.Precio);
+    return this.sumarMontos(montos);
+  }
+
+  private sumarMontos(montos: number[]): number {
+    if (montos == null) {
       return 0;
     }
     var total = 0;
-    for (var i = 0; i < pagos.length; i++) {
-      if (isNaN(pagos[i].Monto)) {
+    for (var i = 0; i < montos.length; i++) {
+      if (isNaN(montos[i])) {
         continue;
       }
-      total += pagos[i].Monto;
+      total += montos[i];
     }
     return total;
   }

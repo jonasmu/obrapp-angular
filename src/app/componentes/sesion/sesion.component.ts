@@ -31,8 +31,8 @@ export class SesionComponent implements OnInit {
       error => this.globalService.notificarError(error),
       () => {
         let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.globalService.navegar(returnUrl);
         window.location.reload();
+        this.globalService.navegar(returnUrl);
       }
     );
   }
@@ -40,7 +40,7 @@ export class SesionComponent implements OnInit {
   cerrarSesion(evento: Event): void {
     evento.preventDefault();
     this.autentificacionService.cerrar();
-    this.globalService.navegar(Url.raiz);
     window.location.reload();
+    this.globalService.navegar(Url.raiz);
   }
 }

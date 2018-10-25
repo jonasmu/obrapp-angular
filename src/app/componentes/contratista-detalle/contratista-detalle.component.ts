@@ -8,6 +8,8 @@ import { Trabajo } from 'src/app/modelos/trabajo.model';
 import { GlobalService } from 'src/app/servicios/global.service';
 import { Parametro } from 'src/app/modelos/parametro.model';
 import { Url } from 'src/app/modelos/url.model';
+import { PagosService } from 'src/app/servicios/pagos.service';
+import { Pago } from 'src/app/modelos/pago.model';
 
 @Component({
   selector: 'app-contratista-detalle',
@@ -18,12 +20,15 @@ export class ContratistaDetalleComponent implements OnInit {
 
   contratista: Contratista;
   trabajos: Trabajo[];
+  pagos: Pago[];
   columnasDeTablaTrabajos: string[];
+  columnasDeTablaPagos: string[];
 
   constructor(
-    private globalService:GlobalService,
+    private globalService: GlobalService,
     private route: ActivatedRoute,
     private contratistasService: ContratistasService,
+    private pagosService: PagosService,
     private trabajosService: TrabajosService) { }
 
   ngOnInit() {
@@ -32,7 +37,21 @@ export class ContratistaDetalleComponent implements OnInit {
   }
 
   establecerColumnasDeTablas(): void {
-    this.columnasDeTablaTrabajos = ['detalle', 'nombre', 'estado', 'contrato', 'precio', 'pago'];
+    this.columnasDeTablaTrabajos = [
+      'detalle',
+      'nombre',
+      'contrato',
+      'estado',
+      'precio'
+      // 'pagado'
+    ];
+    this.columnasDeTablaPagos = [
+      // 'editar',
+      'fecha',
+      'observaciones',
+      'estado',
+      'monto'
+    ];
   }
 
   cargarContratista(): void {
@@ -41,11 +60,9 @@ export class ContratistaDetalleComponent implements OnInit {
       res => {
         this.contratista = res;
         this.cargarTrabajos();
+        this.cargarPagos();
       },
-      error => {
-        console.error(error);
-        this.globalService.volver();
-      }
+      error => this.globalService.notificarError(error)
     );
   }
 
@@ -53,8 +70,21 @@ export class ContratistaDetalleComponent implements OnInit {
     this.trabajos = [];
     this.trabajosService.obtenerPorContratista(this.contratista.Id).subscribe(
       res => this.trabajos = res,
-      error => console.error(error)
+      error => this.globalService.notificarError(error)
     );
+  }
+
+  cargarPagos(): void {
+    this.pagos = [];
+    this.pagosService.obtenerPorContratista(this.contratista.Id).subscribe(
+      res => this.pagos = res,
+      error => this.globalService.notificarError(error)
+    );
+  }
+
+  crearContratista(evento:Event){
+    event.preventDefault();
+    this.globalService.navegar(Url.contratista_nuevo);
   }
 
   editarContratista(): void {
@@ -67,7 +97,7 @@ export class ContratistaDetalleComponent implements OnInit {
     if (this.globalService.confirmarAccion(mensaje)) {
       this.contratistasService.eliminar(this.contratista.Id).subscribe(
         res => this.globalService.navegar(Url.contratistas),
-        error => console.error(error)
+        error => this.globalService.notificarError(error)
       );
     }
   }

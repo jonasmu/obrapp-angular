@@ -26,6 +26,7 @@ export class MaterialesComponent implements OnInit {
       'nombre',
       'observaciones',
       'estado',
+      'precio'
     ];
     this.cargarMateriales();
   }

@@ -34,9 +34,9 @@ export class TrabajosComponent implements OnInit {
     this.columnasDeTabla = [
       'detalle',
       'nombre',
-      'estado',
       'contratista',
       'contrato',
+      'estado',
       'precio'
     ];
   }
