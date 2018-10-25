@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { SesionService } from 'src/app/servicios/sesion.service';
+import { GlobalService } from 'src/app/servicios/global.service';
+import { Url } from 'src/app/modelos/url.model';
 
 @Component({
   selector: 'app-sesion',
@@ -13,7 +15,7 @@ export class SesionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private globalService: GlobalService,
     private autentificacionService: SesionService) { }
 
   ngOnInit() {
@@ -25,15 +27,11 @@ export class SesionComponent implements OnInit {
 
     // Llama al servicio para iniciar sesion del usuario pegandole a la API.
     this.autentificacionService.iniciar(nombre, clave).subscribe(
-      res => {
-        this.autentificacionService.guardar(res);
-      },
-      error => {
-        console.error(error);
-      },
+      res => this.autentificacionService.guardar(res),
+      error => this.globalService.notificarError(error),
       () => {
         let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.router.navigateByUrl(returnUrl);
+        this.globalService.navegar(returnUrl);
         window.location.reload();
       }
     );
@@ -42,7 +40,7 @@ export class SesionComponent implements OnInit {
   cerrarSesion(evento: Event): void {
     evento.preventDefault();
     this.autentificacionService.cerrar();
-    this.router.navigateByUrl('/');
+    this.globalService.navegar(Url.raiz);
     window.location.reload();
   }
 }

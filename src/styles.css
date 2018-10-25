@@ -81,3 +81,12 @@ button.boton{
 .botones-confirmar{
     margin: 15px 0px;
 }
+
+.detalle-ficha-item {
+    margin: 10px;
+}
+
+.texto-pequeno{
+    color: grey;
+    font-size: 12px;
+}

@@ -8,6 +8,9 @@ import { Contratista } from 'src/app/modelos/contratista.model';
 import { Estado } from 'src/app/modelos/estado.model';
 import { Contrato } from 'src/app/modelos/contrato.model';
 import { SesionService } from 'src/app/servicios/sesion.service';
+import { GlobalService } from 'src/app/servicios/global.service';
+import { Parametro } from 'src/app/modelos/parametro.model';
+import { Url } from 'src/app/modelos/url.model';
 
 @Component({
   selector: 'app-trabajo-editar',
@@ -23,12 +26,11 @@ export class TrabajoEditarComponent implements OnInit {
   esCrear: boolean;
 
   constructor(
+    private globalService: GlobalService,
     private trabajosService: TrabajosService,
     private serviceService: SesionService,
     private contratistasService: ContratistasService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private location: Location) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.inicializarTrabajo();
@@ -37,18 +39,9 @@ export class TrabajoEditarComponent implements OnInit {
     this.cargarContratos();
   }
 
-  obtenerIdTrabajo(): number {
-    let idTrabajo: number = 0;
-    this.route.params.subscribe(
-      params => idTrabajo = params['idTrabajo'],
-      error => idTrabajo = 0
-    );
-    return idTrabajo;
-  }
-
   inicializarTrabajo(): void {
 
-    if (this.router.url.includes('/trabajo/nuevo')) {
+    if (this.globalService.urlIncluye('/trabajo/nuevo')) {
       this.esCrear = true;
       this.trabajo = {
         Id: 0,
@@ -78,17 +71,11 @@ export class TrabajoEditarComponent implements OnInit {
       };
     }
     else {
-      let idTrabajo = this.obtenerIdTrabajo();
-      if (isNaN(idTrabajo) || idTrabajo == 0) {
-        this.errorVolver();
-      }
+      let idTrabajo = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdTrabajo);
       this.esCrear = false;
       this.trabajosService.obtenerPorId(idTrabajo).subscribe(
         res => this.trabajo = res,
-        error => {
-          console.error(error);
-          this.errorVolver();
-        }
+        error => this.globalService.notificarError(error)
       );
     }
   }
@@ -96,21 +83,21 @@ export class TrabajoEditarComponent implements OnInit {
   cargarContratistas(): void {
     this.contratistasService.obtenerTodos().subscribe(
       res => this.contratistas = res,
-      error => console.error(error)
+      error => this.globalService.notificarError(error)
     );
   }
 
   cargarEstados(): void {
     this.trabajosService.obtenerEstados().subscribe(
       res => this.estados = res,
-      error => console.error(error)
+      error => this.globalService.notificarError(error)
     );
   }
 
   cargarContratos(): void {
     this.trabajosService.obtenerContratos().subscribe(
       res => this.contratos = res,
-      error => console.error(error)
+      error => this.globalService.notificarError(error)
     );
   }
 
@@ -118,28 +105,23 @@ export class TrabajoEditarComponent implements OnInit {
     evento.preventDefault();
     if (this.esCrear) {
       this.trabajosService.crear(this.trabajo).subscribe(
-        res => this.router.navigateByUrl('trabajos'),
-        error => this.errorVolver(error)
+        res => this.globalService.navegar(Url.trabajos),
+        error => this.globalService.notificarError(error)
       );
     }
-    else if (confirm('¿Actualizar trabajo?')) {
+    else if (this.globalService.confirmarAccion('¿Actualizar trabajo?')) {
       this.trabajo.Contratista = this.contratistas.filter(x => x.Id === this.trabajo.Contratista.Id)[0];
       this.trabajo.Contrato = this.contratos.filter(x => x.Id === this.trabajo.Contrato.Id)[0];
       this.trabajo.Estado = this.estados.filter(x => x.Id === this.trabajo.Estado.Id)[0];
       this.trabajosService.actualizar(this.trabajo).subscribe(
-        res => this.router.navigateByUrl('trabajo/' + this.trabajo.Id),
-        error => this.errorVolver(error)
+        res => this.globalService.navegar(Url.trabajo_detalle, this.trabajo.Id),
+        error => this.globalService.notificarError(error)
       );
     }
   }
 
   cancelar(evento: Event) {
     evento.preventDefault();
-    this.location.back();
-  }
-
-  errorVolver(mensaje: string = ''): void {
-    alert('Ha ocurrido un error\n' + mensaje);
-    this.router.navigateByUrl('trabajos');
+    this.globalService.volver();
   }
 }

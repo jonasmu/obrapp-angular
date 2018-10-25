@@ -7,7 +7,91 @@
     </button>
 </div>
 <hr>
-<div class="h3">{{contratista.Nombre}}</div>
+<div class="h3">{{contratista.Nombre}} {{contratista.Apellido}}</div>
+<div class="detalle-ficha">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="detalle-ficha-item">
+                <b>Observaciones</b><br>
+                {{contratista.Observaciones}}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="detalle-ficha-item">
+                <b>Teléfono</b><br>
+                {{contratista.Telefono}}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="detalle-ficha-item">
+                <b>Domicilio</b><br>
+                {{contratista.Domicilio}}
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+    <!-- TRABAJOS -->
+    <mat-accordion>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Trabajos
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: {{trabajos.length}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div>
+                <button mat-raised-button color="warn" (click)="crearTrabajo($event)">
+                    Nuevo trabajo
+                </button>
+            </div>
+            <table mat-table [dataSource]="trabajos" class="ancho-completo" *ngIf="trabajos.length>0">
+
+                <ng-container matColumnDef="editar">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let trabajo" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarTrabajo(trabajo.Id)">
+                            Editar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let trabajo"> <b>{{trabajo.Nombre}}</b> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let trabajo"> {{obtenerNombreEstado(trabajo.Estado.Id)}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="contrato">
+                    <th mat-header-cell *matHeaderCellDef> Contrato </th>
+                    <td mat-cell *matCellDef="let trabajo"> {{obtenerNombreContrato(trabajo.Contrato.Id)}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef> Precio acordado </th>
+                    <td mat-cell *matCellDef="let trabajo"> {{trabajo.Precio | currency}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pago">
+                    <th mat-header-cell *matHeaderCellDef> Pagado hasta la fecha </th>
+                    <td mat-cell *matCellDef="let trabajo"> {{trabajo.Precio | currency}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasDeTablaTrabajos"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasDeTablaTrabajos;"></tr>
+            </table>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
 
 <pre>
     {{contratista | json}}

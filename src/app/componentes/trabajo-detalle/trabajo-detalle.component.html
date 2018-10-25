@@ -13,7 +13,7 @@
     <div class="detalle-ficha">
         <div class="row">
             <div class="col-sm-4">
-                <div class="item-margen">
+                <div class="detalle-ficha-item">
                     <b>Estado</b><br>
                     <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
                         [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
@@ -21,23 +21,23 @@
                         {{trabajo.Estado.Nombre}}
                     </span>
                 </div>
-                <div class="item-margen">
+                <div class="detalle-ficha-item">
                     <b>Descripción</b><br>
                     {{trabajo.Descripcion}}
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="item-margen">
+                <div class="detalle-ficha-item">
                     <b>Contrato</b><br>
                     {{trabajo.Contrato.Nombre}}
                 </div>
-                <div class="item-margen">
+                <div class="detalle-ficha-item">
                     <b>Contratista</b><br>
                     {{trabajo.Contratista.Nombre}} {{trabajo.Contratista.Apellido}}
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="item-margen">
+                <div class="detalle-ficha-item">
                     <b>
                         Precio pactado por
                         <span *ngIf="trabajo.Contrato.Id==1">trabajo</span>
@@ -46,7 +46,7 @@
                     <br>
                     {{trabajo.Precio | currency }}
                 </div>
-                <div class="item-margen">
+                <div class="detalle-ficha-item">
                     <b>Pagado hasta la fecha</b><br>
                     {{obtenerMontoDePagosRatificados() | currency}}
                     <span class="texto-pequeno">(Dif: {{trabajo.Precio - obtenerMontoDePagosRatificados() | currency}})</span>

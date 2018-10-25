@@ -14,30 +14,31 @@ import { PagoEditarComponent } from '../componentes/pago-editar/pago-editar.comp
 import { ContratistasComponent } from '../componentes/contratistas/contratistas.component'
 import { ContratistaEditarComponent } from '../componentes/contratista-editar/contratista-editar.component';
 import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
+import { Parametro } from '../modelos/parametro.model';
+import { Url } from '../modelos/url.model';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: '', component: InicioComponent },
+  { path: Url.raiz, redirectTo: '/', pathMatch: 'full' },
+  { path: Url.raiz, component: InicioComponent },
 
-  { path: 'sesion', component: SesionComponent },
+  { path: Url.sesion, component: SesionComponent },
 
-  { path: 'trabajos', component: TrabajosComponent, canActivate: [AutentificacionGuard] },
-  { path: 'trabajo/nuevo', component: TrabajoEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'trabajo/editar/:idTrabajo', component: TrabajoEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'trabajo/:idTrabajo', component: TrabajoDetalleComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.trabajos, component: TrabajosComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.trabajo_nuevo, component: TrabajoEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.trabajo_editar, component: TrabajoEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.trabajo_detalle, component: TrabajoDetalleComponent, canActivate: [AutentificacionGuard] },
 
-  { path: 'trabajo/:idTrabajo/tarea/nueva', component: TareaEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'trabajo/:idTrabajo/tarea/editar/:idTarea', component: TareaEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.tarea_nueva, component: TareaEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.tarea_editar, component: TareaEditarComponent, canActivate: [AutentificacionGuard] },
 
-  { path: 'trabajo/:idTrabajo/pago/nuevo', component: PagoEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'trabajo/:idTrabajo/pago/editar/:idPago', component: PagoEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.pagos, component: PagosComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.pago_nuevo, component: PagoEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.pago_editar, component: PagoEditarComponent, canActivate: [AutentificacionGuard] },
 
-  { path: 'pagos', component: PagosComponent, canActivate: [AutentificacionGuard] },
-  
-  { path: 'contratistas', component: ContratistasComponent, canActivate: [AutentificacionGuard] },
-  { path: 'contratista/nuevo', component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'contratista/editar/:idContratista', component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
-  { path: 'contratista/:idContratista', component: ContratistaDetalleComponent, canActivate: [AutentificacionGuard] }
+  { path: Url.contratistas, component: ContratistasComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.contratista_nuevo, component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.contratista_editar, component: ContratistaEditarComponent, canActivate: [AutentificacionGuard] },
+  { path: Url.contratista_detalle, component: ContratistaDetalleComponent, canActivate: [AutentificacionGuard] }
 ];
 
 @NgModule({

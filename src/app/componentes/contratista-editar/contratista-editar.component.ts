@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { Contratista } from 'src/app/modelos/contratista.model';
 import { ContratistasService } from 'src/app/servicios/contratistas.service';
 import { Router } from '@angular/router';
+import { GlobalService } from 'src/app/servicios/global.service';
+import { Url } from 'src/app/modelos/url.model';
 
 @Component({
   selector: 'app-contratista-editar',
@@ -14,6 +16,7 @@ export class ContratistaEditarComponent implements OnInit {
   contratista: Contratista;
 
   constructor(
+    private globalService:GlobalService,
     private contratistasService: ContratistasService,
     private router: Router,
     private location: Location) {}
@@ -37,17 +40,13 @@ export class ContratistaEditarComponent implements OnInit {
   aceptar(evento: Event) {
     evento.preventDefault();
     this.contratistasService.crear(this.contratista).subscribe(
-      res => {
-        this.router.navigateByUrl('contratistas');
-      },
-      error => {
-        console.error(error);
-      }
+      res => this.globalService.navegar(Url.contratistas),
+      error => this.globalService.notificarError(error)
     );
   }
 
   cancelar(evento: Event) {
     evento.preventDefault();
-    this.location.back();
+    this.globalService.volver();
   }
 }

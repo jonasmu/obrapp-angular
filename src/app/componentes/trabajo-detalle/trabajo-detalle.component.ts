@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Pago } from 'src/app/modelos/pago.model';
 import { PagosService } from 'src/app/servicios/pagos.service';
+import { GlobalService } from 'src/app/servicios/global.service';
+import { Parametro } from 'src/app/modelos/parametro.model';
+import { Url } from 'src/app/modelos/url.model';
 
 @Component({
   selector: 'app-trabajo-detalle',
@@ -20,8 +23,7 @@ export class TrabajoDetalleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private location: Location,
+    private globalService: GlobalService,
     private pagosService: PagosService,
     private trabajosService: TrabajosService) { }
 
@@ -31,24 +33,29 @@ export class TrabajoDetalleComponent implements OnInit {
   }
 
   establecerColumnasDeTablas(): void {
-    this.columnasDeTablaTareas = ['editar', 'eliminar', 'nombre', 'observaciones'];
-    this.columnasDeTablaPagos = ['editar', 'fecha', 'observaciones', 'anulado', 'monto'];
+    this.columnasDeTablaTareas = [
+      'editar',
+      'eliminar',
+      'nombre',
+      'observaciones'
+    ];
+    this.columnasDeTablaPagos = [
+      'editar',
+      'fecha',
+      'observaciones',
+      'anulado',
+      'monto'
+    ];
   }
 
   cargarTrabajo(): void {
-    let idTrabajo: number;
-    this.route.params.subscribe(params => {
-      idTrabajo = params['idTrabajo']
-    });
+    let idTrabajo = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdTrabajo);
     this.trabajosService.obtenerPorId(idTrabajo).subscribe(
       res => {
         this.trabajo = res;
         this.cargarPagos();
       },
-      error => {
-        console.error(error);
-        this.location.back();
-      }
+      error => this.globalService.notificarError(error)
     );
   }
 
@@ -56,29 +63,29 @@ export class TrabajoDetalleComponent implements OnInit {
     this.pagos = [];
     this.pagosService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.pagos = res,
-      error => console.error(error)
+      error => this.globalService.notificarError(error)
     );
   }
 
   editarTrabajo(): void {
-    this.router.navigateByUrl(`trabajo/editar/${this.trabajo.Id}`);
+    this.globalService.navegar(Url.trabajo_editar, this.trabajo.Id);
   }
 
   eliminarTrabajo(): void {
     if (confirm(`¿Seguro que querés eliminar el trabajo:\n${this.trabajo.Nombre}?`)) {
       this.trabajosService.eliminar(this.trabajo.Id).subscribe(
-        res => this.router.navigateByUrl('trabajos'),
-        error => console.error(error)
+        res => this.globalService.navegar(Url.trabajos),
+        error => this.globalService.notificarError(error)
       );
     }
   }
 
   crearTarea(evento: Event): void {
-    this.router.navigateByUrl(`trabajo/${this.trabajo.Id}/tarea/nueva`);
+    this.globalService.navegar(Url.tarea_nueva, this.trabajo.Id);
   }
 
   editarTarea(id: number): void {
-    this.router.navigateByUrl(`trabajo/${this.trabajo.Id}/tarea/editar/${id}`);
+    this.globalService.navegar(Url.tarea_editar, this.trabajo.Id, id);
   }
 
   eliminarTarea(id: number): void {
@@ -86,19 +93,21 @@ export class TrabajoDetalleComponent implements OnInit {
   }
 
   crearPago(evento: Event): void {
-    this.router.navigateByUrl(`trabajo/${this.trabajo.Id}/pago/nuevo`);
+    this.globalService.navegar(Url.pago_nuevo, this.trabajo.Id);
   }
 
   editarPago(id: number): void {
-    this.router.navigateByUrl(`trabajo/${this.trabajo.Id}/pago/editar/${id}`);
+    this.globalService.navegar(Url.pago_editar, this.trabajo.Id, id);
   }
 
   anularPago(pago: Pago): void {
-    if (confirm(`¿Seguro que querés ${pago.EstaAnulado ? 'ratificar' : 'anular'} el pago registrado el ${pago.Fecha} por $${pago.Monto}?`)) {
+    let mensaje = `¿Seguro que querés ${pago.EstaAnulado ? 'ratificar' : 'anular'} 
+                  el pago registrado el ${pago.Fecha} por $${pago.Monto}?`;
+    if (this.globalService.confirmarAccion(mensaje)) {
       pago.EstaAnulado = !pago.EstaAnulado;
       this.pagosService.actualizar(pago).subscribe(
-        res => { },
-        error => console.error(error)
+        null,
+        error => this.globalService.notificarError(error)
       );
     }
   }

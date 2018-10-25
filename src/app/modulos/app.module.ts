@@ -30,6 +30,7 @@ import { TrabajosService } from '../servicios/trabajos.service';
 import { TareasService } from '../servicios/tareas.service';
 import { ContratistasService } from '../servicios/contratistas.service';
 import { PagosService } from '../servicios/pagos.service';
+import { GlobalService } from '../servicios/global.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { PagosService } from '../servicios/pagos.service';
     TrabajosService,
     TareasService,
     ContratistasService,
-    PagosService
+    PagosService,
+    GlobalService
   ],
   bootstrap: [AppComponent]
 })

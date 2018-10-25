@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TrabajosService } from 'src/app/servicios/trabajos.service';
 import { Trabajo } from 'src/app/modelos/trabajo.model';
 import { Router } from '@angular/router';
+import { Url } from 'src/app/modelos/url.model';
+import { GlobalService } from 'src/app/servicios/global.service';
 
 @Component({
   selector: 'app-trabajos',
@@ -13,7 +15,7 @@ export class TrabajosComponent implements OnInit {
   columnasDeTabla: string[];
 
   constructor(
-    private router: Router,
+    private globalService: GlobalService,
     private trabajosService: TrabajosService) { }
 
   ngOnInit() {
@@ -23,21 +25,24 @@ export class TrabajosComponent implements OnInit {
 
   obtenerTrabajos() {
     this.trabajosService.obtenerPorUsuario().subscribe(
-      res => {
-        this.trabajos = res
-      },
-      error => {
-        console.error(error);
-      }
+      res => this.trabajos = res,
+      error => this.globalService.notificarError(error)
     );
   }
 
   establecerColumnasDeTabla(): void {
-    this.columnasDeTabla = ['detalle', 'nombre', 'estado', 'contratista', 'contrato', 'precio'];
+    this.columnasDeTabla = [
+      'detalle',
+      'nombre',
+      'estado',
+      'contratista',
+      'contrato',
+      'precio'
+    ];
   }
 
   crearTrabajo(): void {
-    this.router.navigateByUrl('trabajo/nuevo');
+    this.globalService.navegar(Url.trabajo_nuevo);
   }
 
   eliminarTrabajo(trabajo: Trabajo): void {
@@ -45,6 +50,6 @@ export class TrabajosComponent implements OnInit {
   }
 
   verDetalle(id: number): void {
-    this.router.navigateByUrl('trabajo/' + id);
+    this.globalService.navegar(Url.trabajo_detalle, id);
   }
 }

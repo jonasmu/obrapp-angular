@@ -5,6 +5,9 @@ import { ContratistasService } from 'src/app/servicios/contratistas.service';
 import { TrabajosService } from 'src/app/servicios/trabajos.service';
 import { Contratista } from 'src/app/modelos/contratista.model';
 import { Trabajo } from 'src/app/modelos/trabajo.model';
+import { GlobalService } from 'src/app/servicios/global.service';
+import { Parametro } from 'src/app/modelos/parametro.model';
+import { Url } from 'src/app/modelos/url.model';
 
 @Component({
   selector: 'app-contratista-detalle',
@@ -15,8 +18,10 @@ export class ContratistaDetalleComponent implements OnInit {
 
   contratista: Contratista;
   trabajos: Trabajo[];
+  columnasDeTablaTrabajos: string[];
 
   constructor(
+    private globalService:GlobalService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
@@ -25,13 +30,15 @@ export class ContratistaDetalleComponent implements OnInit {
 
   ngOnInit() {
     this.cargarContratista();
+    this.establecerColumnasDeTablas();
+  }
+
+  establecerColumnasDeTablas(): void {
+    this.columnasDeTablaTrabajos = ['editar', 'nombre', 'estado', 'contrato', 'precio', 'pago'];
   }
 
   cargarContratista(): void {
-    let idContratista: number;
-    this.route.params.subscribe(params => {
-      idContratista = params['idContratista']
-    });
+    let idContratista = this.globalService.obtenerIdDeUrl(this.route, Parametro.IdContratista);
     this.contratistasService.obtenerPorId(idContratista).subscribe(
       res => {
         this.contratista = res;
@@ -39,7 +46,7 @@ export class ContratistaDetalleComponent implements OnInit {
       },
       error => {
         console.error(error);
-        this.location.back();
+        this.globalService.volver();
       }
     );
   }
@@ -53,16 +60,24 @@ export class ContratistaDetalleComponent implements OnInit {
   }
 
   editarContratista(): void {
-    this.router.navigateByUrl(`contratista/editar/${this.contratista.Id}`);
+    this.globalService.navegar(Url.contratista_editar, this.contratista.Id);
   }
 
   eliminarContratista(): void {
     if (confirm(`¿Seguro que querés eliminar al contratista:\n${this.contratista.Nombre} ${this.contratista.Apellido}?`)) {
       this.contratistasService.eliminar(this.contratista.Id).subscribe(
-        res => this.router.navigateByUrl('contratistas'),
+        res => this.globalService.navegar(Url.contratistas),
         error => console.error(error)
       );
     }
+  }
+
+  obtenerNombreEstado(id: number): string {
+    return 'ASD';
+  }
+
+  obtenerNombreContrato(id: number): string {
+    return 'ASD';
   }
 
 }

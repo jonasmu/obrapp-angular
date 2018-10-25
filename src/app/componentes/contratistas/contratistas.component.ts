@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Contratista } from 'src/app/modelos/contratista.model';
 import { ContratistasService } from 'src/app/servicios/contratistas.service';
 import { Router } from '@angular/router';
+import { GlobalService } from 'src/app/servicios/global.service';
+import { Url } from 'src/app/modelos/url.model';
 
 @Component({
   selector: 'app-contratistas',
@@ -13,7 +15,7 @@ export class ContratistasComponent implements OnInit {
   columnasDeTabla: string[];
 
   constructor(
-    private router: Router,
+    private globalService: GlobalService,
     private contratistasService: ContratistasService) { }
 
   ngOnInit() {
@@ -33,11 +35,17 @@ export class ContratistasComponent implements OnInit {
   }
 
   establecerColumnasDeTabla(): void {
-    this.columnasDeTabla = ['detalle', 'nombreApellido', 'telefono', 'domicilio', 'observaciones'];
+    this.columnasDeTabla = [
+      'detalle',
+      'nombreApellido',
+      'telefono',
+      'domicilio',
+      'observaciones'
+    ];
   }
 
   crearContratista(): void {
-    this.router.navigateByUrl('contratista/nuevo');
+    this.globalService.navegar(Url.contratista_nuevo);
   }
 
   eliminarContratista(contratista: Contratista): void {
@@ -45,6 +53,6 @@ export class ContratistasComponent implements OnInit {
   }
 
   verDetalle(id: number): void {
-    this.router.navigateByUrl(`contratista/${id}`);
+    this.globalService.navegar(Url.contratista_detalle, id);
   }
 }
