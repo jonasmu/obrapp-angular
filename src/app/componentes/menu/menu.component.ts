@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SesionService } from '../../servicios/sesion.service'
 import { Usuario } from 'src/app/modelos/usuario.model';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -10,16 +11,22 @@ import { Usuario } from 'src/app/modelos/usuario.model';
 })
 export class MenuComponent implements OnInit {
 
-  usuario: Usuario = this.autentificacionService.obtener();
+  usuario: Usuario = null;
 
   constructor(
-    private autentificacionService: SesionService) { }
-
-  ngOnInit() {
+    private sesionService: SesionService) {
   }
 
-  cerrarSesion(): void {
-    this.autentificacionService.cerrar();
-    window.location.reload();
+  ngOnInit() {
+    let usuario = this.sesionService.obtenerUsuario();
+    this.cargarUsuario();
+  }
+
+  cargarUsuario(): void {
+    this.usuario = this.sesionService.obtenerUsuario();
+    this.sesionService.establecerUsuarioObservado(this.usuario);
+    this.sesionService.observarUsuario().subscribe(
+      res => this.usuario = res
+    );
   }
 }

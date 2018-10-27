@@ -42,7 +42,7 @@ export class TrabajoEditarComponent implements OnInit {
       this.esCrear = true;
       this.trabajo = {
         Id: 0,
-        IdUsuario: this.serviceService.obtener().Id,
+        IdUsuario: this.serviceService.obtenerUsuario().Id,
         Contrato: {
           Id: 0,
           Nombre: ''
@@ -99,6 +99,15 @@ export class TrabajoEditarComponent implements OnInit {
           }
           if (contratistaEliminado) {
             this.contratistas.push(this.trabajo.Contratista);
+          }
+        }
+        if (this.contratistas.length == 0) {
+          let mensaje = 'Sin contratistas cargados en el sistema no es posible crear un trabajo nuevo\n¿Desea cargar un contratista ahora?';
+          if (this.globalService.confirmarAccion(mensaje)) {
+            this.globalService.navegar(Url.contratista_nuevo);
+          }
+          else {
+            this.globalService.volver();
           }
         }
       },

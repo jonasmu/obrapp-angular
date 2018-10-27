@@ -10,9 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
-  imports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule],
-  exports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule],
+  imports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule],
+  exports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule],
 })
 export class AppMaterialModule { }

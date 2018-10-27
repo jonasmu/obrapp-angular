@@ -21,6 +21,7 @@ import { ContratistaEditarComponent } from '../componentes/contratista-editar/co
 import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
 import { MaterialesComponent } from '../componentes/materiales/materiales.component';
 import { MaterialEditarComponent } from '../componentes/material-editar/material-editar.component';
+import { CargandoComponent } from '../componentes/cargando/cargando.component';
 
 import { AgruparPorPipe } from '../tuberias/agrupar-por.pipe';
 
@@ -53,6 +54,7 @@ import { GlobalService } from '../servicios/global.service';
     ContratistaDetalleComponent,
     MaterialesComponent,
     MaterialEditarComponent,
+    CargandoComponent,
     // Tuberias:
     AgruparPorPipe
   ],

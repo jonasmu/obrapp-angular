@@ -7,6 +7,7 @@
   <a class="left" routerLink="/contratistas">Contratistas</a>
   <a class="right" routerLink="/sesion">
     <mat-icon>home</mat-icon>
-    {{ usuario == null ? "Iniciar sesión" : usuario.Nombre }}
+    <span *ngIf="!usuario">Iniciar sesión</span>
+    <span *ngIf="usuario">{{usuario.Nombre}}</span>
   </a>
 </nav>

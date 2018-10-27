@@ -1,60 +1,62 @@
 <div *ngIf="!usuario" class="centrar">
-        <mat-card class="tarjeta">
-                <mat-card-header class="tarjeta-cabeza">
-                    <!-- <div mat-card-avatar class="tarjeta-cabeza-imagen"></div> -->
-                    <!-- <mat-card-title class="tarjeta-cabeza-titulo">Iniciar sesión</mat-card-title> -->
-                    <!-- <mat-card-subtitle>Cantidad: {{contratistas.length}}</mat-card-subtitle> -->
-                </mat-card-header>
-                <img mat-card-image src="http://argentinainvestiga.edu.ar/images/3172/2/el_rol_de_los_obreros_en_la_innovacion_de_las_pymes.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <p>
-                        Iniciá sesión para ver tus trabajos y los contratistas disponibles.
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" routerLink="/sesion">INICIAR SESION</button>
-                </mat-card-actions>
-            </mat-card>
+    <mat-card class="tarjeta">
+        <mat-card-header class="tarjeta-cabeza">
+            <!-- <div mat-card-avatar class="tarjeta-cabeza-imagen"></div> -->
+            <!-- <mat-card-title class="tarjeta-cabeza-titulo">Iniciar sesión</mat-card-title> -->
+            <!-- <mat-card-subtitle>Cantidad: {{contratistas.length}}</mat-card-subtitle> -->
+        </mat-card-header>
+        <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_NKX8fmWK90-yDegrPI_zzb0bsegSVqFA7zahnYlNUfmNlKdR"
+            alt="Imagen de inicio">
+        <mat-card-content>
+            <p>
+                Iniciá sesión para ver tus trabajos y los contratistas disponibles.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="warn" routerLink="/sesion">INICIAR SESION</button>
+        </mat-card-actions>
+    </mat-card>
 </div>
 
-<div *ngIf="usuario" class="centrar">
-        <h2>Hola {{usuario.Nombre}}</h2>
+<div *ngIf="usuario">
 
-    <div>
-        <img src="http://argentinainvestiga.edu.ar/images/3172/2/el_rol_de_los_obreros_en_la_innovacion_de_las_pymes.jpg"
-            alt="Imagen de mis trabajos">
+    <div class="tarjeta">
+        <span class="h3">Hola {{usuario.Nombre}}</span>
     </div>
 
     <!-- TRABAJOS -->
-    <mat-card class="tarjeta">
-        <mat-card-header class="tarjeta-cabeza">
-            <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-            <mat-card-title class="tarjeta-cabeza-titulo">Mis trabajos</mat-card-title>
-            <mat-card-subtitle>Cantidad: {{trabajos.length}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <p>
-                Todos los trabajos que estes realizando los podrás encontrar acá.
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="warn" routerLink="/trabajos">VER TRABAJOS</button>
-        </mat-card-actions>
-    </mat-card>
-    <!-- CONTRATISTAS -->
-    <mat-card class="tarjeta">
-        <mat-card-header class="tarjeta-cabeza">
-            <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-            <mat-card-title class="tarjeta-cabeza-titulo">Contratistas</mat-card-title>
-            <mat-card-subtitle>Cantidad: {{contratistas.length}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <p>
-                Listado completo de todos los contratistas disponibles.
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="warn" routerLink="/contratistas">VER CONTRATISTAS</button>
-        </mat-card-actions>
-    </mat-card>
+    <div>
+        <mat-card class="tarjeta">
+            <mat-card-header class="tarjeta-cabeza">
+                <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
+                <mat-card-title class="tarjeta-cabeza-titulo">Mis trabajos</mat-card-title>
+                <mat-card-subtitle *ngIf="trabajos">Cantidad: {{trabajos.length}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    Todos los trabajos que estes realizando los podrás encontrar acá.
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" routerLink="/trabajos">VER TRABAJOS</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <!-- CONTRATISTAS -->
+        <mat-card class="tarjeta">
+            <mat-card-header class="tarjeta-cabeza">
+                <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
+                <mat-card-title class="tarjeta-cabeza-titulo">Contratistas</mat-card-title>
+                <mat-card-subtitle *ngIf="contratistas">Cantidad: {{contratistas.length}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    Listado completo de todos los contratistas disponibles.
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" routerLink="/contratistas">VER CONTRATISTAS</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

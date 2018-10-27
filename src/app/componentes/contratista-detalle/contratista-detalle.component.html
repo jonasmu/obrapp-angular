@@ -10,6 +10,7 @@
     </button>
 </div>
 <hr>
+<app-cargando *ngIf="!contratista"></app-cargando>
 <div *ngIf="contratista">
     <div class="h3">{{contratista.Nombre}} {{contratista.Apellido}}</div>
     <div class="detalle-ficha">
@@ -35,17 +36,19 @@
         </div>
     </div>
 </div>
-<hr>
+
+<br>
 
 <!-- TRABAJOS -->
-<mat-accordion>
+<app-cargando *ngIf="!trabajos"></app-cargando>
+<mat-accordion *ngIf="trabajos">
     <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Trabajos
             </mat-panel-title>
             <mat-panel-description>
-                Total: <span *ngIf="trabajos">{{trabajos.length}}</span>
+                Total: {{trabajos.length}}
             </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -106,14 +109,15 @@
 <br>
 
 <!-- PAGOS -->
-<mat-accordion>
+<app-cargando *ngIf="!pagos"></app-cargando>
+<mat-accordion *ngIf="pagos">
     <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Pagos
             </mat-panel-title>
             <mat-panel-description>
-                Total: <span *ngIf="pagos">{{pagos.length}}</span>
+                Total: {{pagos.length}}
             </mat-panel-description>
         </mat-expansion-panel-header>
 

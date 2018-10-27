@@ -67,7 +67,6 @@ export class ContratistaDetalleComponent implements OnInit {
   }
 
   cargarTrabajos(): void {
-    this.trabajos = [];
     this.trabajosService.obtenerPorContratista(this.contratista.Id).subscribe(
       res => this.trabajos = res,
       error => this.globalService.notificarError(error)
@@ -75,7 +74,6 @@ export class ContratistaDetalleComponent implements OnInit {
   }
 
   cargarPagos(): void {
-    this.pagos = [];
     this.pagosService.obtenerPorContratista(this.contratista.Id).subscribe(
       res => this.pagos = res,
       error => this.globalService.notificarError(error)

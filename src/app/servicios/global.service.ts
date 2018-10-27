@@ -23,8 +23,9 @@ export class GlobalService {
     return id;
   }
 
-  notificarError(mensaje: string = ''): void {
-    alert('Ha ocurrido un error\n' + mensaje);
+  notificarError(error: any): void {
+    alert('Ha ocurrido un error.\nVer la consola para más información.');
+    console.error(error);
     this.navegar(Url.raiz);
   }
 
@@ -34,7 +35,7 @@ export class GlobalService {
 
   navegar(url: string, ...params: number[]): void {
     url = this.mapearUrl(url, ...params);
-    console.log(' ----> Navegando a: ' + url);
+    // console.log(' ----> Navegando a: ' + url);
     this.router.navigateByUrl(url);
   }
 

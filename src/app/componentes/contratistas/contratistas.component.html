@@ -1,22 +1,27 @@
 <div>
-  <button mat-raised-button color="warn" (click)="crearContratista($event)">
+  <button mat-raised-button color="warn" (click)="crearContratista()">
     Nuevo contratista
   </button>
 </div>
 <hr>
-<div class="h3">Contratistas</div>
-<table mat-table [dataSource]="contratistas" class="mat-elevation-z8 ancho-completo">
+<app-cargando *ngIf="!contratistas"></app-cargando>
+<div class="texto-pequeno" *ngIf="contratistas&&contratistas.length==0">
+  No hay contratistas registrados
+</div>
+<div *ngIf="contratistas&&contratistas.length>0">
+  <div class="h3">Contratistas</div>
+  <table mat-table [dataSource]="contratistas" class="mat-elevation-z8 ancho-completo">
 
-  <ng-container matColumnDef="detalle">
-    <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let contratista" class="tabla-fila-detalle">
-      <button class="boton-detalle" mat-stroked-button color="primary" (click)="verDetalle(contratista.Id)">
-        Ver detalle
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="detalle">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let contratista" class="tabla-fila-detalle">
+        <button class="boton-detalle" mat-stroked-button color="primary" (click)="verDetalle(contratista.Id)">
+          Ver detalle
+        </button>
+      </td>
+    </ng-container>
 
-  <!-- <ng-container matColumnDef="eliminar">
+    <!-- <ng-container matColumnDef="eliminar">
     <th mat-header-cell *matHeaderCellDef> </th>
     <td mat-cell *matCellDef="let contratista" class="tabla-fila-detalle">
       <button class="boton-detalle" mat-flat-button disabled (click)="eliminarContratista(contratista)">
@@ -25,26 +30,27 @@
     </td>
   </ng-container> -->
 
-  <ng-container matColumnDef="nombreApellido">
-    <th mat-header-cell *matHeaderCellDef> Nombre apellido </th>
-    <td mat-cell *matCellDef="let contratista"> <b>{{contratista.Nombre}} {{contratista.Apellido}}</b> </td>
-  </ng-container>
+    <ng-container matColumnDef="nombreApellido">
+      <th mat-header-cell *matHeaderCellDef> Nombre apellido </th>
+      <td mat-cell *matCellDef="let contratista"> <b>{{contratista.Nombre}} {{contratista.Apellido}}</b> </td>
+    </ng-container>
 
-  <ng-container matColumnDef="telefono">
-    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-    <td mat-cell *matCellDef="let contratista"> {{contratista.Telefono}} </td>
-  </ng-container>
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+      <td mat-cell *matCellDef="let contratista"> {{contratista.Telefono}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="domicilio">
-    <th mat-header-cell *matHeaderCellDef> Domicilio </th>
-    <td mat-cell *matCellDef="let contratista"> {{contratista.Domicilio}} </td>
-  </ng-container>
+    <ng-container matColumnDef="domicilio">
+      <th mat-header-cell *matHeaderCellDef> Domicilio </th>
+      <td mat-cell *matCellDef="let contratista"> {{contratista.Domicilio}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="observaciones">
-    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
-    <td mat-cell *matCellDef="let contratista"> {{contratista.Observaciones}} </td>
-  </ng-container>
+    <ng-container matColumnDef="observaciones">
+      <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+      <td mat-cell *matCellDef="let contratista"> {{contratista.Observaciones}} </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnasDeTabla"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnasDeTabla;"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="columnasDeTabla"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnasDeTabla;"></tr>
+  </table>
+</div>

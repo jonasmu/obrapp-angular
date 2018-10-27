@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { SesionService } from 'src/app/servicios/sesion.service';
@@ -11,14 +11,15 @@ import { Url } from 'src/app/modelos/url.model';
   styleUrls: ['./sesion.component.css']
 })
 export class SesionComponent implements OnInit {
-  usuario: Usuario = this.autentificacionService.obtener();
+  usuario: Usuario;
 
   constructor(
     private route: ActivatedRoute,
     private globalService: GlobalService,
-    private autentificacionService: SesionService) { }
+    private sesionService: SesionService) {}
 
   ngOnInit() {
+    this.usuario = this.sesionService.obtenerUsuario();
   }
 
   iniciarSesion(nombre: string, clave: string, evento: Event): void {
@@ -26,21 +27,20 @@ export class SesionComponent implements OnInit {
     evento.preventDefault();
 
     // Llama al servicio para iniciar sesion del usuario pegandole a la API.
-    this.autentificacionService.iniciar(nombre, clave).subscribe(
-      res => this.autentificacionService.guardar(res),
-      error => this.globalService.notificarError(error),
-      () => {
+    this.sesionService.iniciar(nombre, clave).subscribe(
+      res => {
+        this.usuario = res;
+        this.sesionService.guardar(res);
         let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        window.location.reload();
         this.globalService.navegar(returnUrl);
-      }
+      },
+      error => this.globalService.notificarError(error)
     );
   }
 
   cerrarSesion(evento: Event): void {
     evento.preventDefault();
-    this.autentificacionService.cerrar();
-    window.location.reload();
+    this.sesionService.cerrar();
     this.globalService.navegar(Url.raiz);
   }
 }

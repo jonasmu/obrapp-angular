@@ -1,16 +1,27 @@
-<div *ngIf="usuario == null">
-        <form>
-    <h3>Iniciar sesión</h3>
-    <label>Nombre:
-        <input name="nombre" placeholder="Ingresá tu nombre..." ref-nombre />
-    </label>
-    <!-- <label>Clave:
+<div *ngIf="!usuario">
+    <form>
+        <h3>Iniciar sesión</h3>
+        <div>
+            <mat-form-field>
+                <input matInput placeholder="Nombre" ref-nombre>
+            </mat-form-field>
+        </div>
+        <!-- <label>Nombre:
+            <input name="nombre" placeholder="Ingresá tu nombre..." ref-nombre />
+        </label> -->
+        <!-- <label>Clave:
             <input name="clave" placeholder="Ingresá tu clave..." ref-clave />
     </label> -->
-    <button (click)="iniciarSesion(nombre.value, '', $event)">Aceptar</button>
-</form>
+        <!-- <button (click)="iniciarSesion(nombre.value, '', $event)">Aceptar</button> -->
+        <button mat-raised-button color="warn" (click)="iniciarSesion(nombre.value, '', $event)">
+            Aceptar
+        </button>
+    </form>
 </div>
-<div *ngIf="usuario != null">
-    <span>{{usuario.Id}}</span> {{usuario.Nombre}}
-    <button (click)="cerrarSesion($event)">Cerrar sesión</button>
+<div *ngIf="usuario">
+    <br>
+    <h3>Cerrar sesión de {{usuario.Nombre}}</h3>
+    <button mat-raised-button color="warn" (click)="cerrarSesion($event)">
+        Aceptar
+    </button>
 </div>

@@ -13,11 +13,14 @@ export class AutentificacionInterceptor implements HttpInterceptor {
     if (req.url.startsWith('sesion')){
       return next.handle(req);
     }
-    let usuario = this.sesionService.obtener();
+    let usuario = this.sesionService.obtenerUsuario();
+    if (!usuario){
+      return next.handle(req);
+    }
     let base64 = window.btoa(`${usuario.Nombre}:${usuario.Clave}`)
     let reqClonado = req.clone({
       setHeaders: {    
-        Authorization: `Basic ${base64}`    
+        Authorization: `Basic ${base64}`  
       }
     });
     return next.handle(reqClonado);

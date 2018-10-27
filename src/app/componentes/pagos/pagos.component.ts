@@ -30,7 +30,6 @@ export class PagosComponent implements OnInit {
   }
 
   cargarPagos(): void {
-    this.pagos = [];
     this.pagosService.obtenerPorUsuario().subscribe(
       res => this.pagos = res,
       error => this.globalService.notificarError(error)
