@@ -20,6 +20,7 @@ import { Tarea } from 'src/app/modelos/tarea.model';
 export class TrabajoDetalleComponent implements OnInit {
 
   trabajo: Trabajo;
+  tareas: Tarea[];
   pagos: Pago[];
   materiales: Material[];
   columnasDeTablaTareas: string[];
@@ -57,9 +58,9 @@ export class TrabajoDetalleComponent implements OnInit {
     ];
     this.columnasDeTablaPagos = [
       'editar',
+      'eliminar',
       'fecha',
       'observaciones',
-      'estado',
       'monto'
     ];
   }
@@ -69,6 +70,7 @@ export class TrabajoDetalleComponent implements OnInit {
     this.trabajosService.obtenerPorId(idTrabajo).subscribe(
       res => {
         this.trabajo = res;
+        this.cargarTareas();
         this.cargarPagos();
         this.cargarMateriales();
       },
@@ -76,8 +78,14 @@ export class TrabajoDetalleComponent implements OnInit {
     );
   }
 
+  cargarTareas(): void {
+    this.tareasService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
+      res => this.tareas = res,
+      error => this.globalService.notificarError(error)
+    );
+  }
+
   cargarPagos(): void {
-    this.pagos = [];
     this.pagosService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.pagos = res,
       error => this.globalService.notificarError(error)
@@ -85,7 +93,6 @@ export class TrabajoDetalleComponent implements OnInit {
   }
 
   cargarMateriales(): void {
-    this.materiales = [];
     this.materialesService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.materiales = res,
       error => this.globalService.notificarError(error)
@@ -123,7 +130,7 @@ export class TrabajoDetalleComponent implements OnInit {
     let mensaje = `¿Seguro que querés eliminar la tarea:\n${tarea.Nombre}?`;
     if (this.globalService.confirmarAccion(mensaje)) {
       this.tareasService.eliminar(tarea.Id).subscribe(
-        res => this.trabajo.Tareas = this.trabajo.Tareas.filter(x => x.Id != tarea.Id)
+        res => this.tareas = this.tareas.filter(x => x.Id != tarea.Id)
       );
     }
   }
@@ -153,59 +160,67 @@ export class TrabajoDetalleComponent implements OnInit {
     this.globalService.navegar(Url.pago_editar, this.trabajo.Id, id);
   }
 
-  anularPago(pago: Pago): void {
-    let mensaje = `¿Seguro que querés ${pago.EstaAnulado ? 'ratificar' : 'anular'} 
-                  el pago registrado el ${pago.Fecha} por $${pago.Monto}?`;
+  eliminarPago(pago: Pago): void {
+    let mensaje = `¿Seguro que querés eliminar el pago registrado el ${pago.Fecha} por $${pago.Monto}?`;
     if (this.globalService.confirmarAccion(mensaje)) {
-      pago.EstaAnulado = !pago.EstaAnulado;
-      this.pagosService.actualizar(pago).subscribe(
-        null,
-        error => this.globalService.notificarError(error)
+      this.pagosService.eliminar(pago.Id).subscribe(
+        res => this.pagos = this.pagos.filter(x => x.Id != pago.Id)
       );
     }
   }
 
-  sumarPagosRatificados(): number {
-    let montos = this.pagos.filter(x => !x.EstaAnulado).map(x => x.Monto);
-    return this.sumarMontos(montos);
+  calcularTareasPendientes(): number {
+    if (this.tareas == null) {
+      return 0;
+    }
+    return this.tareas.filter(x => !x.EstaRealizada).length;
   }
 
-  sumarPagosAnulados(): number {
-    let montos = this.pagos.filter(x => x.EstaAnulado).map(x => x.Monto);
-    return this.sumarMontos(montos);
+  calcularTareasRealizadas(): number {
+    if (this.tareas == null) {
+      return 0;
+    }
+    return this.tareas.filter(x => x.EstaRealizada).length;
+  }
+
+  calcularMaterialesAdquiridos(): number {
+    if (this.materiales == null) {
+      return 0;
+    }
+    return this.materiales.filter(x => x.EstaAdquirido).length;
   }
 
   sumarPagosTotal(): number {
+    if (!this.pagos) {
+      return 0;
+    }
     let montos = this.pagos.map(x => x.Monto);
-    return this.sumarMontos(montos);
+    return this.globalService.sumar(montos);
   }
 
   sumarMaterialesFaltantes(): number {
-    let montos = this.materiales.filter(x => !x.EstaComprado).map(x => x.Precio);
-    return this.sumarMontos(montos);
+    if (!this.materiales) {
+      return 0;
+    }
+    let montos = this.materiales.filter(x => !x.EstaAdquirido).map(x => x.Precio);
+    return this.globalService.sumar(montos);
   }
 
   sumarMaterialesComprados(): number {
-    let montos = this.materiales.filter(x => x.EstaComprado).map(x => x.Precio);
-    return this.sumarMontos(montos);
+    if (!this.materiales) {
+      return 0;
+    }
+    let montos = this.materiales.filter(x => x.EstaAdquirido).map(x => x.Precio);
+    return this.globalService.sumar(montos);
   }
 
   sumarMaterialesTotal(): number {
-    let montos = this.materiales.map(x => x.Precio);
-    return this.sumarMontos(montos);
-  }
-
-  private sumarMontos(montos: number[]): number {
-    if (montos == null) {
+    if (!this.materiales) {
       return 0;
     }
-    var total = 0;
-    for (var i = 0; i < montos.length; i++) {
-      if (isNaN(montos[i])) {
-        continue;
-      }
-      total += montos[i];
-    }
-    return total;
+    let montos = this.materiales.map(x => x.Precio);
+    return this.globalService.sumar(montos);
   }
+
+
 }

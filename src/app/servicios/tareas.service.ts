@@ -24,4 +24,8 @@ export class TareasService {
   obtenerPorId(id: number): Observable<Tarea> {
     return this.http.get<Tarea>('tareas/' + id);
   }
+
+  obtenerPorTrabajo(id : number): any {
+    return this.http.get<Tarea[]>('tareas/trabajo/' + id);
+  }
 }

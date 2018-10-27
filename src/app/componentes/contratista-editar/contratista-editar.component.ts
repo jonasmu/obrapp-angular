@@ -53,10 +53,18 @@ export class ContratistaEditarComponent implements OnInit {
   aceptar(evento: Event) {
     evento.preventDefault();
     if (this.esCrear) {
+
+
+
       this.contratistasService.crear(this.contratista).subscribe(
         res => this.globalService.navegar(Url.contratistas),
         error => this.globalService.notificarError(error)
       );
+
+
+
+
+      
     }
     else if (this.globalService.confirmarAccion('¿Actualizar contratista?')) {
       this.contratistasService.actualizar(this.contratista).subscribe(

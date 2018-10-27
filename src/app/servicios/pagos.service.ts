@@ -32,4 +32,8 @@ export class PagosService {
   actualizar(pago: Pago): Observable<Pago> {
     return this.http.put<Pago>('pagos', pago);
   }
+
+  eliminar(id: number): any {
+    return this.http.delete<Pago>('pagos/' + id);
+  }
 }

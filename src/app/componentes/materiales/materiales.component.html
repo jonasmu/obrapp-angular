@@ -1,15 +1,16 @@
-<div>
+<!-- <div>
   <button mat-raised-button color="warn" disabled>
     Nuevo material
   </button>
 </div>
-<hr>
+<hr> -->
 <app-cargando *ngIf="!materiales"></app-cargando>
-<div class="texto-pequeno" *ngIf="materiales&&materiales.length==0">
+<div *ngIf="materiales&&materiales.length==0">
   No hay materiales registrados
 </div>
 <div *ngIf="materiales&&materiales.length>0">
-  <div class="h3">Mis materiales</div>
+    <mat-toolbar>Mis materiales</mat-toolbar>
+    <!-- <div class="h3">Mis materiales</div> -->
   <table mat-table [dataSource]="materiales" class="mat-elevation-z8 ancho-completo">
 
     <!-- <ng-container matColumnDef="editar">

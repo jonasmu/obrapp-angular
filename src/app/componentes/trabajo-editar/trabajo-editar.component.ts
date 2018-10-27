@@ -63,7 +63,6 @@ export class TrabajoEditarComponent implements OnInit {
         Nombre: '',
         Descripcion: '',
         Precio: 0,
-        Tareas: [],
         EstaEliminado: false
       };
       this.cargarContratistas();

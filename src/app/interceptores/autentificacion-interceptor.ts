@@ -17,7 +17,8 @@ export class AutentificacionInterceptor implements HttpInterceptor {
     if (!usuario){
       return next.handle(req);
     }
-    let base64 = window.btoa(`${usuario.Nombre}:${usuario.Clave}`)
+    // let base64 = window.btoa(`${usuario.Nombre}:${usuario.Clave}`)
+    let base64 = window.btoa(`${usuario.Nombre}:`)
     let reqClonado = req.clone({
       setHeaders: {    
         Authorization: `Basic ${base64}`  

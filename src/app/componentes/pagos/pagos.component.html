@@ -1,15 +1,16 @@
-<div>
+<!-- <div>
   <button mat-raised-button color="warn" disabled>
     Nuevo pago
   </button>
 </div>
-<hr>
+<hr> -->
 <app-cargando *ngIf="!pagos"></app-cargando>
-<div class="texto-pequeno" *ngIf="pagos&&pagos.length==0">
+<div *ngIf="pagos&&pagos.length==0">
   No hay pagos registrados
 </div>
 <div *ngIf="pagos&&pagos.length>0">
-  <div class="h3">Mis pagos</div>
+    <mat-toolbar>Mis pagos</mat-toolbar>
+    <!-- <div class="h3">Mis pagos</div> -->
   <table mat-table [dataSource]="pagos" class="mat-elevation-z8 ancho-completo">
 
     <ng-container matColumnDef="trabajo">

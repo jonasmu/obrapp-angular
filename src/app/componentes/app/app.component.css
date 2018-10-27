@@ -1,3 +1,8 @@
 .margen-general{
-    margin: 0px 100px;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
+
+/* .margen-general{
+    margin: 20px 105px 50px 105px;
+} */

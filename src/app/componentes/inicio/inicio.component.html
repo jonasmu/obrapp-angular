@@ -18,10 +18,17 @@
     </mat-card>
 </div>
 
+<ul>
+    <li *ngFor="let trabajo of trabajos">
+        {{ trabajo.Nombre }}
+    </li>
+</ul>
+
 <div *ngIf="usuario">
 
     <div class="tarjeta">
-        <span class="h3">Hola {{usuario.Nombre}}</span>
+    <mat-toolbar>¡Hola {{usuario.Nombre}}!</mat-toolbar>
+    <!-- <span class="h3">Hola {{usuario.Nombre}}</span> -->
     </div>
 
     <!-- TRABAJOS -->

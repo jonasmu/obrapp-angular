@@ -10,10 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-  imports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule],
-  exports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule],
+  imports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatToolbarModule, MatProgressBarModule],
+  exports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatListModule, MatTableModule, MatCardModule, MatIconModule, MatGridListModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatToolbarModule, MatProgressBarModule],
 })
 export class AppMaterialModule { }

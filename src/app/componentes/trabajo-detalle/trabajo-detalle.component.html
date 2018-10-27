@@ -11,118 +11,158 @@
 </div>
 <hr>
 <div *ngIf="trabajo">
-    <div class="h3">{{trabajo.Nombre}}</div>
+    <mat-toolbar>{{trabajo.Nombre}}</mat-toolbar>
+    <!-- <div class="h3">{{trabajo.Nombre}}</div> -->
     <div class="detalle-ficha">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="detalle-ficha-item">
-                    <b>Estado</b><br>
-                    <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
-                        [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
-                        [class.badge-danger]="trabajo.Estado.Id===5">
-                        {{trabajo.Estado.Nombre}}
-                    </span>
-                </div>
-                <div class="detalle-ficha-item">
-                    <b>Descripción</b><br>
-                    {{trabajo.Descripcion}}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="detalle-ficha-item">
-                    <b>Contrato</b><br>
-                    {{trabajo.Contrato.Nombre}}
-                </div>
-                <div class="detalle-ficha-item">
-                    <b>Contratista</b><br>
-                    {{trabajo.Contratista.Nombre}} {{trabajo.Contratista.Apellido}}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="detalle-ficha-item">
-                    <b>
-                        Precio pactado por
-                        <span *ngIf="trabajo.Contrato.Id==1">trabajo</span>
-                        <span *ngIf="trabajo.Contrato.Id==2">día</span>
-                    </b>
-                    <br>
-                    {{trabajo.Precio | currency }}
-                </div>
-                <div class="detalle-ficha-item">
-                    <b>Pagado hasta la fecha</b><br>
-                    {{sumarPagosRatificados() | currency}}
-                    <span class="texto-pequeno">(Dif: {{trabajo.Precio - sumarPagosRatificados() | currency}})</span>
-                </div>
+        <div class="row detalle-ficha-item">
+            <b class="col-sm-2">Descripción:</b>
+            <div class="col-sm-10">
+                {{trabajo.Descripcion}}
             </div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                
+                <div class="row detalle-ficha-item">             
+                    <b class="col-sm-4">Estado:</b>
+                    <div class="col-sm-8">
+                        <div class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+                            [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+                            [class.badge-danger]="trabajo.Estado.Id===5">
+                            {{trabajo.Estado.Nombre}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Contratista:</b>
+                    <div class="col-sm-8">
+                        {{trabajo.Contratista.Nombre}} {{trabajo.Contratista.Apellido}}
+                    </div>
+                </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Contrato:</b>
+                    <div class="col-sm-8">
+                        {{trabajo.Contrato.Nombre}}
+                    </div>
+                </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Precio por
+                        <span *ngIf="trabajo.Contrato.Id<3">trabajo</span>
+                        <span *ngIf="trabajo.Contrato.Id>2">día</span>:
+                    </b>
+                    <div class="col-sm-8">
+                        {{trabajo.Precio | currency }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="row detalle-ficha-item" *ngIf="tareas">
+                    <b class="col-sm-4">Tareas:</b>
+                    <div class="col-sm-8">
+                        {{calcularTareasRealizadas()}} de {{tareas.length}}
+                    </div>
+                    <mat-progress-bar mode="determinate" value="{{ tareas.length==0 ? 0 : calcularTareasRealizadas() * 100 / tareas.length}}"></mat-progress-bar>
+                </div>
+
+                <div class="row detalle-ficha-item" *ngIf="materiales">
+                    <b class="col-sm-4">Materiales:</b>
+                    <div class="col-sm-8">
+                        {{calcularMaterialesAdquiridos()}} de {{materiales.length}}
+                    </div>
+                    <mat-progress-bar mode="determinate" value="{{ materiales.length==0 ? 0 : calcularMaterialesAdquiridos() * 100 / materiales.length}}"></mat-progress-bar>
+                </div>
+
+                <div class="row detalle-ficha-item" *ngIf="pagos">
+                    <b class="col-sm-4">Pagos:</b>
+                    <div class="col-sm-8">
+                        {{sumarPagosTotal() | currency}}
+                    </div>
+                    <mat-progress-bar mode="determinate" value="{{ pagos.length==0 ? 0 : sumarPagosTotal() * 100 / trabajo.Precio }}"></mat-progress-bar>
+                    <span class="badge badge-warning" *ngIf="sumarPagosTotal() > trabajo.Precio">
+                        ¡Los pagos superan el precio pactado!
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
     </div>
-    <hr>
-
-    <!-- TAREAS -->
-    <mat-accordion>
-        <mat-expansion-panel expanded>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Tareas
-                </mat-panel-title>
-                <mat-panel-description>
-                    Total: {{trabajo.Tareas.length}}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <div>
-                <button mat-raised-button color="warn" (click)="crearTarea($event)">
-                    Nueva tarea
-                </button>
-            </div>
-            <div class="texto-pequeno" *ngIf="trabajo.Tareas.length==0">
-                No hay tareas registradas
-            </div>
-            <table mat-table [dataSource]="trabajo.Tareas" class="ancho-completo" *ngIf="trabajo.Tareas.length>0">
-
-                <ng-container matColumnDef="editar">
-                    <th mat-header-cell *matHeaderCellDef> </th>
-                    <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
-                        <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarTarea(tarea.Id)">
-                            Editar
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="eliminar">
-                    <th mat-header-cell *matHeaderCellDef> </th>
-                    <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
-                        <button class="tabla-boton" mat-stroked-button (click)="eliminarTarea(tarea)">
-                            Eliminar
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="nombre">
-                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                    <td mat-cell *matCellDef="let tarea"> <b>{{tarea.Nombre}}</b> </td>
-                </ng-container>
-
-                <ng-container matColumnDef="observaciones">
-                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
-                    <td mat-cell *matCellDef="let tarea"> {{tarea.Observaciones}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="estado">
-                    <th mat-header-cell *matHeaderCellDef> Estado </th>
-                    <td mat-cell *matCellDef="let tarea">
-                        <span *ngIf="!tarea.EstaRealizada" class="badge badge-danger">Pendiente</span>
-                        <span *ngIf="tarea.EstaRealizada" class="badge badge-success">Listo</span>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="columnasDeTablaTareas"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnasDeTablaTareas;"></tr>
-            </table>
-
-        </mat-expansion-panel>
-    </mat-accordion>
 </div>
+
+<br>
+
+<!-- TAREAS -->
+<app-cargando *ngIf="!tareas"></app-cargando>
+<mat-accordion *ngIf="tareas">
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Tareas
+            </mat-panel-title>
+            <mat-panel-description>
+                Total: {{tareas.length}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div>
+            <button mat-raised-button color="warn" (click)="crearTarea($event)">
+                Nueva tarea
+            </button>
+        </div>
+        <div class="texto-pequeno" *ngIf="tareas.length==0">
+            No hay tareas registradas
+        </div>
+        <table mat-table [dataSource]="tareas" class="ancho-completo" *ngIf="tareas.length>0">
+
+            <ng-container matColumnDef="editar">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
+                    <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarTarea(tarea.Id)">
+                        Editar
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let tarea" class="tabla-columna-boton">
+                    <button class="tabla-boton" mat-stroked-button (click)="eliminarTarea(tarea)">
+                        Eliminar
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let tarea"> <b>{{tarea.Nombre}}</b> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="observaciones">
+                <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                <td mat-cell *matCellDef="let tarea"> {{tarea.Observaciones}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let tarea">
+                    <span *ngIf="!tarea.EstaRealizada" class="badge badge-danger">Pendiente</span>
+                    <span *ngIf="tarea.EstaRealizada" class="badge badge-success">Realizada</span>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnasDeTablaTareas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasDeTablaTareas;"></tr>
+        </table>
+
+    </mat-expansion-panel>
+</mat-accordion>
 
 <br>
 
@@ -180,8 +220,9 @@
             <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef> Estado </th>
                 <td mat-cell *matCellDef="let material">
-                    <span *ngIf="!material.EstaComprado" class="badge badge-danger">Faltante</span>
-                    <span *ngIf="material.EstaComprado" class="badge badge-success">Comprado</span>
+                    <span *ngIf="!material.EstaAdquirido" class="badge badge-danger">Faltante</span>
+                    <span *ngIf="material.EstaAdquirido" class="badge badge-success">Adquirido</span>
+                    <!-- <mat-checkbox></mat-checkbox> -->
                 </td>
             </ng-container>
 
@@ -195,7 +236,7 @@
             <tr mat-row *matRowDef="let row; columns: columnasDeTablaMateriales;"></tr>
         </table>
 
-        <div class="precios-totales" *ngIf="pagos.length>0">
+        <div class="precios-totales" *ngIf="materiales.length>0">
             <div>
                 <span class="texto-pequeno">Faltante:</span> {{sumarMaterialesFaltantes() | currency}}
             </div>
@@ -244,14 +285,14 @@
                 </td>
             </ng-container>
 
-            <!-- <ng-container matColumnDef="anular">
-                    <th mat-header-cell *matHeaderCellDef> </th>
-                    <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
-                        <button class="tabla-boton" mat-stroked-button color="warn" (click)="anularPago(pago)">
-                            {{pago.EstaAnulado ? 'Ratificar': 'Anular'}}
-                        </button>
-                    </td>
-                </ng-container> -->
+            <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
+                    <button class="tabla-boton" mat-stroked-button (click)="eliminarPago(pago)">
+                        Eliminar
+                    </button>
+                </td>
+            </ng-container>
 
             <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef> Fecha </th>
@@ -266,13 +307,13 @@
                 <td mat-cell *matCellDef="let pago"> {{pago.Observaciones}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="estado">
+            <!-- <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef> Estado </th>
                 <td mat-cell *matCellDef="let pago">
                     <span *ngIf="pago.EstaAnulado" class="badge badge-danger">Anulado</span>
                     <span *ngIf="!pago.EstaAnulado" class="badge badge-success">Ratificado</span>
                 </td>
-            </ng-container>
+            </ng-container> -->
 
             <ng-container matColumnDef="monto">
                 <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Monto </th>
@@ -284,12 +325,12 @@
         </table>
 
         <div class="precios-totales" *ngIf="pagos.length>0">
-            <div>
+            <!-- <div>
                 <span class="texto-pequeno">Ratificado:</span> {{sumarPagosRatificados() | currency}}
             </div>
             <div>
                 <span class="texto-pequeno">Anulado:</span> {{sumarPagosAnulados() | currency}}
-            </div>
+            </div> -->
             <div>
                 <span class="texto-pequeno">TOTAL:</span> {{sumarPagosTotal() | currency}}
             </div>

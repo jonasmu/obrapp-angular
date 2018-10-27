@@ -36,7 +36,8 @@ export class TareaEditarComponent implements OnInit {
         IdTrabajo: idTrabajo,
         Nombre: '',
         Observaciones: '',
-        EstaRealizada: false
+        EstaRealizada: false,
+        EstaEliminada: false
       };
     }
     else {

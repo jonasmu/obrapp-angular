@@ -49,7 +49,7 @@ export class ContratistaDetalleComponent implements OnInit {
       // 'editar',
       'fecha',
       'observaciones',
-      'estado',
+      // 'estado',
       'monto'
     ];
   }
@@ -80,7 +80,7 @@ export class ContratistaDetalleComponent implements OnInit {
     );
   }
 
-  crearContratista(evento:Event){
+  crearContratista(evento: Event) {
     event.preventDefault();
     this.globalService.navegar(Url.contratista_nuevo);
   }
@@ -102,6 +102,22 @@ export class ContratistaDetalleComponent implements OnInit {
 
   verDetalle(id: number): void {
     this.globalService.navegar(Url.trabajo_detalle, id);
+  }
+
+  sumarPagos(): number {
+    if (!this.pagos) {
+      return 0;
+    }
+    let montos = this.pagos.map(x => x.Monto);
+    return this.globalService.sumar(montos);
+  }
+
+  sumarPreciosDeTrabajos(): number {
+    if (!this.trabajos) {
+      return 0;
+    }
+    let precios = this.trabajos.map(x => x.Precio);
+    return this.globalService.sumar(precios);
   }
 
 }

@@ -19,8 +19,8 @@ export class SesionService {
   iniciar(nombre: string, clave: string): Observable<Usuario> {
     let usuario: Usuario = {
       Id: -1,
-      Nombre: nombre,
-      Clave: clave
+      Nombre: nombre
+      // clave: clave
     };
     return this.http.post<Usuario>('sesion', usuario);
   }

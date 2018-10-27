@@ -9,7 +9,8 @@
   No hay trabajos registrados
 </div>
 <div *ngIf="trabajos&&trabajos.length>0">
-  <div class="h3">Mis trabajos</div>
+    <mat-toolbar>Mis trabajos</mat-toolbar>
+    <!-- <div class="h3">Mis trabajos</div> -->
   <table mat-table [dataSource]="trabajos" class="mat-elevation-z8 ancho-completo">
 
     <ng-container matColumnDef="detalle">

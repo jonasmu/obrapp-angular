@@ -37,7 +37,8 @@ export class MaterialEditarComponent implements OnInit {
         Nombre: '',
         Observaciones: '',
         Precio: 0,
-        EstaComprado: false
+        EstaAdquirido: false,
+        EstaEliminado: false
       };
     }
     else {

@@ -5,5 +5,6 @@ export class Material {
     Nombre: string;
     Observaciones: string;
     Precio: number;
-    EstaComprado: boolean;
+    EstaAdquirido: boolean;
+    EstaEliminado: boolean;
 }

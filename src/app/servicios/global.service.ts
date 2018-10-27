@@ -23,10 +23,14 @@ export class GlobalService {
     return id;
   }
 
-  notificarError(error: any): void {
-    alert('Ha ocurrido un error.\nVer la consola para más información.');
-    console.error(error);
-    this.navegar(Url.raiz);
+  notificarError(e: any): void {
+    if (e.status = 404) {
+      alert(e.error.Message);
+    }
+    else {
+      console.error(e);
+      this.navegar(Url.raiz);
+    }
   }
 
   volver(): void {
@@ -58,5 +62,19 @@ export class GlobalService {
 
   confirmarAccion(mensaje: string): boolean {
     return confirm(mensaje);
+  }
+
+  sumar(montos: number[]): number {
+    if (montos == null) {
+      return 0;
+    }
+    var total = 0;
+    for (var i = 0; i < montos.length; i++) {
+      if (isNaN(montos[i])) {
+        continue;
+      }
+      total += montos[i];
+    }
+    return total;
   }
 }

@@ -38,7 +38,7 @@ export class PagoEditarComponent implements OnInit {
         Monto: 0,
         Fecha: new Date(Date.now()),
         Observaciones: '',
-        EstaAnulado: false
+        EstaEliminado: false
       };
     }
     else {

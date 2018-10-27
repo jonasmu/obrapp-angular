@@ -4,4 +4,5 @@ export class Tarea {
     Nombre: string;
     Observaciones: string;
     EstaRealizada: boolean;
+    EstaEliminada: boolean;
 }

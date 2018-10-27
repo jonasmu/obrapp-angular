@@ -17,7 +17,7 @@ export class ContratistasService {
     return this.http.get<Contratista>('contratistas/' + id);
   }
 
-  crear(contratista: Contratista): Observable<Contratista> {
+  crear(contratista: Contratista): any {
     return this.http.post<Contratista>('contratistas', contratista);
   }
 

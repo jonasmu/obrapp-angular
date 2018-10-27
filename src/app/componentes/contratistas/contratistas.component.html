@@ -9,7 +9,8 @@
   No hay contratistas registrados
 </div>
 <div *ngIf="contratistas&&contratistas.length>0">
-  <div class="h3">Contratistas</div>
+    <mat-toolbar>Contratistas</mat-toolbar>
+  <!-- <div class="h3">Contratistas</div> -->
   <table mat-table [dataSource]="contratistas" class="mat-elevation-z8 ancho-completo">
 
     <ng-container matColumnDef="detalle">

@@ -12,123 +12,165 @@
 <hr>
 <app-cargando *ngIf="!contratista"></app-cargando>
 <div *ngIf="contratista">
-    <div class="h3">{{contratista.Nombre}} {{contratista.Apellido}}</div>
+    <mat-toolbar>{{contratista.Nombre}} {{contratista.Apellido}}</mat-toolbar>
+    <!-- <div class="h3">{{contratista.Nombre}} {{contratista.Apellido}}</div> -->
     <div class="detalle-ficha">
         <div class="row">
-            <div class="col-sm-4">
-                <div class="detalle-ficha-item">
-                    <b>Observaciones</b><br>
-                    {{contratista.Observaciones}}
+            <div class="col-sm-6">
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Nombre:</b>
+                    <div class="col-sm-8">
+                        {{contratista.Nombre}}
+                    </div>
                 </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Apellido:</b>
+                    <div class="col-sm-8">
+                        {{contratista.Apellido}}
+                    </div>
+                </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Observaciones:</b>
+                    <div class="col-sm-8">
+                        {{contratista.Observaciones}}
+                    </div>
+                </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Teléfono:</b>
+                    <div class="col-sm-8">
+                        {{contratista.Telefono}}
+                    </div>
+                </div>
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Domicilio:</b>
+                    <div class="col-sm-8">
+                        {{contratista.Domicilio}}
+                    </div>
+                </div>
+
             </div>
-            <div class="col-sm-4">
-                <div class="detalle-ficha-item">
-                    <b>Teléfono</b><br>
-                    {{contratista.Telefono}}
+
+            <div class="col-sm-6" *ngIf="pagos&&trabajos">
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-4">Pagado:</b>
+                    <div class="col-sm-8">
+                        {{sumarPagos() | currency}} de {{sumarPreciosDeTrabajos() | currency}}
+                    </div>
+                    <mat-progress-bar mode="determinate" value="{{ pagos.length==0 && trabajos.length==0 ? 0 : sumarPagos() * 100 / sumarPreciosDeTrabajos()}}"></mat-progress-bar>
+                    <span class="badge badge-warning" *ngIf="sumarPagos() > sumarPreciosDeTrabajos()">
+                        ¡Los pagos realizados superan la suma de precios de trabajos!
+                    </span>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="detalle-ficha-item">
-                    <b>Domicilio</b><br>
-                    {{contratista.Domicilio}}
-                </div>
+
             </div>
         </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<!-- TRABAJOS -->
-<app-cargando *ngIf="!trabajos"></app-cargando>
-<mat-accordion *ngIf="trabajos">
-    <mat-expansion-panel expanded>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Trabajos
-            </mat-panel-title>
-            <mat-panel-description>
-                Total: {{trabajos.length}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
+    <!-- TRABAJOS -->
+    <app-cargando *ngIf="!trabajos"></app-cargando>
+    <mat-accordion *ngIf="trabajos">
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Trabajos
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: {{trabajos.length}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-        <!-- <div>
+            <!-- <div>
                 <button mat-raised-button color="warn" (click)="crearTrabajo($event)">
                     Nuevo trabajo
                 </button>
             </div> -->
-        <table mat-table [dataSource]="trabajos" class="ancho-completo" *ngIf="trabajos && trabajos.length>0">
+            <table mat-table [dataSource]="trabajos" class="ancho-completo" *ngIf="trabajos && trabajos.length>0">
 
-            <ng-container matColumnDef="detalle">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let trabajo" class="tabla-columna-boton">
-                    <button class="tabla-boton" mat-stroked-button color="primary" (click)="verDetalle(trabajo.Id)">
-                        Ver detalle
-                    </button>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="detalle">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let trabajo" class="tabla-columna-boton">
+                        <button class="tabla-boton" mat-stroked-button color="primary" (click)="verDetalle(trabajo.Id)">
+                            Ver detalle
+                        </button>
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                <td mat-cell *matCellDef="let trabajo"> <b>{{trabajo.Nombre}}</b> </td>
-            </ng-container>
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let trabajo"> <b>{{trabajo.Nombre}}</b> </td>
+                </ng-container>
 
-            <ng-container matColumnDef="contrato">
-                <th mat-header-cell *matHeaderCellDef> Contrato </th>
-                <td mat-cell *matCellDef="let trabajo"> {{trabajo.Contrato.Nombre}} </td>
-            </ng-container>
+                <ng-container matColumnDef="contrato">
+                    <th mat-header-cell *matHeaderCellDef> Contrato </th>
+                    <td mat-cell *matCellDef="let trabajo"> {{trabajo.Contrato.Nombre}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef> Estado </th>
-                <td mat-cell *matCellDef="let trabajo">
-                    <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
-                        [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
-                        [class.badge-danger]="trabajo.Estado.Id===5">
-                        {{trabajo.Estado.Nombre}}
-                    </span>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let trabajo">
+                        <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+                            [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+                            [class.badge-danger]="trabajo.Estado.Id===5">
+                            {{trabajo.Estado.Nombre}}
+                        </span>
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="precio">
-                <th mat-header-cell *matHeaderCellDef> Precio acordado </th>
-                <td mat-cell *matCellDef="let trabajo"> {{trabajo.Precio | currency}} </td>
-            </ng-container>
+                <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Precio acordado </th>
+                    <td mat-cell *matCellDef="let trabajo" class="tabla-columna-precio"> {{trabajo.Precio | currency}}
+                    </td>
+                </ng-container>
 
-            <!-- <ng-container matColumnDef="pagado">
+                <!-- <ng-container matColumnDef="pagado">
                     <th mat-header-cell *matHeaderCellDef> Pagado </th>
                     <td mat-cell *matCellDef="let trabajo"> {{trabajo.Precio | currency}} </td>
                 </ng-container> -->
 
-            <tr mat-header-row *matHeaderRowDef="columnasDeTablaTrabajos"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnasDeTablaTrabajos;"></tr>
-        </table>
+                <tr mat-header-row *matHeaderRowDef="columnasDeTablaTrabajos"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasDeTablaTrabajos;"></tr>
+            </table>
 
-    </mat-expansion-panel>
-</mat-accordion>
+            <div class="precios-totales" *ngIf="trabajos.length>0">
+                <div>
+                    <span class="texto-pequeno">TOTAL:</span> {{sumarPreciosDeTrabajos() | currency}}
+                </div>
+            </div>
 
-<br>
+        </mat-expansion-panel>
+    </mat-accordion>
 
-<!-- PAGOS -->
-<app-cargando *ngIf="!pagos"></app-cargando>
-<mat-accordion *ngIf="pagos">
-    <mat-expansion-panel expanded>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Pagos
-            </mat-panel-title>
-            <mat-panel-description>
-                Total: {{pagos.length}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
+    <br>
 
-        <!-- <div>
+    <!-- PAGOS -->
+    <app-cargando *ngIf="!pagos"></app-cargando>
+    <mat-accordion *ngIf="pagos">
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Pagos
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: {{pagos.length}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <!-- <div>
                     <button mat-raised-button color="warn" (click)="crearTrabajo($event)">
                         Nuevo trabajo
                     </button>
                 </div> -->
-        <table mat-table [dataSource]="pagos" class="ancho-completo" *ngIf="pagos && pagos.length>0">
+            <table mat-table [dataSource]="pagos" class="ancho-completo" *ngIf="pagos && pagos.length>0">
 
-            <!-- <ng-container matColumnDef="editar">
+                <!-- <ng-container matColumnDef="editar">
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
                     <button class="tabla-boton" mat-stroked-button color="primary" (click)="editarPago(pago.Id)">
@@ -137,7 +179,7 @@
                 </td>
             </ng-container> -->
 
-            <!-- <ng-container matColumnDef="anular">
+                <!-- <ng-container matColumnDef="anular">
                             <th mat-header-cell *matHeaderCellDef> </th>
                             <td mat-cell *matCellDef="let pago" class="tabla-columna-boton">
                                 <button class="tabla-boton" mat-stroked-button color="warn" (click)="anularPago(pago)">
@@ -146,41 +188,47 @@
                             </td>
                         </ng-container> -->
 
-            <ng-container matColumnDef="fecha">
-                <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                <td mat-cell *matCellDef="let pago">
-                    {{ pago.Fecha | date:'fullDate' }}
-                    <div class="texto-pequeno">({{ pago.Fecha | date:'shortDate' }})</div>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                    <td mat-cell *matCellDef="let pago">
+                        {{ pago.Fecha | date:'fullDate' }}
+                        <div class="texto-pequeno">({{ pago.Fecha | date:'shortDate' }})</div>
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="observaciones">
-                <th mat-header-cell *matHeaderCellDef> Observaciones </th>
-                <td mat-cell *matCellDef="let pago"> {{pago.Observaciones}} </td>
-            </ng-container>
+                <ng-container matColumnDef="observaciones">
+                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                    <td mat-cell *matCellDef="let pago"> {{pago.Observaciones}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef> Estado </th>
-                <td mat-cell *matCellDef="let pago">
-                    <span *ngIf="pago.EstaAnulado" class="badge badge-danger">Anulado</span>
-                    <span *ngIf="!pago.EstaAnulado" class="badge badge-success">Ratificado</span>
-                </td>
-            </ng-container>
+                <!-- <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let pago">
+                        <span *ngIf="pago.EstaAnulado" class="badge badge-danger">Anulado</span>
+                        <span *ngIf="!pago.EstaAnulado" class="badge badge-success">Ratificado</span>
+                    </td>
+                </ng-container> -->
 
-            <ng-container matColumnDef="monto">
-                <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Monto </th>
-                <td mat-cell *matCellDef="let pago" class="tabla-columna-precio"> {{pago.Monto | currency}} </td>
-            </ng-container>
+                <ng-container matColumnDef="monto">
+                    <th mat-header-cell *matHeaderCellDef class="tabla-columna-precio"> Monto </th>
+                    <td mat-cell *matCellDef="let pago" class="tabla-columna-precio"> {{pago.Monto | currency}} </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnasDeTablaPagos"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnasDeTablaPagos;"></tr>
-        </table>
+                <tr mat-header-row *matHeaderRowDef="columnasDeTablaPagos"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasDeTablaPagos;"></tr>
+            </table>
 
-    </mat-expansion-panel>
-</mat-accordion>
+            <div class="precios-totales" *ngIf="pagos.length>0">
+                <div>
+                    <span class="texto-pequeno">TOTAL:</span> {{sumarPagos() | currency}}
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
 
 
-<!-- <pre>
+    <!-- <pre>
     {{contratista | json}}
 </pre>
 

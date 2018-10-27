@@ -28,7 +28,7 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
     this.cargarUsuario();
     if (this.usuario) {
-      // this.cargarTrabajos();
+      this.cargarTrabajos();
       // this.cargarContratistas();
     }
   }
