@@ -18,21 +18,92 @@
     </mat-card>
 </div>
 
-<ul>
-    <li *ngFor="let trabajo of trabajos">
-        {{ trabajo.Nombre }}
-    </li>
-</ul>
-
 <div *ngIf="usuario">
-
-    <div class="tarjeta">
     <mat-toolbar>¡Hola {{usuario.Nombre}}!</mat-toolbar>
-    <!-- <span class="h3">Hola {{usuario.Nombre}}</span> -->
-    </div>
 
     <!-- TRABAJOS -->
-    <div>
+    <div class="row">
+        <div class="col-6 tarjeta">
+            <mat-card>
+                <mat-card-header class="tarjeta-cabeza">
+                    <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
+                    <mat-card-title class="tarjeta-cabeza-titulo">Mis trabajos</mat-card-title>
+                    <mat-card-subtitle *ngIf="trabajos">Cantidad: {{trabajos.length}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="texto-pequeno">
+                        Últimos trabajos:
+                    </div>
+                    <table class="table table-sm">
+                        <tr *ngFor="let trabajo of obtenerUltimos(trabajos, 5)">
+                            <td>{{trabajo.Nombre}}</td>
+                            <td>
+                                <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+                                    [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+                                    [class.badge-danger]="trabajo.Estado.Id===5">
+                                    {{trabajo.Estado.Nombre}}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="warn" routerLink="/trabajos">Ver trabajos</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <!-- CONTRATISTAS -->
+        <div class="col-6 tarjeta">
+            <mat-card>
+                <mat-card-header class="tarjeta-cabeza">
+                    <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
+                    <mat-card-title class="tarjeta-cabeza-titulo">Contratistas</mat-card-title>
+                    <mat-card-subtitle *ngIf="pagos">Cantidad: {{contratistas.length}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="texto-pequeno">
+                        Últimos contratistas:
+                    </div>
+                    <table class="table table-sm">
+                        <tr *ngFor="let contratista of obtenerUltimos(contratistas, 5)">
+                            <td>{{contratista.Nombre}} {{contratista.Apellido}}</td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="warn" routerLink="/contratistas">Ver contratistas</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+        <!-- PAGOS -->
+        <!-- <div class="col-sm-6 tarjeta">
+            <mat-card>
+                <mat-card-header class="tarjeta-cabeza">
+                    <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
+                    <mat-card-title class="tarjeta-cabeza-titulo">Mis pagos</mat-card-title>
+                    <mat-card-subtitle *ngIf="pagos">Cantidad: {{pagos.length}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="texto-pequeno">
+                        Últimos pagos:
+                    </div>
+                    <table class="table table-sm">
+                        <tr *ngFor="let pago of obtenerUltimos(pagos, 5)">
+                            <td>{{pago.Fecha}}</td>
+                            <td>{{pago.Monto | currency}}</td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="warn" routerLink="/pagos">Ver pagos</button>
+                </mat-card-actions>
+            </mat-card>
+        </div> -->
+
+    <!-- <div>
         <mat-card class="tarjeta">
             <mat-card-header class="tarjeta-cabeza">
                 <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
@@ -49,8 +120,8 @@
             </mat-card-actions>
         </mat-card>
 
-        <!-- CONTRATISTAS -->
-        <mat-card class="tarjeta">
+        CONTRATISTAS -->
+       <!-- <mat-card class="tarjeta">
             <mat-card-header class="tarjeta-cabeza">
                 <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
                 <mat-card-title class="tarjeta-cabeza-titulo">Contratistas</mat-card-title>
@@ -65,5 +136,5 @@
                 <button mat-raised-button color="warn" routerLink="/contratistas">VER CONTRATISTAS</button>
             </mat-card-actions>
         </mat-card>
-    </div>
+    </div> -->
 </div>

@@ -29,7 +29,7 @@ export class InicioComponent implements OnInit {
     this.cargarUsuario();
     if (this.usuario) {
       this.cargarTrabajos();
-      // this.cargarContratistas();
+      this.cargarContratistas();
     }
   }
 
@@ -49,6 +49,13 @@ export class InicioComponent implements OnInit {
       res => this.contratistas = res,
       error => this.globalService.notificarError(error)
     );
+  }
+
+  obtenerUltimos(arreglo: any[], cantidad: number): Trabajo[]{
+    if (arreglo==null){
+      return [];
+    }
+    return arreglo.slice(0, cantidad);
   }
 
 }

@@ -38,7 +38,14 @@
         <a class="nav-link" routerLink="/contratistas">Contratistas</a>
       </li>
     </ul>
+
+    <!-- <span class="navbar-text">
+        Navbar text with an inline element
+      </span> -->
+    <a routerLink="/sesion">
+      <mat-icon style="vertical-align: bottom">home</mat-icon>
+      <span *ngIf="!usuario">Iniciar sesión</span>
+      <span *ngIf="usuario">{{usuario.Nombre}}</span>
+    </a>
   </div>
 </nav>
-
-
