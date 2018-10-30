@@ -17,9 +17,11 @@ import { ContratistaEditarComponent } from '../componentes/contratista-editar/co
 import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/contratista-detalle.component';
 import { MaterialesComponent } from '../componentes/materiales/materiales.component';
 import { MaterialEditarComponent } from '../componentes/material-editar/material-editar.component';
+import { PruebasComponent } from '../componentes/pruebas/pruebas.component';
 
 const routes: Routes = [
   { path: Url.raiz, redirectTo: '/', pathMatch: 'full' },
+  { path: 'pruebas', component: PruebasComponent },
   { path: Url.raiz, component: InicioComponent },
 
   { path: Url.sesion, component: SesionComponent },
@@ -47,7 +49,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

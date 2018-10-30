@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './app-material.module';
@@ -22,6 +22,7 @@ import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/
 import { MaterialesComponent } from '../componentes/materiales/materiales.component';
 import { MaterialEditarComponent } from '../componentes/material-editar/material-editar.component';
 import { CargandoComponent } from '../componentes/cargando/cargando.component';
+import { PruebasComponent } from '../componentes/pruebas/pruebas.component';
 
 import { AgruparPorPipe } from '../tuberias/agrupar-por.pipe';
 
@@ -55,12 +56,14 @@ import { GlobalService } from '../servicios/global.service';
     MaterialesComponent,
     MaterialEditarComponent,
     CargandoComponent,
+    PruebasComponent,
     // Tuberias:
     AgruparPorPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,

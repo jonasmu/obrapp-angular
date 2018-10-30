@@ -8,6 +8,7 @@ export class Trabajo {
     Contrato: Contrato;
     Estado: Estado;
     Contratista: Contratista;
+    Ayudantes: number;
     Nombre: string;
     Descripcion: string;
     Precio: number;

@@ -21,9 +21,10 @@ export class PagosComponent implements OnInit {
   ngOnInit() {
     this.columnasDeTablaPagos = [
       'trabajo',
+      'contratista',
       'fecha',
       'observaciones',
-      'estado',
+      // 'estado',
       'monto'
     ];
     this.cargarPagos();
@@ -32,7 +33,7 @@ export class PagosComponent implements OnInit {
   cargarPagos(): void {
     this.pagosService.obtenerPorUsuario().subscribe(
       res => this.pagos = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 

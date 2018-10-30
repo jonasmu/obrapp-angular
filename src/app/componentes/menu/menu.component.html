@@ -22,30 +22,31 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-      <li class="nav-item">
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
         <a class="nav-link" routerLink="/trabajos">Trabajos</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
         <a class="nav-link" routerLink="/pagos">Pagos</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
         <a class="nav-link" routerLink="/materiales">Materiales</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
         <a class="nav-link" routerLink="/contratistas">Contratistas</a>
       </li>
     </ul>
 
-    <!-- <span class="navbar-text">
-        Navbar text with an inline element
-      </span> -->
-    <a routerLink="/sesion">
-      <mat-icon style="vertical-align: bottom">home</mat-icon>
-      <span *ngIf="!usuario">Iniciar sesión</span>
-      <span *ngIf="usuario">{{usuario.Nombre}}</span>
-    </a>
+    <hr class="d-lg-none">
+
+    <span data-toggle="collapse" data-target=".navbar-collapse.show">
+      <a routerLink="/sesion">
+        <mat-icon style="vertical-align: bottom">home</mat-icon>
+        <span *ngIf="!usuario">Iniciar sesión</span>
+        <span *ngIf="usuario">{{usuario.Nombre}}</span>
+      </a>
+    </span>
   </div>
 </nav>

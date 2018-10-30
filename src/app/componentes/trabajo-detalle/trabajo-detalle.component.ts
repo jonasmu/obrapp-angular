@@ -74,28 +74,28 @@ export class TrabajoDetalleComponent implements OnInit {
         this.cargarPagos();
         this.cargarMateriales();
       },
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
   cargarTareas(): void {
     this.tareasService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.tareas = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
   cargarPagos(): void {
     this.pagosService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.pagos = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
   cargarMateriales(): void {
     this.materialesService.obtenerPorTrabajo(this.trabajo.Id).subscribe(
       res => this.materiales = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
@@ -113,7 +113,7 @@ export class TrabajoDetalleComponent implements OnInit {
     if (this.globalService.confirmarAccion(mensaje)) {
       this.trabajosService.eliminar(this.trabajo.Id).subscribe(
         res => this.globalService.navegar(Url.trabajos),
-        error => this.globalService.notificarError(error)
+        error => this.globalService.manejarError(error)
       );
     }
   }

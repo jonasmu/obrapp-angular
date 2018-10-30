@@ -62,21 +62,21 @@ export class ContratistaDetalleComponent implements OnInit {
         this.cargarTrabajos();
         this.cargarPagos();
       },
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
   cargarTrabajos(): void {
     this.trabajosService.obtenerPorContratista(this.contratista.Id).subscribe(
       res => this.trabajos = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
   cargarPagos(): void {
     this.pagosService.obtenerPorContratista(this.contratista.Id).subscribe(
       res => this.pagos = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 
@@ -95,7 +95,7 @@ export class ContratistaDetalleComponent implements OnInit {
     if (this.globalService.confirmarAccion(mensaje)) {
       this.contratistasService.eliminar(this.contratista.Id).subscribe(
         res => this.globalService.navegar(Url.contratistas),
-        error => this.globalService.notificarError(error)
+        error => this.globalService.manejarError(error)
       );
     }
   }

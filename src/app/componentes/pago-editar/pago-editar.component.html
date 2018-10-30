@@ -1,5 +1,32 @@
 <h3>{{esCrear ? 'Nuevo' : 'Editar'}} pago</h3>
-<div *ngIf="pago" class="formulario">
+<div *ngIf="pago" class="formulario" [formGroup]="formulario">
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="formulario-item">
+    <textarea matInput placeholder="Observaciones" formControlName="observaciones"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="formulario-item">
+    <input matInput placeholder="Monto" formControlName="monto" (focus)="seleccionarContenido($event)" (mouseup)="$event.preventDefault()"
+      required>
+    <span matPrefix>$&nbsp;</span>
+    <mat-error *ngIf="monto.errors?.required">Campo obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="botones-confirmar">
+    <button mat-raised-button color="primary" class="boton" (click)="aceptar($event)">Aceptar</button>
+    <button mat-raised-button color="primary" class="boton" (click)="cancelar($event)">Cancelar</button>
+  </div>
+
+</div>
+
+
+<!-- <div *ngIf="pago" class="formulario">
   <div>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Fecha" [value]="pago.Fecha">
@@ -16,16 +43,14 @@
 
   <div>
     <mat-form-field class="formulario-item">
-      <input matInput placeholder="Monto" type="number" [(ngModel)]="pago.Monto">
+      <input matInput placeholder="Monto" (focus)="seleccionarContenido($event)" (mouseup)="$event.preventDefault()"
+        type="number" [(ngModel)]="pago.Monto">
+      <span matPrefix>$&nbsp;</span>
     </mat-form-field>
-  </div>
-
-  <div>
-    <mat-checkbox [(ngModel)]="pago.EstaAnulado">Anulado</mat-checkbox>
   </div>
 
   <div class="botones-confirmar">
     <button mat-raised-button color="primary" class="boton" (click)="aceptar($event)">Aceptar</button>
     <button mat-raised-button color="primary" class="boton" (click)="cancelar($event)">Cancelar</button>
   </div>
-</div>
+</div> -->

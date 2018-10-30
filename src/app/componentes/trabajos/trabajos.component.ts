@@ -26,7 +26,7 @@ export class TrabajosComponent implements OnInit {
   obtenerTrabajos() {
     this.trabajosService.obtenerPorUsuario().subscribe(
       res => this.trabajos = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 

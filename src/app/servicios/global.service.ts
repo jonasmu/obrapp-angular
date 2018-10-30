@@ -17,20 +17,24 @@ export class GlobalService {
       params => id = params[parametro],
       error => {
         id = 0;
-        this.notificarError('El id obtenido de la url es inválido');
+        this.manejarError('El id obtenido de la url es inválido');
       }
     );
     return id;
   }
 
-  notificarError(e: any): void {
+  manejarError(e: any): void {
     if (e.status = 404) {
-      alert(e.error.Message);
+      this.notificar(e.error.Message);
     }
     else {
       console.error(e);
       this.navegar(Url.raiz);
     }
+  }
+
+  notificar(mensaje: string): void {
+    alert(mensaje);
   }
 
   volver(): void {

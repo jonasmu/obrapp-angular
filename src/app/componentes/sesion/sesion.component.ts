@@ -34,7 +34,7 @@ export class SesionComponent implements OnInit {
         let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.globalService.navegar(returnUrl);
       },
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 

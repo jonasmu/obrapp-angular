@@ -1,5 +1,28 @@
 <h3>{{esCrear ? 'Nueva' : 'Editar'}} tarea</h3>
-<div *ngIf="tarea" class="formulario">
+<div *ngIf="tarea" class="formulario" [formGroup]="formulario">
+
+  <mat-form-field class="formulario-item">
+    <input matInput placeholder="Nombre" formControlName="nombre" required>
+    <mat-hint align="end">{{nombre.value?.length || 0}}/50</mat-hint>
+    <mat-error *ngIf="nombre.errors?.required">Campo obligatorio</mat-error>
+    <mat-error *ngIf="nombre.errors?.maxlength">El texto ingresado es demasiado largo</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="formulario-item">
+    <textarea matInput placeholder="Observaciones" formControlName="observaciones"></textarea>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="estaRealizada">Realizada</mat-checkbox>
+
+  <div class="botones-confirmar">
+    <button mat-raised-button color="primary" class="boton" (click)="aceptar($event)">Aceptar</button>
+    <button mat-raised-button color="primary" class="boton" (click)="cancelar($event)">Cancelar</button>
+  </div>
+
+</div>
+
+
+<!-- <div *ngIf="tarea" class="formulario">
   <div>
     <mat-form-field class="formulario-item">
       <input matInput placeholder="Nombre" [(ngModel)]="tarea.Nombre">
@@ -20,4 +43,4 @@
     <button mat-raised-button color="primary" class="boton" (click)="aceptar($event)">Aceptar</button>
     <button mat-raised-button color="primary" class="boton" (click)="cancelar($event)">Cancelar</button>
   </div>
-</div>
+</div> -->

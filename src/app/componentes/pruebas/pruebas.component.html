@@ -1,0 +1,39 @@
+<div [formGroup]="formularioPrueba">
+
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput #input placeholder="Pone tu nombre" [formControl]="nombre" required>
+      <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+      <mat-error *ngIf="nombre.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <label>
+    Nombre:
+    <input type="text" formControlName="nombre" required>
+  </label>
+
+  <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+
+    <div *ngIf="nombre.errors.required">
+      Name is required.
+    </div>
+    
+    <div *ngIf="nombre.errors.maxlength">
+      Name must be at least 4 characters long.
+    </div>
+
+  </div>
+
+  <label>
+    Apellido:
+    <input type="text" formControlName="apellido">
+  </label>
+
+  <button (click)="aceptar()">Aceptar</button>
+
+</div>
+
+<p>
+  Form Status: {{ formularioPrueba.status }}
+</p>

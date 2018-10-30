@@ -26,7 +26,7 @@ export class ContratistasComponent implements OnInit {
   obtenerContratistas() {
     this.contratistasService.obtenerTodos().subscribe(
       res => this.contratistas = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 

@@ -34,7 +34,7 @@ export class MaterialesComponent implements OnInit {
   cargarMateriales(): void {
     this.materialesService.obtenerPorUsuario().subscribe(
       res => this.materiales = res,
-      error => this.globalService.notificarError(error)
+      error => this.globalService.manejarError(error)
     );
   }
 

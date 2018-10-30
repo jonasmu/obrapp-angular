@@ -53,8 +53,8 @@
     <ng-container matColumnDef="estado">
       <th mat-header-cell *matHeaderCellDef> Estado </th>
       <td mat-cell *matCellDef="let material">
-        <span *ngIf="!material.EstaComprado" class="badge badge-danger">Faltante</span>
-        <span *ngIf="material.EstaComprado" class="badge badge-success">Comprado</span>
+        <span *ngIf="!material.EstaAdquirido" class="badge badge-danger">Faltante</span>
+        <span *ngIf="material.EstaAdquirido" class="badge badge-success">Comprado</span>
       </td>
     </ng-container>
 
