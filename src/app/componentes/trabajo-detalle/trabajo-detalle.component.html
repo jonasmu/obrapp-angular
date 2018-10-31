@@ -17,6 +17,18 @@
 
         <div class="row">
             <div class="col-sm-6">
+                
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-5">Estado:</b>
+                    <div class="col-sm-7">
+                        <div class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+                            [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+                            [class.badge-danger]="trabajo.Estado.Id===5">
+                            {{trabajo.Estado.Nombre}}
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row detalle-ficha-item">
                     <b class="col-sm-5">Descripción:</b>
                     <div class="col-sm-7">
@@ -25,6 +37,14 @@
                 </div>
             </div>
             <div class="col-sm-6">
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-5">Contrato:</b>
+                    <div class="col-sm-7">
+                        {{trabajo.Contrato.Nombre}}
+                    </div>
+                </div>
+
                 <div class="row detalle-ficha-item">
                     <b class="col-sm-5">Precio por
                         <span *ngIf="trabajo.Contrato.Id<3">trabajo</span>
@@ -43,13 +63,17 @@
             <div class="col-sm-6">
 
                 <div class="row detalle-ficha-item">
-                    <b class="col-sm-5">Estado:</b>
+                    <b class="col-sm-5">Inicio:</b>
                     <div class="col-sm-7">
-                        <div class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
-                            [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
-                            [class.badge-danger]="trabajo.Estado.Id===5">
-                            {{trabajo.Estado.Nombre}}
-                        </div>
+                        {{trabajo.FechaInicio | date: 'mediumDate'}}
+                    </div>
+                </div>
+
+
+                <div class="row detalle-ficha-item">
+                    <b class="col-sm-5">Finalización:</b>
+                    <div class="col-sm-7">
+                        {{trabajo.FechaFin | date: 'mediumDate'}}
                     </div>
                 </div>
 
@@ -57,13 +81,6 @@
                     <b class="col-sm-5">Contratista:</b>
                     <div class="col-sm-7">
                         {{trabajo.Contratista.Nombre}} {{trabajo.Contratista.Apellido}}
-                    </div>
-                </div>
-
-                <div class="row detalle-ficha-item">
-                    <b class="col-sm-5">Contrato:</b>
-                    <div class="col-sm-7">
-                        {{trabajo.Contrato.Nombre}}
                     </div>
                 </div>
 

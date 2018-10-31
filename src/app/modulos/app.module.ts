@@ -22,11 +22,11 @@ import { ContratistaDetalleComponent } from '../componentes/contratista-detalle/
 import { MaterialesComponent } from '../componentes/materiales/materiales.component';
 import { MaterialEditarComponent } from '../componentes/material-editar/material-editar.component';
 import { CargandoComponent } from '../componentes/cargando/cargando.component';
-import { PruebasComponent } from '../componentes/pruebas/pruebas.component';
 
 import { AgruparPorPipe } from '../tuberias/agrupar-por.pipe';
 
 import { httpInterceptorProviders } from '../interceptores/index';
+
 import { AutentificacionGuard } from '../guardias/autentificacion.guard';
 
 import { SesionService } from '../servicios/sesion.service';
@@ -56,7 +56,6 @@ import { GlobalService } from '../servicios/global.service';
     MaterialesComponent,
     MaterialEditarComponent,
     CargandoComponent,
-    PruebasComponent,
     // Tuberias:
     AgruparPorPipe
   ],

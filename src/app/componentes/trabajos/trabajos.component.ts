@@ -25,7 +25,7 @@ export class TrabajosComponent implements OnInit {
 
   obtenerTrabajos() {
     this.trabajosService.obtenerPorUsuario().subscribe(
-      res => this.trabajos = res,
+      res => this.trabajos = res.sort((a: Trabajo, b: Trabajo) => new Date(a.FechaInicio).getTime() - new Date(b.FechaInicio).getTime()),
       error => this.globalService.manejarError(error)
     );
   }
@@ -34,6 +34,7 @@ export class TrabajosComponent implements OnInit {
     this.columnasDeTabla = [
       'detalle',
       'nombre',
+      'fechaInicio',
       'contratista',
       'contrato',
       'estado',

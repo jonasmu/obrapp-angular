@@ -13,4 +13,6 @@ export class Trabajo {
     Descripcion: string;
     Precio: number;
     EstaEliminado: boolean;
+    FechaInicio: Date;
+    FechaFin: Date;
 }

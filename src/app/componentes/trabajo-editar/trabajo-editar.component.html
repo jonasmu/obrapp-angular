@@ -18,6 +18,18 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerInicio" placeholder="Fecha de inicio" formControlName="fechaInicio">
+    <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+    <mat-datepicker #pickerInicio></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerFin" placeholder="Fecha de finalización" formControlName="fechaFin">
+    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFin></mat-datepicker>
+  </mat-form-field>
+
   <br>
 
   <mat-form-field class="formulario-item">

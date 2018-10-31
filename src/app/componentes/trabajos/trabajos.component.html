@@ -9,8 +9,8 @@
   No hay trabajos registrados
 </div>
 <div *ngIf="trabajos&&trabajos.length>0">
-    <mat-toolbar>Mis trabajos</mat-toolbar>
-    <!-- <div class="h3">Mis trabajos</div> -->
+  <mat-toolbar>Mis trabajos</mat-toolbar>
+  <!-- <div class="h3">Mis trabajos</div> -->
   <table mat-table [dataSource]="trabajos" class="mat-elevation-z8 ancho-completo">
 
     <ng-container matColumnDef="detalle">
@@ -40,6 +40,11 @@
       <th mat-header-cell *matHeaderCellDef> Tareas </th>
       <td mat-cell *matCellDef="let trabajo"> {{trabajo.Tareas.length}} </td>
     </ng-container> -->
+
+    <ng-container matColumnDef="fechaInicio">
+      <th mat-header-cell *matHeaderCellDef> Fecha de inicio </th>
+      <td mat-cell *matCellDef="let trabajo"> {{trabajo.FechaInicio | date:'mediumDate'}} </td>
+    </ng-container>
 
     <ng-container matColumnDef="contratista">
       <th mat-header-cell *matHeaderCellDef> Contratista </th>

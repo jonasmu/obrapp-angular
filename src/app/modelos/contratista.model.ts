@@ -1,5 +1,6 @@
 export class Contratista {
     Id: number;
+    IdUsuario: number;
     Nombre: string;
     Apellido: string;
     Telefono: string;

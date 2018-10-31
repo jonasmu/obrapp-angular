@@ -6,6 +6,8 @@ import { GlobalService } from 'src/app/servicios/global.service';
 import { Url } from 'src/app/modelos/url.model';
 import { Parametro } from 'src/app/modelos/parametro.model';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SesionService } from 'src/app/servicios/sesion.service';
+import { Usuario } from 'src/app/modelos/usuario.model';
 
 @Component({
   selector: 'app-contratista-editar',
@@ -14,6 +16,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ContratistaEditarComponent implements OnInit {
 
+  usuario: Usuario;
   contratista: Contratista;
   esCrear: boolean;
 
@@ -33,11 +36,13 @@ export class ContratistaEditarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private sesionService: SesionService,
     private globalService: GlobalService,
     private contratistasService: ContratistasService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.usuario = this.sesionService.obtenerUsuario();
     this.inicializarContratista();
   }
 
@@ -53,6 +58,7 @@ export class ContratistaEditarComponent implements OnInit {
       this.contratistasService.obtenerPorId(idContratista).subscribe(
         res => {
           this.contratista = res;
+          this.verificarUsuario();
           this.cargarFormulario();
         },
         error => this.globalService.manejarError(error)
@@ -60,9 +66,17 @@ export class ContratistaEditarComponent implements OnInit {
     }
   }
 
+  verificarUsuario(): void {
+    if (this.contratista.IdUsuario != this.usuario.Id) {
+      this.globalService.notificar('Solo el usuario que dió de alta al contratista puede editarlo');
+      this.globalService.volver();
+    }
+  }
+
   resetearContratista(): void {
     this.contratista = new Contratista();
     this.contratista.Id = 0;
+    this.contratista.IdUsuario = this.usuario.Id;
     this.contratista.Nombre = '';
     this.contratista.Apellido = '';
     this.contratista.Telefono = '';
@@ -85,7 +99,7 @@ export class ContratistaEditarComponent implements OnInit {
     this.contratista.Observaciones = this.observaciones.value;
   }
 
-  cargarFormulario():void{
+  cargarFormulario(): void {
     this.nombre.setValue(this.contratista.Nombre);
     this.apellido.setValue(this.contratista.Apellido);
     this.telefono.setValue(this.contratista.Telefono);

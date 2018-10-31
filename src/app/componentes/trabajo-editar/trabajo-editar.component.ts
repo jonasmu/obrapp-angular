@@ -30,6 +30,8 @@ export class TrabajoEditarComponent implements OnInit {
     nombre: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
     descripcion: this.fb.control(''),
     idEstado: this.fb.control('', [Validators.required]),
+    fechaInicio: this.fb.control(''),
+    fechaFin: this.fb.control(''),
     idContratista: this.fb.control('', [Validators.required]),
     ayudantes: this.fb.control('', [Validators.required]),
     idContrato: this.fb.control('', [Validators.required]),
@@ -39,6 +41,8 @@ export class TrabajoEditarComponent implements OnInit {
   get nombre() { return this.formulario.get('nombre'); }
   get descripcion() { return this.formulario.get('descripcion'); }
   get idEstado() { return this.formulario.get('idEstado'); }
+  get fechaInicio() { return this.formulario.get('fechaInicio'); }
+  get fechaFin() { return this.formulario.get('fechaFin'); }
   get idContratista() { return this.formulario.get('idContratista'); }
   get ayudantes() { return this.formulario.get('ayudantes'); }
   get idContrato() { return this.formulario.get('idContrato'); }
@@ -175,6 +179,8 @@ export class TrabajoEditarComponent implements OnInit {
     this.trabajo.Estado = new Estado();
     this.trabajo.Estado.Id = 0;
     this.trabajo.Estado.Nombre = '';
+    this.trabajo.FechaInicio = new Date(Date.now());
+    this.trabajo.FechaFin = new Date(Date.now());
     this.trabajo.Contratista = new Contratista();
     this.trabajo.Contratista.Id = 0;
     this.trabajo.Contratista.Nombre = '';
@@ -192,6 +198,8 @@ export class TrabajoEditarComponent implements OnInit {
     this.nombre.setValue('');
     this.descripcion.setValue('');
     this.idEstado.setValue(0);
+    this.fechaInicio.setValue(new Date(Date.now()));
+    this.fechaFin.setValue(new Date(Date.now()));
     this.idContratista.setValue(0);
     this.ayudantes.setValue(0);
     this.idContrato.setValue(0);
@@ -202,6 +210,8 @@ export class TrabajoEditarComponent implements OnInit {
     this.nombre.setValue(this.trabajo.Nombre);
     this.descripcion.setValue(this.trabajo.Descripcion);
     this.idEstado.setValue(this.trabajo.Estado.Id);
+    this.fechaInicio.setValue(this.trabajo.FechaInicio);
+    this.fechaFin.setValue(this.trabajo.FechaFin);
     this.idContratista.setValue(this.trabajo.Contratista.Id);
     this.ayudantes.setValue(this.trabajo.Ayudantes);
     this.idContrato.setValue(this.trabajo.Contrato.Id);
@@ -213,6 +223,9 @@ export class TrabajoEditarComponent implements OnInit {
     this.trabajo.Descripcion = this.descripcion.value;
     this.trabajo.Ayudantes = this.ayudantes.value;
     this.trabajo.Precio = this.precio.value;
+
+    this.trabajo.FechaInicio = this.fechaInicio.value;
+    this.trabajo.FechaFin = this.fechaFin.value;
 
     this.trabajo.Contratista = this.contratistas.filter(x => x.Id === this.idContratista.value)[0];
     this.trabajo.Contrato = this.contratos.filter(x => x.Id === this.idContrato.value)[0];
