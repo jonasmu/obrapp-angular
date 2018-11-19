@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './app-material.module';
 
 import { AppComponent } from '../componentes/app/app.component';
-import { InicioComponent } from '../componentes/inicio/inicio.component'
-import { MenuComponent } from '../componentes/menu/menu.component'
+import { InicioComponent } from '../componentes/inicio/inicio.component';
+import { MenuComponent } from '../componentes/menu/menu.component';
 import { SesionComponent } from '../componentes/sesion/sesion.component';
 import { TrabajosComponent } from '../componentes/trabajos/trabajos.component';
 import { TrabajoEditarComponent } from '../componentes/trabajo-editar/trabajo-editar.component';
