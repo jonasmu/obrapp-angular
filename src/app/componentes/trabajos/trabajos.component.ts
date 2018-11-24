@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TrabajosService } from 'src/app/servicios/trabajos.service';
-import { Trabajo } from 'src/app/modelos/trabajo.model';
-import { Router } from '@angular/router';
-import { Url } from 'src/app/modelos/url.model';
-import { GlobalService } from 'src/app/servicios/global.service';
+import { TrabajosService } from '@servicios/trabajos.service';
+import { Trabajo } from '@modelos/trabajo.model';
+import { Url } from '@modelos/url.model';
+import { GlobalService } from '@servicios/global.service';
 
 @Component({
   selector: 'app-trabajos',

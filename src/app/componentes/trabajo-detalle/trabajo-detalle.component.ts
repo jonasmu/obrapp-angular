@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { TrabajosService } from 'src/app/servicios/trabajos.service';
-import { Trabajo } from 'src/app/modelos/trabajo.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Pago } from 'src/app/modelos/pago.model';
-import { PagosService } from 'src/app/servicios/pagos.service';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Parametro } from 'src/app/modelos/parametro.model';
-import { Url } from 'src/app/modelos/url.model';
-import { Material } from 'src/app/modelos/material-model';
-import { MaterialesService } from 'src/app/servicios/materiales.service';
-import { TareasService } from 'src/app/servicios/tareas.service';
-import { Tarea } from 'src/app/modelos/tarea.model';
+import { TrabajosService } from '@servicios/trabajos.service';
+import { Trabajo } from '@modelos/trabajo.model';
+import { ActivatedRoute } from '@angular/router';
+import { Pago } from '@modelos/pago.model';
+import { PagosService } from '@servicios/pagos.service';
+import { GlobalService } from '@servicios/global.service';
+import { Parametro } from '@modelos/parametro.model';
+import { Url } from '@modelos/url.model';
+import { Material } from '@modelos/material-model';
+import { MaterialesService } from '@servicios/materiales.service';
+import { TareasService } from '@servicios/tareas.service';
+import { Tarea } from '@modelos/tarea.model';
 
 @Component({
   selector: 'app-trabajo-detalle',

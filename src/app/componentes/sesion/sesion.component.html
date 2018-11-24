@@ -1,5 +1,5 @@
 <div *ngIf="!usuario">
-    <form>
+    <form *ngIf="!iniciandoSesion">
         <h3>Iniciar sesión</h3>
         <div>
             <mat-form-field>
@@ -17,6 +17,7 @@
             Aceptar
         </button>
     </form>
+    <app-cargando *ngIf="iniciandoSesion"></app-cargando>
 </div>
 <div *ngIf="usuario">
     <br>

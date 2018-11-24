@@ -16,6 +16,16 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@componentes/*" : ["src/app/componentes/*"],
+      "@guardias/*" : ["src/app/guardias/*"],
+      "@interceptores/*" : ["src/app/interceptores/*"],
+      "@modelos/*" : ["src/app/modelos/*"],
+      "@modulos/*" : ["src/app/modulos/*"],
+      "@servicios/*" : ["src/app/servicios/*"],
+      "@tuberias/*" : ["src/app/tuberias/*"],
+      "@entornos/*" : ["src/environments/*"]
+    }
   }
 }

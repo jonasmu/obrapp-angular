@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TrabajosService } from 'src/app/servicios/trabajos.service';
-import { Trabajo } from 'src/app/modelos/trabajo.model';
-import { Contratista } from 'src/app/modelos/contratista.model';
-import { ContratistasService } from 'src/app/servicios/contratistas.service';
-import { SesionService } from 'src/app/servicios/sesion.service';
-import { Usuario } from 'src/app/modelos/usuario.model';
-import { GlobalService } from 'src/app/servicios/global.service';
+import { TrabajosService } from '@servicios/trabajos.service';
+import { Trabajo } from '@modelos/trabajo.model';
+import { Contratista } from '@modelos/contratista.model';
+import { ContratistasService } from '@servicios/contratistas.service';
+import { SesionService } from '@servicios/sesion.service';
+import { Usuario } from '@modelos/usuario.model';
+import { GlobalService } from '@servicios/global.service';
 
 @Component({
   selector: 'app-inicio',
@@ -17,6 +17,7 @@ export class InicioComponent implements OnInit {
   usuario: Usuario;
   trabajos: Trabajo[];
   contratistas: Contratista[];
+  cantidadUltimos: number = 5;
 
   constructor(
     private globalService: GlobalService,
@@ -51,11 +52,18 @@ export class InicioComponent implements OnInit {
     );
   }
 
-  obtenerUltimos(arreglo: any[], cantidad: number): Trabajo[]{
-    if (arreglo==null){
+  obtenerUltimosTrabajos(): Trabajo[]{
+    if (this.trabajos==null){
       return [];
     }
-    return arreglo.slice(0, cantidad);
+    return this.trabajos.filter(x => x.Estado.Id == 1 || x.Estado.Id == 2).slice(0, this.cantidadUltimos);
+  }
+
+  obtenerUltimosContratistas(): Contratista[]{
+    if (this.contratistas==null){
+      return [];
+    }
+    return this.contratistas.slice(0, this.cantidadUltimos);
   }
 
 }

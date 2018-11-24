@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { Pago } from 'src/app/modelos/pago.model';
+import { Pago } from '@modelos/pago.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PagosService } from 'src/app/servicios/pagos.service';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Parametro } from 'src/app/modelos/parametro.model';
-import { Url } from 'src/app/modelos/url.model';
+import { PagosService } from '@servicios/pagos.service';
+import { GlobalService } from '@servicios/global.service';
+import { Parametro } from '@modelos/parametro.model';
+import { Url } from '@modelos/url.model';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({

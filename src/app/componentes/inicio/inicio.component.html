@@ -5,136 +5,78 @@
             <!-- <mat-card-title class="tarjeta-cabeza-titulo">Iniciar sesión</mat-card-title> -->
             <!-- <mat-card-subtitle>Cantidad: {{contratistas.length}}</mat-card-subtitle> -->
         </mat-card-header>
-        <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_NKX8fmWK90-yDegrPI_zzb0bsegSVqFA7zahnYlNUfmNlKdR"
-            alt="Imagen de inicio">
-        <mat-card-content>
-            <p>
-                Iniciá sesión para ver tus trabajos y los contratistas disponibles.
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="warn" routerLink="/sesion">INICIAR SESION</button>
-        </mat-card-actions>
+        <div style="text-align:center">
+            <mat-card-content>
+                <br>
+                <img class="imagen-portada" 
+                    mat-card-image 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_NKX8fmWK90-yDegrPI_zzb0bsegSVqFA7zahnYlNUfmNlKdR"
+                    alt="Imagen de inicio">
+                <p>
+                    Iniciá sesión para ver tus trabajos y los contratistas disponibles.
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" routerLink="/sesion">INICIAR SESION</button>
+            </mat-card-actions>
+        </div>
     </mat-card>
 </div>
 
 <div *ngIf="usuario">
-    <mat-toolbar>¡Hola {{usuario.Nombre}}!</mat-toolbar>
-
-    <!-- TRABAJOS -->
-    <div class="row">
-        <div class="col-6 tarjeta">
-            <mat-card>
-                <mat-card-header class="tarjeta-cabeza">
-                    <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-                    <mat-card-title class="tarjeta-cabeza-titulo">Mis trabajos</mat-card-title>
-                    <mat-card-subtitle *ngIf="trabajos">Cantidad: {{trabajos.length}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="texto-pequeno">
-                        Últimos trabajos:
-                    </div>
-                    <table class="table table-sm">
-                        <tr *ngFor="let trabajo of obtenerUltimos(trabajos, 5)">
-                            <td>{{trabajo.Nombre}}</td>
-                            <td>
-                                <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
-                                    [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
-                                    [class.badge-danger]="trabajo.Estado.Id===5">
-                                    {{trabajo.Estado.Nombre}}
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" routerLink="/trabajos">Ver trabajos</button>
-                </mat-card-actions>
-            </mat-card>
+    <mat-toolbar>
+        <div class="h3">
+            ¡Hola {{usuario.Nombre}}!
         </div>
+    </mat-toolbar>
+
+    <div class="row">
+
+        <!-- TRABAJOS -->
+        <div class="col-sm-6">
+            <div class="tarjeta">
+                <img class="imagen img-fluid" src="http://mycs.net.au/wp-content/uploads/2016/03/home-icon-flat.png" />
+                <span class="h4">Últimos trabajos</span>
+                <div class="texto-pequeno">
+                    En progreso:
+                </div>
+                <br>
+                <table class="table table-sm">
+                    <tr *ngFor="let trabajo of obtenerUltimosTrabajos()">
+                        <td>{{trabajo.Nombre}}</td>
+                        <td>
+                            <span class="badge" [class.badge-dark]="trabajo.Estado.Id===1" [class.badge-primary]="trabajo.Estado.Id===2"
+                                [class.badge-success]="trabajo.Estado.Id===3" [class.badge-warning]="trabajo.Estado.Id===4"
+                                [class.badge-danger]="trabajo.Estado.Id===5">
+                                {{trabajo.Estado.Nombre}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <!-- <div class="contenedor-boton">
+                    <button class="ver-boton" mat-raised-button color="warn" routerLink="/trabajos">Ver trabajos</button>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="d-sm-none">.</div>
 
         <!-- CONTRATISTAS -->
-        <div class="col-6 tarjeta">
-            <mat-card>
-                <mat-card-header class="tarjeta-cabeza">
-                    <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-                    <mat-card-title class="tarjeta-cabeza-titulo">Contratistas</mat-card-title>
-                    <mat-card-subtitle *ngIf="pagos">Cantidad: {{contratistas.length}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="texto-pequeno">
-                        Últimos contratistas:
-                    </div>
-                    <table class="table table-sm">
-                        <tr *ngFor="let contratista of obtenerUltimos(contratistas, 5)">
-                            <td>{{contratista.Nombre}} {{contratista.Apellido}}</td>
-                        </tr>
-                    </table>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" routerLink="/contratistas">Ver contratistas</button>
-                </mat-card-actions>
-            </mat-card>
+        <div class="col-sm-6">
+            <div class="tarjeta">
+                <img class="imagen img-fluid" src="http://mycs.net.au/wp-content/uploads/2016/03/home-icon-flat.png" />
+                <span class="h4">Últimos contratistas</span>
+                <br>
+                <table class="table table-sm">
+                    <tr *ngFor="let contratista of obtenerUltimosContratistas()">
+                        <td>{{contratista.Nombre}} {{contratista.Apellido}}</td>
+                    </tr>
+                </table>
+                <!-- <div class="contenedor-boton">
+                    <button class="ver-boton" mat-raised-button color="warn" routerLink="/contratistas">Ver contratistas</button>
+                </div> -->
+            </div>
         </div>
+
     </div>
-
-        <!-- PAGOS -->
-        <!-- <div class="col-sm-6 tarjeta">
-            <mat-card>
-                <mat-card-header class="tarjeta-cabeza">
-                    <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-                    <mat-card-title class="tarjeta-cabeza-titulo">Mis pagos</mat-card-title>
-                    <mat-card-subtitle *ngIf="pagos">Cantidad: {{pagos.length}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="texto-pequeno">
-                        Últimos pagos:
-                    </div>
-                    <table class="table table-sm">
-                        <tr *ngFor="let pago of obtenerUltimos(pagos, 5)">
-                            <td>{{pago.Fecha}}</td>
-                            <td>{{pago.Monto | currency}}</td>
-                        </tr>
-                    </table>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" routerLink="/pagos">Ver pagos</button>
-                </mat-card-actions>
-            </mat-card>
-        </div> -->
-
-    <!-- <div>
-        <mat-card class="tarjeta">
-            <mat-card-header class="tarjeta-cabeza">
-                <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-                <mat-card-title class="tarjeta-cabeza-titulo">Mis trabajos</mat-card-title>
-                <mat-card-subtitle *ngIf="trabajos">Cantidad: {{trabajos.length}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    Todos los trabajos que estes realizando los podrás encontrar acá.
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="warn" routerLink="/trabajos">VER TRABAJOS</button>
-            </mat-card-actions>
-        </mat-card>
-
-        CONTRATISTAS -->
-       <!-- <mat-card class="tarjeta">
-            <mat-card-header class="tarjeta-cabeza">
-                <div mat-card-avatar class="tarjeta-cabeza-imagen"></div>
-                <mat-card-title class="tarjeta-cabeza-titulo">Contratistas</mat-card-title>
-                <mat-card-subtitle *ngIf="contratistas">Cantidad: {{contratistas.length}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    Listado completo de todos los contratistas disponibles.
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="warn" routerLink="/contratistas">VER CONTRATISTAS</button>
-            </mat-card-actions>
-        </mat-card>
-    </div> -->
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Material } from 'src/app/modelos/material-model';
-import { MaterialesService } from 'src/app/servicios/materiales.service';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Url } from 'src/app/modelos/url.model';
+import { Material } from '@modelos/material-model';
+import { MaterialesService } from '@servicios/materiales.service';
+import { GlobalService } from '@servicios/global.service';
+import { Url } from '@modelos/url.model';
 
 @Component({
   selector: 'app-materiales',

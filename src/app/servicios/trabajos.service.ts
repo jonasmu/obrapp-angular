@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Trabajo } from '../modelos/trabajo.model';
-import { Contrato } from '../modelos/contrato.model';
-import { Estado } from '../modelos/estado.model';
+import { Trabajo } from '@modelos/trabajo.model';
+import { Contrato } from '@modelos/contrato.model';
+import { Estado } from '@modelos/estado.model';
 
 @Injectable()
 export class TrabajosService {

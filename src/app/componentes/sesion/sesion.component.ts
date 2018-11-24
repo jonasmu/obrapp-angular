@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Usuario } from 'src/app/modelos/usuario.model';
-import { SesionService } from 'src/app/servicios/sesion.service';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Url } from 'src/app/modelos/url.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Usuario } from '@modelos/usuario.model';
+import { SesionService } from '@servicios/sesion.service';
+import { GlobalService } from '@servicios/global.service';
+import { Url } from '@modelos/url.model';
 
 @Component({
   selector: 'app-sesion',
@@ -12,6 +12,7 @@ import { Url } from 'src/app/modelos/url.model';
 })
 export class SesionComponent implements OnInit {
   usuario: Usuario;
+  iniciandoSesion: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,12 +20,14 @@ export class SesionComponent implements OnInit {
     private sesionService: SesionService) {}
 
   ngOnInit() {
+    this.iniciandoSesion = false;
     this.usuario = this.sesionService.obtenerUsuario();
   }
 
   iniciarSesion(nombre: string, clave: string, evento: Event): void {
     // Quita funcionalidad de envio de formulario
     evento.preventDefault();
+    this.iniciandoSesion = true;
 
     // Llama al servicio para iniciar sesion del usuario pegandole a la API.
     this.sesionService.iniciar(nombre, clave).subscribe(

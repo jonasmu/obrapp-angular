@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Contratista } from 'src/app/modelos/contratista.model';
-import { ContratistasService } from 'src/app/servicios/contratistas.service';
+import { Contratista } from '@modelos/contratista.model'
+import { ContratistasService } from '@servicios/contratistas.service';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Url } from 'src/app/modelos/url.model';
-import { Parametro } from 'src/app/modelos/parametro.model';
+import { GlobalService } from '@servicios/global.service';
+import { Url } from '@modelos/url.model';
+import { Parametro } from '@modelos/parametro.model';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SesionService } from 'src/app/servicios/sesion.service';
-import { Usuario } from 'src/app/modelos/usuario.model';
+import { SesionService } from '@servicios/sesion.service';
+import { Usuario } from '@modelos/usuario.model';
 
 @Component({
   selector: 'app-contratista-editar',

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Material } from 'src/app/modelos/material-model';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { MaterialesService } from 'src/app/servicios/materiales.service';
-import { ActivatedRoute } from '@angular/router';
-import { Parametro } from 'src/app/modelos/parametro.model';
-import { Url } from 'src/app/modelos/url.model';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Material } from '@modelos/material-model';
+import { GlobalService } from '@servicios/global.service';
+import { MaterialesService } from '@servicios/materiales.service';
+import { ActivatedRoute } from '@angular/router';
+import { Parametro } from '@modelos/parametro.model';
+import { Url } from '@modelos/url.model';
 
 @Component({
   selector: 'app-material-editar',

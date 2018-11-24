@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Usuario } from 'src/app/modelos/usuario.model';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +7,4 @@ import { Usuario } from 'src/app/modelos/usuario.model';
 })
 export class AppComponent {
   titulo = 'obrapp';
-
-  manejarUsuario(): void {
-    console.log('GOLAAA');
-    
-    // this.titulo = 'CLICK';
-    // if (usuario) {
-    //   this.titulo = usuario.Nombre;
-    // }
-  }
-
 }

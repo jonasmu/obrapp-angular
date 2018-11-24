@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { Tarea } from 'src/app/modelos/tarea.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TareasService } from 'src/app/servicios/tareas.service';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Parametro } from 'src/app/modelos/parametro.model';
-import { Url } from 'src/app/modelos/url.model';
+import { Tarea } from '@modelos/tarea.model';
+import { ActivatedRoute } from '@angular/router';
+import { TareasService } from '@servicios/tareas.service';
+import { GlobalService } from '@servicios/global.service';
+import { Parametro } from '@modelos/parametro.model';
+import { Url } from '@modelos/url.model';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({

@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TrabajosService } from 'src/app/servicios/trabajos.service';
-import { ContratistasService } from 'src/app/servicios/contratistas.service';
-import { Trabajo } from 'src/app/modelos/trabajo.model';
-import { Contratista } from 'src/app/modelos/contratista.model';
-import { Estado } from 'src/app/modelos/estado.model';
-import { Contrato } from 'src/app/modelos/contrato.model';
-import { SesionService } from 'src/app/servicios/sesion.service';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Parametro } from 'src/app/modelos/parametro.model';
-import { Url } from 'src/app/modelos/url.model';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TrabajosService } from '@servicios/trabajos.service';
+import { ContratistasService } from '@servicios/contratistas.service';
+import { Trabajo } from '@modelos/trabajo.model';
+import { Contratista } from '@modelos/contratista.model';
+import { Estado } from '@modelos/estado.model';
+import { Contrato } from '@modelos/contrato.model';
+import { SesionService } from '@servicios/sesion.service';
+import { GlobalService } from '@servicios/global.service';
+import { Parametro } from '@modelos/parametro.model';
+import { Url } from '@modelos/url.model';
 
 @Component({
   selector: 'app-trabajo-editar',

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SesionService } from '../../servicios/sesion.service'
-import { Usuario } from 'src/app/modelos/usuario.model';
-import { Observable } from 'rxjs';
-
+import { SesionService } from '@servicios/sesion.service'
+import { Usuario } from '@modelos/usuario.model';
 
 @Component({
   selector: 'app-menu',

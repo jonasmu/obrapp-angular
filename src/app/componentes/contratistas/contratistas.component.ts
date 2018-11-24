@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Contratista } from 'src/app/modelos/contratista.model';
-import { ContratistasService } from 'src/app/servicios/contratistas.service';
-import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Url } from 'src/app/modelos/url.model';
+import { Contratista } from '@modelos/contratista.model';
+import { ContratistasService } from '@servicios/contratistas.service';
+import { GlobalService } from '@servicios/global.service';
+import { Url } from '@modelos/url.model';
 
 @Component({
   selector: 'app-contratistas',

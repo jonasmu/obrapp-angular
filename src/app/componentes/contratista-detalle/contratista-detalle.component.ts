@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { ContratistasService } from 'src/app/servicios/contratistas.service';
-import { TrabajosService } from 'src/app/servicios/trabajos.service';
-import { Contratista } from 'src/app/modelos/contratista.model';
-import { Trabajo } from 'src/app/modelos/trabajo.model';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { Parametro } from 'src/app/modelos/parametro.model';
-import { Url } from 'src/app/modelos/url.model';
-import { PagosService } from 'src/app/servicios/pagos.service';
-import { Pago } from 'src/app/modelos/pago.model';
+import { ContratistasService } from '@servicios/contratistas.service';
+import { TrabajosService } from '@servicios/trabajos.service';
+import { Contratista } from '@modelos/contratista.model';
+import { Trabajo } from '@modelos/trabajo.model';
+import { GlobalService } from '@servicios/global.service';
+import { Parametro } from '@modelos/parametro.model';
+import { Url } from '@modelos/url.model';
+import { PagosService } from '@servicios/pagos.service';
+import { Pago } from '@modelos/pago.model';
 
 @Component({
   selector: 'app-contratista-detalle',

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { first, filter, map } from 'rxjs/operators';
-import { Url } from '../modelos/url.model';
+import { Url } from '@modelos/url.model';
 
 @Injectable()
 export class GlobalService {

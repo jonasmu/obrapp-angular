@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Pago } from 'src/app/modelos/pago.model';
-import { GlobalService } from 'src/app/servicios/global.service';
-import { PagosService } from 'src/app/servicios/pagos.service';
-import { Url } from 'src/app/modelos/url.model';
+import { Pago } from '@modelos/pago.model';
+import { GlobalService } from '@servicios/global.service';
+import { PagosService } from '@servicios/pagos.service';
+import { Url } from '@modelos/url.model';
 
 @Component({
   selector: 'app-pagos',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Contratista } from '../modelos/contratista.model';
+import { HttpClient } from '@angular/common/http';
+import { Contratista } from '@modelos/contratista.model';
 
 @Injectable()
 export class ContratistasService {
